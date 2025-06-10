@@ -233,7 +233,6 @@ body {
         margin: 10px 0 25px;
         /* Menor espacio vertical */
         font-size: 12px;
-        animation: none;
         /* Elimina parpadeo en móvil */
     }
 
