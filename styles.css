@@ -171,81 +171,84 @@ body {
 
 
 /* Responsive */
+
+
+/* Media Query Móvil - Versión Mejorada */
 @media screen and (max-width: 600px) {
-
-    html,
     body {
-        height: 100%;
-    }
-
-    body {
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 10px;
+        padding: 15px 10px;
+        justify-content: start;
+        /* Mejor aprovechamiento vertical */
+        position: relative;
+        /* Necesario para el posicionamiento absoluto de los hijos */
+        padding-bottom: 50px;
+        /* Espacio reservado para la caja inferior */
+        min-height: 100vh;
     }
 
     .container {
-        flex: 1;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
+        margin-top: 20px;
+        /* Reduce espacio superior */
     }
 
     .logo {
-        width: 240px;
-        margin-bottom: 10px;
-        margin-top: 0px;
+        width: 85%;
+        /* Logo más adaptable */
+        max-width: 280px;
+        margin-bottom: 5px;
     }
 
     .signature {
-        margin-top: 5px;
-        margin-bottom: 60px;
+        margin: 10px 0 25px;
+        /* Menor espacio vertical */
+        font-size: 12px;
+        animation: none;
+        /* Elimina parpadeo en móvil */
     }
 
     .glass-box {
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-        margin-bottom: 50px;
-        /* separación del borde inferior */
+        margin-top: 190px;
+        /* Reduce espacio superior */
+        margin-bottom: 40px;
+        padding: 18px 15px;
+        gap: 18px;
+        /* Espacio entre iconos reducido */
+        border-radius: 16px;
     }
 
     .icon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .icon-small {
-        width: 14px;
-        height: 14px;
+        width: 30px;
+        /* Iconos más pequeños */
+        height: 30px;
     }
 
     .checklist-container {
-        padding: 20px 7%;
-        /* Más espacio lateral en móvil */
-        width: 77%;
-        /* Un poco más ancho pero con padding */
-        max-width: 100%;
-        margin-top: 30px;
-        min-height: 150px;
-        /* Altura mínima */
-    }
-
-    .checkbox {
-        padding-left: 30px;
-        /* Ajustado para pantallas pequeñas */
-    }
-
-    .checkbox-custom {
-        height: 20px;
-        width: 20px;
+        padding: 18px 15px;
+        width: 85%;
+        margin-top: 20px;
+        min-height: auto;
+        /* Altura flexible */
     }
 
     .checkbox-label {
-        font-size: 14px;
-        /* Un poco más pequeño */
+        font-size: 13px;
+        /* Texto ligeramente más pequeño */
+        line-height: 1.4;
+        /* Mejor interlineado */
+        display: inline-block;
+        text-align: left;
+    }
+
+    /* Previene saltos de línea inadecuados */
+    .checkbox-label br {
+        display: none;
+    }
+
+    /* Nueva clase para información secundaria */
+    .event-detail {
+        display: block;
+        font-size: 11px;
+        opacity: 0.9;
+        margin-top: 2px;
     }
 }
