@@ -37,7 +37,8 @@ body {
     background-image: url("assets/grain.png");
     background-size: cover;
     background-blend-mode: overlay;
-    margin-top: 200px;
+    margin-top: 150px;
+    margin-bottom: 7%;
 }
 
 /* Iconos */
