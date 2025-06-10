@@ -189,6 +189,10 @@ body {
     .container {
         margin-top: 20px;
         /* Reduce espacio superior */
+        flex-direction: column;
+        height: 100%;
+        padding-bottom: 20px;
+        /* Espacio interior inferior */
     }
 
     .logo {
