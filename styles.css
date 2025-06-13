@@ -2,12 +2,17 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #da4e41;
     font-family: 'Segoe UI', sans-serif;
+    background: #121212;
+    /* Fondo oscuro fijo */
+    color: #ffffff;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: start;
-    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    /* Elimina barras de desplazamiento */
 }
 
 .container {
@@ -19,7 +24,7 @@ body {
 
 /* Logo centrado */
 .logo {
-    width: 440px;
+    width: 400px;
     margin-bottom: 10px;
 }
 
@@ -27,18 +32,18 @@ body {
 .glass-box {
     display: flex;
     gap: 30px;
-    background: rgba(20, 20, 20, 0.4);
-    /* oscuro y translúcido */
+    /*background: rgba(20, 20, 20, 0.4);*/
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 20px;
     padding: 30px 40px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    background-image: url("assets/grain.png");
     background-size: cover;
     background-blend-mode: overlay;
-    margin-top: 150px;
+    margin-top: 120px;
     margin-bottom: 7%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Iconos */
@@ -105,13 +110,11 @@ body {
 
 /* Estilos para checklist */
 .checklist-container {
-    background: rgba(20, 20, 20, 0.273);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 20px;
     padding: 25px 35px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    background-image: url("assets/grain.png");
     background-size: cover;
     background-blend-mode: overlay;
     margin-top: 40px;
@@ -120,6 +123,7 @@ body {
     max-width: 450px;
     /* Aumentado de 400px a 450px */
     width: 90%;
+    background: rgba(49, 49, 49, 0.307);
 }
 
 .checklist-title {
@@ -191,6 +195,44 @@ body {
 }
 
 
+
+
+
+/* Contenedor de la imagen rotante */
+.rotating-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('assets/bbblurry.svg') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    animation: rotar 20s linear infinite;
+    pointer-events: none;
+
+    transform-origin: center center;
+    /* Asegura rotación desde el centro */
+}
+
+/* Animación de rotación */
+@keyframes rotar {
+    from {
+        transform: rotate(0deg) scale(3);
+        /* Mayor escala inicial */
+    }
+
+    to {
+        transform: rotate(360deg) scale(3);
+        /* Mayor escala final */
+    }
+}
+
+/* Asegura que el contenedor principal esté sobre el fondo */
+.container {
+    position: relative;
+    z-index: 1;
+}
 
 
 
@@ -284,4 +326,42 @@ body {
         opacity: 0.9;
         margin-top: 2px;
     }
+
+
+    /* Ajustes para orientación vertical */
+    @media (orientation: portrait) {
+        .rotating-image {
+            animation: rotar-portrait 20s linear infinite;
+        }
+
+        @keyframes rotar-portrait {
+            from {
+                transform: rotate(0deg) scale(5);
+            }
+
+            to {
+                transform: rotate(360deg) scale(5);
+            }
+        }
+    }
+
+    /* Ajustes para orientación horizontal */
+    @media (orientation: landscape) {
+        .rotating-image {
+            animation: rotar-landscape 20s linear infinite;
+        }
+
+        @keyframes rotar-landscape {
+            from {
+                transform: rotate(0deg) scale(4);
+            }
+
+            to {
+                transform: rotate(360deg) scale(4);
+            }
+        }
+    }
+
+
+
 }
