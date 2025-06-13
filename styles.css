@@ -287,10 +287,9 @@ body {
         /* Unidades relativas para mejor responsividad */
         margin: 15vh auto 5vh;
         /* Top/Bottom relativo a viewport height */
-        gap: min(4vw, 25px);
+        gap: min(6vw, 35px);
+        /* Aumentamos de 4vw a 6vw y de 27px a 35px */
         /* Espacio entre iconos (4% del ancho viewport, máximo 25px) */
-
-        padding: clamp(12px, 3vw, 18px) clamp(10px, 4vw, 25px);
         /* Padding responsivo */
         width: min(90%, 500px);
         /* Ancho máximo de 500px pero 90% en móviles pequeños */
