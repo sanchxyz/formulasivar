@@ -13,6 +13,8 @@ body {
     position: relative;
     overflow: hidden;
     /* Elimina barras de desplazamiento */
+    overflow-x: hidden;
+    /* Añade este para bloquear scroll horizontal */
 }
 
 .container {
@@ -237,6 +239,12 @@ body {
         position: relative;
         padding-bottom: 50px;
         min-height: 100vh;
+        overflow-x: hidden;
+        /* Asegura que no haya scroll horizontal */
+        width: 100%;
+        /* Ocupa todo el ancho */
+        max-width: 100%;
+        /* No exceder el ancho del dispositivo */
     }
 
     .container {
@@ -246,8 +254,11 @@ body {
         /* Asegura que los hijos se centren */
         height: 100%;
         padding-bottom: 20px;
-        width: 100%;
         /* Ocupa todo el ancho disponible */
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
     }
 
     .logo {
@@ -265,13 +276,31 @@ body {
     }
 
     .glass-box {
-        margin-top: 190px;
-        /* Reduce espacio superior */
-        margin-bottom: 40px;
-        padding: 18px 15px;
-        gap: 18px;
-        /* Espacio entre iconos reducido */
+        display: flex;
+        justify-content: center;
+        /* Centrado horizontal */
+        align-items: center;
+        /* Centrado vertical */
+        flex-wrap: wrap;
+        /* Permite múltiples filas si es necesario */
+
+        /* Unidades relativas para mejor responsividad */
+        margin: 15vh auto 5vh;
+        /* Top/Bottom relativo a viewport height */
+        gap: min(4vw, 25px);
+        /* Espacio entre iconos (4% del ancho viewport, máximo 25px) */
+
+        padding: clamp(12px, 3vw, 18px) clamp(10px, 4vw, 25px);
+        /* Padding responsivo */
+        width: min(90%, 500px);
+        /* Ancho máximo de 500px pero 90% en móviles pequeños */
+        max-width: 100%;
         border-radius: 16px;
+        box-sizing: border-box;
+        min-height: clamp(80px, 12vw, 100px);
+        /* Altura mínima responsiva */
+        padding: clamp(20px, 5vw, 30px) clamp(10px, 4vw, 25px);
+        /* Aumenta padding vertical */
     }
 
     .icon {
@@ -282,11 +311,14 @@ body {
 
 
     .checklist-container {
-        padding: 18px 15px;
-        width: 85%;
         margin: 20px auto;
         /* Centrado con margen automático */
         min-height: auto;
+        width: 90%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 18px 10px;
+        /* Reduce el padding horizontal */
     }
 
     .checklist-title {
