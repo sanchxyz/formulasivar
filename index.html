@@ -106,16 +106,59 @@
     <script>
         // Configuración de fechas de carreras 2025
         const raceDates = [
-            "2025-06-15",  // GP Canadá (próxima carrera)
-            "2025-06-29",  // GP Austria
-            "2025-07-06",  // GP Gran Bretaña
-            "2025-07-27",  // GP Bélgica
+
+            "2025-03-16",  // GP Australia  
+            "2025-03-23",  // GP China  
+            "2025-04-06",  // GP Japón  
+            "2025-04-13",  // GP Baréin  
+            "2025-04-20",  // GP Arabia Saudita  
+            "2025-05-04",  // GP Miami  
+            "2025-05-18",  // GP Emilia‑Romagna (Imola)  
+            "2025-05-25",  // GP Mónaco  
+            "2025-06-01",  // GP España  
+            "2025-06-15",  // GP Canadá  
+            "2025-06-29",  // GP Austria  
+            "2025-07-06",  // GP Gran Bretaña  
+            "2025-07-27",  // GP Bélgica  
+            "2025-08-03",  // GP Hungría  
+            "2025-08-31",  // GP Países Bajos  
+            "2025-09-07",  // GP Italia  
+            "2025-09-21",  // GP Azerbaiyán  
+            "2025-10-05",  // GP Singapur  
+            "2025-10-19",  // GP Estados Unidos  
+            "2025-10-26",  // GP México  
+            "2025-11-09",  // GP Brasil  
+            "2025-11-22",  // GP Las Vegas  
+            "2025-11-30",  // GP Catar  
+            "2025-12-07",  // GP Abu Dabi  
         ];
 
         // Horas de inicio específicas por carrera (en UTC-6, El Salvador)
         const raceStartTimes = {
-            "2025-06-15": "12:00:00",  // 14:00 en Montreal (UTC-4) = 12:00 en El Salvador (UTC-6)
-            // Resto de carreras usarán 14:00 UTC-6 por defecto
+            "2025-03-16": "00:00:00",  // 16:00 en Melbourne (UTC+10) = 00:00 en El Salvador (UTC-6) 🇦🇺 Australia
+            "2025-03-23": "00:00:00",  // 14:00 en Shanghai (UTC+8) = 00:00 en El Salvador (UTC-6) 🇨🇳 China
+            "2025-04-06": "23:00:00",  // 14:00 en Suzuka (UTC+9)   = 23:00 (día anterior) en El Salvador (UTC-6) 🇯🇵 Japón
+            "2025-04-13": "09:00:00",  // 18:00 en Sakhir (UTC+3)   = 09:00 en El Salvador (UTC-6) 🇧🇭 Baréin
+            "2025-04-20": "09:00:00",  // 18:00 en Jeddah (UTC+3)   = 09:00 en El Salvador (UTC-6) 🇸🇦 Arabia Saudita
+            "2025-05-04": "13:00:00",  // 15:00 en Miami (UTC-4)     = 13:00 en El Salvador (UTC-6) 🇺🇸 Estados Unidos (Miami)
+            "2025-05-18": "07:00:00",  // 15:00 en Imola (UTC+2)     = 07:00 en El Salvador (UTC-6) 🇮🇹 Italia (Imola)
+            "2025-05-25": "07:00:00",  // 15:00 en Mónaco (UTC+2)    = 07:00 en El Salvador (UTC-6) 🇲🇨 Mónaco
+            "2025-06-01": "07:00:00",  // 15:00 en Barcelona (UTC+2) = 07:00 en El Salvador (UTC-6) 🇪🇸 España
+            "2025-06-15": "12:00:00",  // 14:00 en Montreal (UTC-4)  = 12:00 en El Salvador (UTC-6) 🇨🇦 Canadá
+            "2025-06-29": "07:00:00",  // 15:00 en Spielberg (UTC+2)= 07:00 en El Salvador (UTC-6) 🇦🇹 Austria
+            "2025-07-06": "08:00:00",  // 15:00 en Silverstone (UTC+1)= 08:00 en El Salvador (UTC-6) 🇬🇧 Reino Unido
+            "2025-07-27": "07:00:00",  // 15:00 en Spa (UTC+2)       = 07:00 en El Salvador (UTC-6) 🇧🇪 Bélgica
+            "2025-08-03": "07:00:00",  // 15:00 en Hungaroring (UTC+2)= 07:00 en El Salvador (UTC-6) 🇭🇺 Hungría
+            "2025-08-31": "07:00:00",  // 15:00 en Zandvoort (UTC+2) = 07:00 en El Salvador (UTC-6) 🇳🇱 Países Bajos
+            "2025-09-07": "07:00:00",  // 15:00 en Monza (UTC+2)     = 07:00 en El Salvador (UTC-6) 🇮🇹 Italia (Monza)
+            "2025-09-21": "05:00:00",  // 15:00 en Bakú (UTC+4)      = 05:00 en El Salvador (UTC-6) 🇦🇿 Azerbaiyán
+            "2025-10-05": "01:00:00",  // 15:00 en Singapur (UTC+8)  = 01:00 en El Salvador (UTC-6) 🇸🇬 Singapur
+            "2025-10-19": "13:00:00",  // 14:00 en Austin (UTC-5)    = 13:00 en El Salvador (UTC-6) 🇺🇸 Estados Unidos (Austin)
+            "2025-10-26": "14:00:00",  // 14:00 en Ciudad de México (UTC-6) = 14:00 en El Salvador (UTC-6) 🇲🇽 México
+            "2025-11-09": "11:00:00",  // 14:00 en Interlagos (UTC-3)= 11:00 en El Salvador (UTC-6) 🇧🇷 Brasil
+            "2025-11-22": "19:00:00",  // 17:00 en Las Vegas (UTC-8) = 19:00 en El Salvador (UTC-6) 🇺🇸 Estados Unidos (Las Vegas)
+            "2025-11-30": "09:00:00",  // 18:00 en Lusail (UTC+3)    = 09:00 en El Salvador (UTC-6) 🇶🇦 Catar
+            "2025-12-07": "07:00:00",  // 17:00 en Yas Marina (UTC+4)= 07:00 en El Salvador (UTC-6) 🇦🇪 Abu Dabi
         };
 
         // Función para iniciar el contador optimizado
@@ -186,13 +229,32 @@
         // Nombres de carreras para 2025
         function getRaceName(index) {
             const names = [
-                "Canadá",
-                "Austria",
-                "Gran Bretaña",
-                "Bélgica",
-                // Añade nombres para las siguientes carreras
+                "Australia",                   // 1
+                "China",                       // 2
+                "Japón",                       // 3
+                "Baréin",                      // 4
+                "Arabia Saudita",              // 5
+                "Estados Unidos (Miami)",      // 6
+                "Italia (Imola)",              // 7
+                "Mónaco",                      // 8
+                "España",                      // 9
+                "Canadá",                      // 10
+                "Austria",                     // 11
+                "Gran Bretaña",                // 12
+                "Bélgica",                     // 13
+                "Hungría",                     // 14
+                "Países Bajos",                // 15
+                "Italia (Monza)",              // 16
+                "Azerbaiyán",                  // 17
+                "Singapur",                    // 18
+                "Estados Unidos (Austin)",     // 19
+                "México",                      // 20
+                "Brasil",                      // 21
+                "Estados Unidos (Las Vegas)",  // 22
+                "Catar",                       // 23
+                "Abu Dabi"                     // 24
             ];
-            return names[index] || `Carrera ${index + 1}`;
+            return names[index];
         }
 
         // Iniciar contador al cargar la página
