@@ -14,40 +14,19 @@
 <body>
     <div class="rotating-image"></div>
     <div class="container">
+        <!-- LOGO -->
         <img src="assets/F1-EN-SIVAR.webp" alt="Logo" class="logo" />
+        <!-- SIGNATURE -->
         <div class="signature">
-            <span>by gracia_b98</span>
+            <span>By gracia_b98</span>
             <a href="https://www.instagram.com/gracia_b98/" target="_blank">
                 <img src="assets/instagram.webp" alt="Instagram de gracia_b98" class="icon-small" />
             </a>
         </div>
-        <!-- Nuevo checklist -->
-        <div class="checklist-container">
-            <h3 class="checklist-title">C A L E N D A R I O</h3>
-            <ul class="events-list">
-                <li class="event-item">
-                    <a href="https://www.instagram.com/p/DKp662Py7lr/?utm_source=ig_web_copy_link&igsh=eDM4NDFxbmlkN3Nt"
-                        target="_blank" class="event-link">
-                        <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                        <span class="event-text">GP de Canada <br>| Bambu City Center (15 junio )<br></span>
-                    </a>
-                </li>
-                <li class="event-item">
-                    <a href="https://www.instagram.com/f1ensivar/" target="_blank" class="event-link">
-                        <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                        <span class="event-text">F1 The Movie <br>| Cinemark La Gran Via (27 junio )<br></span>
-                    </a>
-                </li>
-                <li class="event-item">
-                    <span class="event-link no-link">
-                        <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                        <span class="event-text">GP Austria .... pronto </span>
-                    </span>
-                </li>
-            </ul>
-        </div>
 
-        <div class="glass-box">
+        <!--REDES SOCIALES -->
+
+        <div class="glass-box redes-sociales">
             <a href="https://www.instagram.com/f1ensivar?utm_source=qr" target="_blank">
                 <img src="assets/instagram.webp" alt="Instagram" class="icon" />
             </a>
@@ -68,7 +47,159 @@
                 <img src="assets/youtube.webp" alt="Youtube" class="icon" />
             </a>
         </div>
+
+        <!-- CONTADOR -->
+        <div class="countdown-container">
+            <h3 id="next-race-title">Cargando...</h3>
+            <div id="countdown">
+                <div class="time-unit">
+                    <span id="days">00</span>
+                    <div class="unit-label">DÍAS</div>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <div class="unit-label">HORAS</div>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <div class="unit-label">MIN</div>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <div class="unit-label">SEG</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENEDOR BENTO PARA CAJAS INFERIORES -->
+        <div class="bento-container">
+            <!-- CALENDARIO -->
+            <div class="checklist-container">
+                <h3 class="checklist-title">C A L E N D A R I O</h3>
+                <ul class="events-list">
+                    <li class="event-item">
+                        <a href="https://www.instagram.com/p/DKp662Py7lr/?utm_source=ig_web_copy_link&igsh=eDM4NDFxbmlkN3Nt"
+                            target="_blank" class="event-link">
+                            <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
+                            <span class="event-text">GP de Canada <br>| Bambu City Center (15 junio )<br></span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="https://www.instagram.com/f1ensivar/" target="_blank" class="event-link">
+                            <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
+                            <span class="event-text">F1 The Movie <br>| Cinemark La Gran Via (27 junio )<br></span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <span class="event-link no-link">
+                            <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
+                            <span class="event-text">GP Austria .... pronto </span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
     </div>
+
+    <script>
+        // Configuración de fechas de carreras 2025
+        const raceDates = [
+            "2025-06-15",  // GP Canadá (próxima carrera)
+            "2025-06-29",  // GP Austria
+            "2025-07-06",  // GP Gran Bretaña
+            "2025-07-27",  // GP Bélgica
+        ];
+
+        // Horas de inicio específicas por carrera (en UTC-6, El Salvador)
+        const raceStartTimes = {
+            "2025-06-15": "12:00:00",  // 14:00 en Montreal (UTC-4) = 12:00 en El Salvador (UTC-6)
+            // Resto de carreras usarán 14:00 UTC-6 por defecto
+        };
+
+        // Función para iniciar el contador optimizado
+        function startOptimizedCountdown() {
+            updateCountdown();
+            const now = new Date();
+            const delay = 1000 - now.getMilliseconds();
+
+            setTimeout(() => {
+                setInterval(updateCountdown, 1000);
+            }, delay);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            let nextRace = null;
+
+            // Encuentra la próxima carrera
+            for (const date of raceDates) {
+                // Usa hora específica si existe, o 14:00 por defecto (UTC-6)
+                const startTime = raceStartTimes[date] || "14:00:00";
+                const raceDate = new Date(`${date}T${startTime}-06:00`); // UTC-6 para El Salvador
+
+                if (raceDate >= now) {
+                    nextRace = raceDate;
+                    break;
+                }
+            }
+
+            const countdownElement = document.getElementById('countdown');
+            const titleElement = document.getElementById('next-race-title');
+
+            if (!nextRace) {
+                countdownElement.innerHTML = "<p>¡Temporada finalizada!</p>";
+                titleElement.textContent = "Temporada finalizada";
+                return;
+            }
+
+            // Calcula diferencia
+            const diff = nextRace - now;
+
+            // Si la carrera ya empezó hoy pero aún no ha terminado
+            if (diff < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                titleElement.textContent = "¡Carrera en curso!";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Actualiza DOM
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            // Información de próxima carrera
+            const raceIndex = raceDates.indexOf(nextRace.toISOString().split('T')[0]);
+            titleElement.textContent = `GRAN PREMIO ${getRaceName(raceIndex)}`;
+        }
+
+        // Nombres de carreras para 2025
+        function getRaceName(index) {
+            const names = [
+                "Canadá",
+                "Austria",
+                "Gran Bretaña",
+                "Bélgica",
+                // Añade nombres para las siguientes carreras
+            ];
+            return names[index] || `Carrera ${index + 1}`;
+        }
+
+        // Iniciar contador al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            startOptimizedCountdown();
+        });
+    </script>
 </body>
 
 </html>

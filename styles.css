@@ -1,4 +1,6 @@
-/* Fondo rojo pastel */
+/* =====   CUERPO GENERAL    ===== */
+
+
 body {
     margin: 0;
     padding: 0;
@@ -7,9 +9,9 @@ body {
     /* Fondo oscuro fijo */
     color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: start;
+    position: relative;
+    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     overflow: hidden;
     /* Elimina barras de desplazamiento */
@@ -21,48 +23,60 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 60px;
+    margin: 30px auto;
+    width: 100%;
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
+
+.bento-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.countdown-container,
+.checklist-container,
+.glass-box {
+    width: 100%;
+    max-width: 450px;
+    margin: 0;
+    /* Eliminamos márgenes individuales */
+    box-sizing: border-box;
+}
+
+.glass-box {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 25px;
+    /* Reducimos padding para móvil */
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Reducimos espacio entre iconos */
+}
+
+
+/* =====  LOGO F1ENSIVAR    ===== */
 
 /* Logo centrado */
 .logo {
-    width: 250px;
+    width: 200px;
     margin-bottom: 10px;
 }
 
-/* Caja con glassmorfismo oscuro + grano */
-.glass-box {
-    display: flex;
-    gap: 30px;
-    /*background: rgba(20, 20, 20, 0.4);*/
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 30px 40px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    background-size: cover;
-    background-blend-mode: overlay;
-    margin-top: 120px;
-    margin-bottom: 7%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Iconos */
-.icon {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.3s ease;
-}
-
-.icon:hover {
-    transform: scale(1.2);
-}
 
 
 
 
-/* Signature */
+
+/* =====  SIGNATURE   ===== */
 
 .signature {
     display: flex;
@@ -70,13 +84,13 @@ body {
     gap: 10px;
     margin-bottom: 60px;
     font-size: 14px;
-    color: #ffffff8b;
-    background: rgba(20, 20, 20, 0.261);
+    color: #fafafa8b;
+    background: rgba(118, 117, 117, 0.261);
     padding: 6px 12px;
     border-radius: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
     animation: blink 2s infinite;
 }
 
@@ -107,8 +121,120 @@ body {
 
 
 
+/* =====   BOX REDES SOCIALES   ===== */
 
 
+.glass-box.redes-sociales {
+    background: rgba(37, 37, 37, 0.4);
+    border-radius: 16px;
+    padding: 12px 20px;
+    margin: 10px auto 20px;
+    max-width: 450px;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.glass-box.redes-sociales .icon {
+    width: 32px;
+    height: 32px;
+}
+
+
+
+
+/* ===== CONTADOR REGRESIVO ===== */
+.countdown-container {
+    background: rgba(37, 37, 37, 0.4);
+    border-radius: 16px;
+    padding: 15px 20px;
+    /* Reducido de 15px */
+    text-align: center;
+    margin: 10px auto 20px;
+    /* Reducido */
+    max-width: 450px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-container h3 {
+    font-size: 1.1rem;
+    margin: 0 8px 12px 8px;
+    /* Ajustado: margen horizontal reducido */
+    color: #ebcacc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    /* Añadido: pequeño padding interno */
+}
+
+#countdown {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 8px;
+    /* Reducido de 10px */
+    margin: 10px 0;
+    /* Reducido */
+}
+
+.time-unit {
+    background: rgba(20, 20, 20, 0.7);
+    border-radius: 10px;
+    padding: 0;
+    /* Eliminamos padding interno */
+    width: 65px;
+    /* Ancho fijo */
+    height: 65px;
+    /* Altura IGUAL al ancho */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 1/1;
+    /* Garantía extra */
+    margin: 0 5px;
+    /* Espaciado horizontal */
+}
+
+.time-unit span {
+    font-size: 1.6rem;
+    /* Tamaño óptimo */
+    line-height: 1;
+    font-weight: bold;
+    color: white;
+    display: block;
+    padding: 8px 0 0;
+    /* Padding sólo arriba */
+}
+
+.unit-label {
+    font-size: 0.65rem;
+    /* Reducido de 0.75rem */
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+    /* Reducido */
+}
+
+
+
+
+
+
+
+
+/* =====   LISTA CALENDARIO  ===== */
 
 /* Estilos para checklist */
 .checklist-container {
@@ -119,8 +245,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     background-size: cover;
     background-blend-mode: overlay;
-    margin-top: 40px;
-    margin: 40px auto;
+    margin: 15px auto 40px;
     /* Centrado automático */
     max-width: 450px;
     /* Aumentado de 400px a 450px */
@@ -129,7 +254,8 @@ body {
 }
 
 .checklist-title {
-    color: white;
+    color: #ca6d75;
+    padding-left: 6px;
     font-size: 18px;
     margin-bottom: 20px;
     text-align: left;
@@ -184,6 +310,12 @@ body {
 
 
 
+
+
+
+
+
+
 /* === Contenedor de la imagen rotante === */
 
 .rotating-image {
@@ -225,7 +357,10 @@ body {
 
 
 
-/* === Responsive === */
+/* === Responsive PARA MOBILES === */
+
+
+
 
 
 /* Media Query Móvil - Versión Mejorada */
@@ -237,7 +372,7 @@ body {
         align-items: center;
         /* Añadido para centrado vertical */
         position: relative;
-        padding-bottom: 50px;
+        padding-bottom: 30px;
         min-height: 100vh;
         overflow-x: hidden;
         /* Asegura que no haya scroll horizontal */
@@ -248,7 +383,7 @@ body {
     }
 
     .container {
-        margin-top: 20px;
+        margin-top: 25px;
         flex-direction: column;
         align-items: center;
         /* Asegura que los hijos se centren */
@@ -260,6 +395,7 @@ body {
         overflow-x: hidden;
         box-sizing: border-box;
     }
+
 
     .logo {
         width: 85%;
@@ -274,6 +410,44 @@ body {
         font-size: 12px;
         /* Elimina parpadeo en móvil */
     }
+
+    .countdown-container {
+        padding: 12px 15px;
+        /* Ajustado para móvil */
+        margin: 10px auto 15px;
+    }
+
+    .countdown-container h3 {
+        font-size: 1rem;
+        /* Reducido */
+        margin-bottom: 5px;
+    }
+
+    #countdown {
+        gap: 6px;
+        /* Reducido */
+    }
+
+    .time-unit {
+        width: 50px;
+        /* Reducido de 60px */
+        height: 50px;
+        /* Reducido proporcionalmente */
+        padding: 6px 0;
+        /* Reducido */
+    }
+
+    .time-unit span {
+        font-size: 1.3rem;
+        /* Reducido de 1.8rem */
+    }
+
+    .unit-label {
+        font-size: 0.6rem;
+        /* Reducido */
+    }
+
+
 
     .glass-box {
         display: flex;
@@ -383,4 +557,87 @@ body {
 
 
 
+}
+
+
+
+/* ===== CORRECCIONES PARA MOVILES PEQUEÑOS ===== */
+@media screen and (max-width: 350px) {
+
+
+    .logo {
+        width: 180px;
+    }
+
+    .time-unit {
+        width: 55px;
+        height: 55px;
+    }
+
+    .time-unit span {
+        font-size: 1.4rem;
+    }
+
+
+    .icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .event-text {
+        font-size: 0.9rem;
+    }
+
+    .countdown-container {
+        padding: 10px 5px;
+    }
+
+    #countdown {
+        gap: 5px;
+    }
+
+
+    .glass-box {
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+        padding: 12px 8px;
+        gap: 3vw;
+    }
+
+    .checklist-container {
+        padding: 10px 5px;
+    }
+
+    .event-link {
+        padding-left: 10px;
+        font-size: 12px;
+    }
+
+    .rotating-image {
+        background-size: 150% 150%;
+    }
+}
+
+/* Ajuste adicional para evitar scroll vertical */
+@media screen and (max-height: 700px) and (max-width: 600px) {
+    .container {
+        margin-top: 15px;
+    }
+
+    .signature {
+        margin-bottom: 40px;
+    }
+
+    .glass-box {
+        margin-bottom: 15px;
+    }
+
+    .checklist-container {
+        margin-bottom: 30px;
+    }
+
+    .logo {
+        width: 70%;
+        max-width: 180px;
+    }
 }
