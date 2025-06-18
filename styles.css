@@ -10,13 +10,8 @@ body {
     color: #ffffff;
     min-height: 100vh;
     position: relative;
-    overflow: hidden;
     overflow-x: hidden;
-    position: relative;
-    overflow: hidden;
-    /* Elimina barras de desplazamiento */
-    overflow-x: hidden;
-    /* Añade este para bloquear scroll horizontal */
+    /* Solo bloqueamos scroll horizontal */
 }
 
 .container {
@@ -368,18 +363,14 @@ body {
     body {
         padding: 15px 10px;
         justify-content: center;
-        /* Cambiado de start a center */
         align-items: center;
-        /* Añadido para centrado vertical */
         position: relative;
         padding-bottom: 30px;
         min-height: 100vh;
         overflow-x: hidden;
-        /* Asegura que no haya scroll horizontal */
+        /* Solo bloqueamos scroll horizontal */
         width: 100%;
-        /* Ocupa todo el ancho */
         max-width: 100%;
-        /* No exceder el ancho del dispositivo */
     }
 
     .container {
