@@ -304,6 +304,62 @@ body {
 
 
 
+/* === GLOW TELEGRAM + TEXTO 'ÚNETE' === */
+
+.telegram-highlight {
+    position: relative;
+    display: inline-block;
+    /* para que no desordene el layout */
+}
+
+.telegram-label {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #80d8ff;
+    background: rgba(128, 216, 255, 0.08);
+    padding: 2px 8px;
+    border-radius: 12px;
+    animation: blink-glow 2s infinite;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    white-space: nowrap;
+    pointer-events: none;
+    /* para que no bloquee clics */
+}
+
+.telegram-icon {
+    animation: glow-telegram 2s ease-in-out infinite;
+}
+
+/* Parpadeo suave */
+@keyframes blink-glow {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* Glow difuminado azul */
+@keyframes glow-telegram {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 4px #80d8ff) drop-shadow(0 0 8px #80d8ff);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 1px #80d8ff) drop-shadow(0 0 3px #80d8ff);
+    }
+}
 
 
 
@@ -347,6 +403,13 @@ body {
     position: relative;
     z-index: 1;
 }
+
+
+
+
+
+
+
 
 
 
@@ -597,5 +660,66 @@ XL – Extra Large (1200px - 1399px)
     .icon {
         width: 36px;
         height: 36px;
+    }
+}
+
+
+
+
+
+/* =================================
+    NEST HUB 
+================================= */
+
+
+
+/* ========= FIX para Nest Hub y dispositivos muy anchos con altura limitada ========= */
+
+@media screen and (min-width: 1000px) and (max-width: 1300px) and (max-height: 800px) {
+    .container {
+        max-width: 95%;
+        padding: 0 10px;
+        overflow-x: hidden;
+        margin-top: 10px;
+    }
+
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        width: 88%;
+        max-width: 420px;
+        padding: 12px 16px;
+        margin: 8px auto;
+    }
+
+    .countdown-container h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .time-unit {
+        width: 52px;
+        height: 52px;
+    }
+
+    .time-unit span {
+        font-size: 1.4rem;
+    }
+
+    .unit-label {
+        font-size: 0.6rem;
+    }
+
+    .logo {
+        width: 190px;
+        margin-bottom: 10px;
+    }
+
+    .event-text {
+        font-size: 14px;
+    }
+
+    .telegram-label {
+        top: -22px;
     }
 }
