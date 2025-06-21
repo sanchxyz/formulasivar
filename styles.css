@@ -355,209 +355,71 @@ body {
 /* === Responsive PARA MOBILES === */
 
 
+/* ==========================
+XS – Extra Small (0 - 575px)
+========================== */
 
 
-
-/* Media Query Móvil - Versión Mejorada */
-@media screen and (max-width: 600px) {
-    body {
-        padding: 15px 10px;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        padding-bottom: 30px;
-        min-height: 100vh;
-        overflow-x: hidden;
-        /* Solo bloqueamos scroll horizontal */
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .container {
-        margin-top: 25px;
-        flex-direction: column;
-        align-items: center;
-        /* Asegura que los hijos se centren */
-        height: 100%;
-        padding-bottom: 20px;
-        /* Ocupa todo el ancho disponible */
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-        box-sizing: border-box;
-    }
-
-
+@media screen and (max-width: 575px) {
     .logo {
-        width: 85%;
-        /* Logo más adaptable */
-        max-width: 200px;
-        margin-bottom: 5px;
+        width: 160px;
     }
 
-    .signature {
-        margin: 10px 0 25px;
-        /* Menor espacio vertical */
-        font-size: 12px;
-        /* Elimina parpadeo en móvil */
-    }
-
-    .countdown-container {
-        padding: 12px 15px;
-        /* Ajustado para móvil */
-        margin: 10px auto 15px;
-    }
-
-    .countdown-container h3 {
-        font-size: 1rem;
-        /* Reducido */
-        margin-bottom: 5px;
-    }
-
-    #countdown {
-        gap: 6px;
-        /* Reducido */
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        padding: 12px;
+        margin: 10px auto;
+        width: 95%;
     }
 
     .time-unit {
-        width: 50px;
-        /* Reducido de 60px */
-        height: 50px;
-        /* Reducido proporcionalmente */
-        padding: 6px 0;
-        /* Reducido */
+        width: 45px;
+        height: 45px;
     }
 
     .time-unit span {
-        font-size: 1.3rem;
-        /* Reducido de 1.8rem */
-    }
-
-    .unit-label {
-        font-size: 0.6rem;
-        /* Reducido */
-    }
-
-
-
-    .glass-box {
-        display: flex;
-        justify-content: center;
-        /* Centrado horizontal */
-        align-items: center;
-        /* Centrado vertical */
-        flex-wrap: wrap;
-        /* Permite múltiples filas si es necesario */
-
-        /* Unidades relativas para mejor responsividad */
-        margin: 15vh auto 5vh;
-        /* Top/Bottom relativo a viewport height */
-        gap: min(6vw, 35px);
-        /* Aumentamos de 4vw a 6vw y de 27px a 35px */
-        /* Espacio entre iconos (4% del ancho viewport, máximo 25px) */
-        /* Padding responsivo */
-        width: min(90%, 500px);
-        /* Ancho máximo de 500px pero 90% en móviles pequeños */
-        max-width: 100%;
-        border-radius: 16px;
-        box-sizing: border-box;
-        min-height: clamp(80px, 12vw, 100px);
-        /* Altura mínima responsiva */
-        padding: clamp(20px, 5vw, 30px) clamp(10px, 4vw, 25px);
-        /* Aumenta padding vertical */
-    }
-
-    .icon {
-        width: 30px;
-        /* Iconos más pequeños */
-        height: 30px;
-    }
-
-
-    .checklist-container {
-        margin: 20px auto;
-        /* Centrado con margen automático */
-        min-height: auto;
-        width: 90%;
-        max-width: 100%;
-        box-sizing: border-box;
-        padding: 18px 10px;
-        /* Reduce el padding horizontal */
-    }
-
-    .checklist-title {
-        text-align: center !important;
-    }
-
-    .event-link {
-        padding-right: 20px;
-        font-size: 13px;
-        padding-left: 50px;
-        /* padding para mover el contenido a la derecha */
+        font-size: 1.2rem;
     }
 
     .event-text {
         font-size: 13px;
-        line-height: 1.4;
     }
 
-
-
-    /* Nueva clase para información secundaria */
-    .event-detail {
-        display: block;
-        font-size: 11px;
-        opacity: 0.9;
-        margin-top: 2px;
+    .container {
+        padding: 10px;
+        margin-top: 20px;
     }
 
-
-    /* Ajustes para orientación vertical */
-    @media (orientation: portrait) {
-        .rotating-image {
-            animation: rotar-portrait 20s linear infinite;
-        }
-
-        @keyframes rotar-portrait {
-            from {
-                transform: rotate(0deg) scale(5);
-            }
-
-            to {
-                transform: rotate(360deg) scale(5);
-            }
-        }
+    .signature {
+        font-size: 12px;
+        margin: 15px 0 30px;
     }
 
-    /* Ajustes para orientación horizontal */
-    @media (orientation: landscape) {
-        .rotating-image {
-            animation: rotar-landscape 20s linear infinite;
-        }
-
-        @keyframes rotar-landscape {
-            from {
-                transform: rotate(0deg) scale(4);
-            }
-
-            to {
-                transform: rotate(360deg) scale(4);
-            }
-        }
+    .icon {
+        width: 28px;
+        height: 28px;
     }
-
-
-
 }
 
 
 
-/* ===== CORRECCIONES PARA MOVILES PEQUEÑOS ===== */
-@media screen and (max-width: 350px) {
 
+/* =========================
+SM – Small (576 - 767px)
+========================= */
 
+@media screen and (min-width: 576px) and (max-width: 767px) {
     .logo {
         width: 180px;
+    }
+
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        padding: 16px;
+        margin: 15px auto;
+        width: 90%;
     }
 
     .time-unit {
@@ -569,66 +431,171 @@ body {
         font-size: 1.4rem;
     }
 
-
-    .icon {
-        width: 28px;
-        height: 28px;
-    }
-
     .event-text {
-        font-size: 0.9rem;
+        font-size: 14px;
     }
 
-    .countdown-container {
-        padding: 10px 5px;
-    }
-
-    #countdown {
-        gap: 5px;
-    }
-
-
-    .glass-box {
-        margin-top: 5vh;
-        margin-bottom: 2vh;
-        padding: 12px 8px;
-        gap: 3vw;
-    }
-
-    .checklist-container {
-        padding: 10px 5px;
-    }
-
-    .event-link {
-        padding-left: 10px;
-        font-size: 12px;
-    }
-
-    .rotating-image {
-        background-size: 150% 150%;
-    }
-}
-
-/* Ajuste adicional para evitar scroll vertical */
-@media screen and (max-height: 700px) and (max-width: 600px) {
     .container {
-        margin-top: 15px;
+        padding: 15px;
+        margin-top: 25px;
     }
 
     .signature {
+        font-size: 13px;
+        margin: 20px 0 40px;
+    }
+
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+/* ===============================
+MD – Medium (768px - 991px)
+=============================== */
+
+
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .logo {
+        width: 200px;
+    }
+
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        width: 85%;
+        max-width: 420px;
+        padding: 18px 25px;
+        margin: 15px auto;
+    }
+
+    .container {
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .time-unit {
+        width: 60px;
+        height: 60px;
+    }
+
+    .time-unit span {
+        font-size: 1.5rem;
+    }
+
+    .event-text {
+        font-size: 15px;
+    }
+
+    .signature {
+        font-size: 14px;
         margin-bottom: 40px;
     }
 
-    .glass-box {
-        margin-bottom: 15px;
+    .icon {
+        width: 32px;
+        height: 32px;
     }
+}
 
-    .checklist-container {
-        margin-bottom: 30px;
-    }
 
+
+/* ===============================
+LG – Large (992px - 1199px)
+=============================== */
+
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
     .logo {
-        width: 70%;
-        max-width: 180px;
+        width: 220px;
+    }
+
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        width: 80%;
+        max-width: 440px;
+        padding: 22px 30px;
+        margin: 20px auto;
+    }
+
+    .container {
+        padding: 25px;
+        margin-top: 35px;
+    }
+
+    .time-unit {
+        width: 65px;
+        height: 65px;
+    }
+
+    .time-unit span {
+        font-size: 1.6rem;
+    }
+
+    .event-text {
+        font-size: 16px;
+    }
+
+    .signature {
+        font-size: 15px;
+        margin-bottom: 45px;
+    }
+
+    .icon {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+
+/* =================================
+XL – Extra Large (1200px - 1399px)
+================================= */
+
+
+@media screen and (min-width: 1200px) and (max-width: 1399px) {
+    .logo {
+        width: 230px;
+    }
+
+    .glass-box,
+    .countdown-container,
+    .checklist-container {
+        width: 75%;
+        max-width: 460px;
+        padding: 24px 32px;
+        margin: 25px auto;
+    }
+
+    .container {
+        padding: 30px;
+        margin-top: 40px;
+    }
+
+    .time-unit {
+        width: 70px;
+        height: 70px;
+    }
+
+    .time-unit span {
+        font-size: 1.7rem;
+    }
+
+    .event-text {
+        font-size: 17px;
+    }
+
+    .signature {
+        font-size: 16px;
+        margin-bottom: 50px;
+    }
+
+    .icon {
+        width: 36px;
+        height: 36px;
     }
 }
