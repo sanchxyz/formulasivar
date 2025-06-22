@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #121212;
     /* Fondo oscuro fijo */
     color: #ffffff;
@@ -249,16 +249,21 @@ body {
 }
 
 .checklist-title {
-    color: #ca6d75;
+    color: #caefff;
     padding-left: 6px;
-    font-size: 18px;
+    font-size: 1.1rem;
     margin-bottom: 20px;
     text-align: left;
     font-weight: 600;
+    text-shadow:
+        0 0 4px #80d8ff,
+        0 0 8px #80d8ff,
+        0 0 12px #80d8ff;
 }
 
 /* Nuevos estilos para lista de eventos */
 .events-list {
+    opacity: 0.60;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -300,6 +305,22 @@ body {
     display: inline-block;
     width: 100%;
 }
+
+
+
+
+
+/* === Glow fijo turquesa === */
+.glow-static {
+    text-shadow:
+        0 0 4px #80d8ff,
+        0 0 8px #80d8ff,
+        0 0 12px #80d8ff;
+    color: #caefff;
+    /* opcional: un tono turquesa claro */
+}
+
+
 
 
 
@@ -721,5 +742,26 @@ XL – Extra Large (1200px - 1399px)
 
     .telegram-label {
         top: -22px;
+    }
+}
+
+
+/* ===== Ajuste fino para móviles MUY estrechos (menos de 377px) ===== */
+@media screen and (max-width: 389px) {
+    .glass-box.redes-sociales {
+        gap: 12px;
+        /* Menor espacio entre íconos */
+        padding: 10px 12px;
+    }
+
+    .glass-box.redes-sociales .icon,
+    .glass-box.redes-sociales .telegram-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .telegram-label {
+        font-size: 10px;
+        top: -20px;
     }
 }
