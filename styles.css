@@ -309,7 +309,6 @@ body {
 
 
 
-
 /* === Glow fijo turquesa === */
 .glow-static {
     text-shadow:
@@ -320,7 +319,20 @@ body {
     /* opcional: un tono turquesa claro */
 }
 
-
+/* === Blanco con glow celeste tenue visible === */
+#next-race-title {
+    color: #ffffff;
+    text-shadow:
+        0 0 2px #80d8ffcc,
+        /* celeste claro, 80% opacidad */
+        0 0 6px #80d8ffaa,
+        /* más expandido */
+        0 0 12px #80d8ff66;
+    /* difuso sutil */
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 
 
 
@@ -467,7 +479,7 @@ XS – Extra Small (0 - 575px)
     }
 
     .event-text {
-        font-size: 13px;
+        font-size: 10px;
     }
 
     .container {
@@ -516,7 +528,7 @@ SM – Small (576 - 767px)
     }
 
     .event-text {
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .container {
@@ -571,7 +583,7 @@ MD – Medium (768px - 991px)
     }
 
     .event-text {
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .signature {
@@ -621,7 +633,7 @@ LG – Large (992px - 1199px)
     }
 
     .event-text {
-        font-size: 16px;
+        font-size: 10px;
     }
 
     .signature {
@@ -670,7 +682,7 @@ XL – Extra Large (1200px - 1399px)
     }
 
     .event-text {
-        font-size: 17px;
+        font-size: 12px;
     }
 
     .signature {
@@ -737,7 +749,7 @@ XL – Extra Large (1200px - 1399px)
     }
 
     .event-text {
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .telegram-label {
