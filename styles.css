@@ -309,6 +309,69 @@ body {
 
 
 
+.calendar-content {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    align-items: stretch;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.calendar-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.events-list {
+    opacity: 0.60;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* Columna derecha: imagen */
+.calendar-image-wrapper {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 15px;
+    display: flex;
+    align-items: stretch;
+}
+
+/* Imagen ocupa toda la altura */
+.calendar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+}
+
+
+
+
+
+
+.calendar-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+
+
+
+
+
 /* === Glow fijo turquesa === */
 .glow-static {
     text-shadow:
