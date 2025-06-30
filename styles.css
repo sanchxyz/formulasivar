@@ -351,8 +351,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
-    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+
 }
 
 
