@@ -117,8 +117,11 @@
                     <div class="calendar-image-wrapper">
                         <a href="https://www.tiktok.com/@formulasivar/video/7521538300608302342?is_from_webapp=1&sender_device=pc&web_id=7517745739154589189"
                             target="_blank" class="calendar-link">
-                            <img id="calendarSlider" src="assets/img_1.webp" alt="Monoplaza F1"
-                                class="calendar-image" />
+                            <div class="calendar-slider">
+                                <img src="assets/img_1.webp" class="calendar-image visible" id="slider1" />
+                                <img src="assets/img_2.webp" class="calendar-image hidden" id="slider2" />
+                            </div>
+
 
                         </a>
                     </div>
@@ -289,7 +292,6 @@
         });
     </script>
     <script>
-        // Lista de imágenes
         const imageList = [
             "assets/img_1.webp",
             "assets/img_2.webp",
@@ -298,31 +300,41 @@
             "assets/img_5.webp"
         ];
 
-        imageList.forEach((src) => {
+        let current = 0;
+        const img1 = document.getElementById("slider1");
+        const img2 = document.getElementById("slider2");
+        let showingFirst = true;
+
+        // Precargar imágenes
+        imageList.forEach(src => {
             const img = new Image();
             img.src = src;
         });
 
-        let currentIndex = 0;
-        const slider = document.getElementById("calendarSlider");
-
         function changeImage() {
-            // Desvanecer la imagen
-            slider.style.opacity = 0;
+            current = (current + 1) % imageList.length;
+            const nextImg = imageList[current];
 
-            setTimeout(() => {
-                // Cambiar a la siguiente imagen
-                currentIndex = (currentIndex + 1) % imageList.length;
-                slider.src = imageList[currentIndex];
+            if (showingFirst) {
+                img2.src = nextImg;
+                img2.classList.remove("hidden");
+                img2.classList.add("visible");
+                img1.classList.remove("visible");
+                img1.classList.add("hidden");
+            } else {
+                img1.src = nextImg;
+                img1.classList.remove("hidden");
+                img1.classList.add("visible");
+                img2.classList.remove("visible");
+                img2.classList.add("hidden");
+            }
 
-                // Volver a mostrarla suavemente
-                slider.style.opacity = 1;
-            }, 1000); // 1 segundo para coincidir con la transición CSS
+            showingFirst = !showingFirst;
         }
 
-        // Cambiar cada 5 segundos
-        setInterval(changeImage, 4000);
+        setInterval(changeImage, 4000); // cada 4 segundos
     </script>
+
 
 </body>
 
