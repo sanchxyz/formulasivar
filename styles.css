@@ -182,7 +182,7 @@ body {
 }
 
 .time-unit {
-    background: rgba(20, 20, 20, 0.7);
+    background: rgba(234, 234, 234, 0.7);
     border-radius: 10px;
     padding: 0;
     /* Eliminamos padding interno */
@@ -206,7 +206,7 @@ body {
     /* Tamaño óptimo */
     line-height: 1;
     font-weight: bold;
-    color: white;
+    color: rgb(27, 27, 27);
     display: block;
     padding: 8px 0 0;
     /* Padding sólo arriba */
@@ -215,7 +215,7 @@ body {
 .unit-label {
     font-size: 0.65rem;
     /* Reducido de 0.75rem */
-    color: #aaa;
+    color: #000000;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 3px;
@@ -351,6 +351,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
+
 
 }
 
