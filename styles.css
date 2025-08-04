@@ -62,7 +62,7 @@ body {
 
 /* Logo centrado */
 .logo {
-    width: 230px;
+    width: 210px;
     margin-bottom: 10px;
 }
 
@@ -79,7 +79,7 @@ body {
     gap: 10px;
     margin-bottom: 60px;
     font-size: 14px;
-    color: #fafafa8b;
+    color: #fafafa77;
     background: rgba(118, 117, 117, 0.261);
     padding: 6px 12px;
     border-radius: 12px;
@@ -87,6 +87,47 @@ body {
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
     animation: blink 2s infinite;
+}
+
+
+
+.dual-signature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    /* Esto evita que el box de redes sociales se pegue */
+}
+
+/* Etiqueta "By" */
+.by-label {
+    font-size: 14px;
+    color: #fafafa8b;
+}
+
+/* Burbuja individual */
+.author-bubble {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #fafafa71;
+    background: rgba(118, 117, 117, 0.261);
+    padding: 6px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
+    animation: blink 2s infinite;
+}
+
+/* Separador "&" */
+.and-separator {
+    color: #ffffff88;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .icon-small {
@@ -111,6 +152,10 @@ body {
         opacity: 0.3;
     }
 }
+
+
+
+
 
 
 
@@ -813,6 +858,34 @@ XS – Extra Small (0 - 575px)
         width: 28px;
         height: 28px;
     }
+
+
+    .dual-signature {
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .author-bubble {
+        font-size: 12px;
+        padding: 4px 8px;
+        gap: 6px;
+    }
+
+    .icon-small {
+        width: 14px;
+        height: 14px;
+    }
+
+    .by-label {
+        font-size: 12px;
+    }
+
+    .and-separator {
+        font-size: 14px;
+    }
+
 }
 
 
@@ -873,6 +946,34 @@ SM – Small (576 - 767px)
         width: 30px;
         height: 30px;
     }
+
+    .dual-signature {
+        gap: 10px;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .author-bubble {
+        font-size: 13px;
+        padding: 5px 10px;
+        gap: 7px;
+    }
+
+    .icon-small {
+        width: 15px;
+        height: 15px;
+    }
+
+    .by-label {
+        font-size: 13px;
+    }
+
+    .and-separator {
+        font-size: 15px;
+    }
+
+
+
 }
 
 
