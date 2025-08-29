@@ -16,6 +16,8 @@
 
 <body>
     <div class="rotating-image"></div>
+    <div class="rotating-car"></div>
+
     <div class="container">
         <!-- LOGO -->
         <img src="assets/formulasivar_webp_blank_lowquality.webp" alt="Logo" class="logo" />
@@ -45,7 +47,7 @@
 
         <!--REDES SOCIALES -->
 
-        <div class="glass-box redes-sociales">
+        <div class="glass-box redes-sociales glass-card">
             <a href="https://www.instagram.com/formulasivar?utm_source=qr" target="_blank">
                 <img src="assets/instagram.webp" alt="Instagram" class="icon" />
             </a>
@@ -75,7 +77,7 @@
         </div>
 
         <!-- CONTADOR -->
-        <div class="countdown-container">
+        <div class="countdown-container glass-card">
             <h3 id="next-race-title">Cargando...</h3>
             <div id="countdown">
                 <div class="time-unit">
@@ -100,39 +102,45 @@
         <!-- CONTENEDOR BENTO PARA CAJAS INFERIORES -->
         <div class="bento-container">
             <!-- CALENDARIO -->
-            <div class="checklist-container">
+            <div class="checklist-container glass-card polaroid-card">
                 <div class="calendar-content">
                     <div class="calendar-text">
-                        <h3 class="checklist-title">C A L E N D A R I O</h3>
-
+                        <div class="title-container">
+                            <img src="assets/evento_calendario.webp" alt="Icono Calendario" class="event-icon">
+                            <h3 class="checklist-title">C A L E N D A R I O</h3>
+                        </div>
+                        <hr class="card-divider">
                         <ul class="events-list">
 
-                            <li class="event-item">
-                                <a href="https://www.tiktok.com/@formulasivar/video/7536050093389057286?is_from_webapp=1&sender_device=pc&web_id=7517745739154589189"
-                                    target="_blank" class="event-link">
-                                    <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                                    <span class="event-text">GP HUNGRÍA <br>| SILVESTRE <br>| (Centro Historico)
-                                        <br>EVENTO
-                                        FINALIZADO<br></span>
-                                </a>
-                            </li>
+                            <ul class="events-list">
 
-                            <li class="event-item">
-                                <a href="https://www.instagram.com/p/DNwMpjjwvJu/" target="_blank" class="event-link">
-                                    <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                                    <span class="event-text">GP Paises bajos <br>| CADEJO <br>| (Santa Rosa)
-                                        <br>Dom. 31 Agosto 7 : AM<br></span>
-                                </a>
-                            </li>
-                            <li class="event-item">
-                                <a href="https://www.tiktok.com/@formulasivar" target="_blank" class="event-link">
-                                    <img src="assets/marcador.webp" alt="Marcador" class="event-icon">
-                                    <span class="event-text">GP Italia <br>| Informacion <br>| Proximamente...
-                                        <br>.<br></span>
-                                </a>
-                            </li>
+                                <li class="event-item">
+                                    <a href="https://www.tiktok.com/@formulasivar/video/7536050093389057286?is_from_webapp=1&sender_device=pc&web_id=7517745739154589189"
+                                        target="_blank" class="event-link">
+                                        <img src="assets/evento_pasado.webp" alt="Marcador" class="event-icon">
+                                        <span class="event-text">GP HUNGRÍA <br>| SILVESTRE <br>| (Centro Historico)
+                                            <br>EVENTO
+                                            FINALIZADO<br></span>
+                                    </a>
+                                </li>
 
-                        </ul>
+                                <li class="event-item">
+                                    <a href="https://www.instagram.com/p/DNwMpjjwvJu/" target="_blank"
+                                        class="event-link">
+                                        <img src="assets/evento_encurso.webp" alt="Marcador" class="event-icon">
+                                        <span class="event-text">GP PAISES BAJOS <br>| CADEJO <br>| (Santa Rosa)
+                                            <br>Dom. 31 Agosto 7 : AM<br></span>
+                                    </a>
+                                </li>
+                                <li class="event-item">
+                                    <a href="https://www.tiktok.com/@formulasivar" target="_blank" class="event-link">
+                                        <img src="assets/evento_futuro.webp" alt="Marcador" class="event-icon">
+                                        <span class="event-text">GP ITALIA <br>| Informacion <br>| Proximamente...
+                                            <br>.<br></span>
+                                    </a>
+                                </li>
+
+                            </ul>
                     </div>
 
                     <div class="calendar-image-wrapper">
@@ -322,10 +330,10 @@
             "assets/img_6.webp"
         ];
 
-        let current = 0;
-        const img1 = document.getElementById("slider1");
-        const img2 = document.getElementById("slider2");
-        let showingFirst = true;
+        let current = -1;
+        const sliderImage = document.getElementById("slider1"); // Solo usamos una imagen
+        const transitionTime = 500; // 1/2 segundo de animación
+        const displayTime = 4000;   // 4 segundos visible
 
         // Precargar imágenes
         imageList.forEach(src => {
@@ -333,28 +341,29 @@
             img.src = src;
         });
 
-        function changeImage() {
-            current = (current + 1) % imageList.length;
-            const nextImg = imageList[current];
+        function runSimpleSlider() {
+            // 1. Desvanecer la imagen actual (si ya hay una)
+            sliderImage.classList.remove('visible');
 
-            if (showingFirst) {
-                img2.src = nextImg;
-                img2.classList.remove("hidden");
-                img2.classList.add("visible");
-                img1.classList.remove("visible");
-                img1.classList.add("hidden");
-            } else {
-                img1.src = nextImg;
-                img1.classList.remove("hidden");
-                img1.classList.add("visible");
-                img2.classList.remove("visible");
-                img2.classList.add("hidden");
-            }
+            // 2. Esperar a que termine de desvanecerse
+            setTimeout(function () {
+                // 3. Cargar la siguiente imagen
+                current = (current + 1) % imageList.length;
+                sliderImage.src = imageList[current];
 
-            showingFirst = !showingFirst;
+                // 4. Esperar a que la nueva imagen esté cargada
+                sliderImage.onload = function () {
+                    // 5. Hacer que la nueva imagen aparezca
+                    sliderImage.classList.add('visible');
+
+                    // 6. Programar el siguiente ciclo
+                    setTimeout(runSimpleSlider, displayTime);
+                };
+            }, transitionTime);
         }
 
-        setInterval(changeImage, 5000); // cada 4 segundos
+        // Iniciar el slider
+        runSimpleSlider();
     </script>
 
 

@@ -1,17 +1,49 @@
-/* =====   CUERPO GENERAL    ===== */
+/* =================================
+   1. VARIABLES GLOBALES (TU PANEL DE CONTROL)
+   ================================= */
+:root {
+    /* Paleta de Colores */
+    --color-fondo: #121212;
+    --color-texto-principal: #ffffff;
+    --color-texto-secundario: #fafafa71;
+    --color-acento-turquesa: #80d8ff;
+    --color-acento-rojo: #ff4d4d;
+    --color-enfasis-amarillo: #ebcacc;
+    /* El del título del contador */
+
+    /* Estilos de Glassmorphism */
+    --glass-background: rgba(37, 37, 37, 0.4);
+    --glass-blur: 10px;
+    --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    /* Bordes */
+    --borde-radio-grande: 16px;
+    --borde-radio-pequeno: 12px;
+
+    /* Fuentes */
+    --fuente-principal: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
 
-body {
+
+/* =================================
+   2. ESTILOS GLOBALES Y RESET
+   ================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #121212;
-    /* Fondo oscuro fijo */
-    color: #ffffff;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background: var(--color-fondo);
+    color: var(--color-texto-principal);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-    /* Solo bloqueamos scroll horizontal */
 }
 
 .container {
@@ -58,6 +90,51 @@ body {
 }
 
 
+
+
+.rotating-car {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('assets/carro_rotando.webp') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    /* Mismo z-index para que esté detrás del contenido */
+    animation: rotar-carro 20s linear infinite;
+    pointer-events: none;
+    transform-origin: center center;
+}
+
+
+
+
+
+
+
+/* =================================
+   3. COMPONENTES REUTILIZABLES
+   ================================= */
+
+/* La base para todas nuestras "cajas de cristal" */
+.glass-card {
+    background: var(--glass-background);
+    border-radius: var(--borde-radio-grande);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    /* Para compatibilidad */
+    box-shadow: var(--glass-shadow);
+    padding: 25px;
+    width: 90%;
+    max-width: 450px;
+    margin: 15px auto;
+}
+
+
+
+
+
 /* =====  LOGO F1ENSIVAR    ===== */
 
 /* Logo centrado */
@@ -73,23 +150,26 @@ body {
 
 /* =====  SIGNATURE   ===== */
 
-.signature {
+.signature,
+.author-bubble {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 60px;
-    font-size: 14px;
-    color: #fafafa77;
+    gap: 8px;
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--color-texto-secundario);
     background: rgba(118, 117, 117, 0.261);
+    /* Dejamos este RGBA porque es muy específico */
     padding: 6px 12px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--borde-radio-pequeno);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
     animation: blink 2s infinite;
 }
 
-
+.signature {
+    margin-bottom: 60px;
+}
 
 .dual-signature {
     display: flex;
@@ -98,30 +178,8 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 30px;
-    /* Esto evita que el box de redes sociales se pegue */
 }
 
-/* Etiqueta "By" */
-.by-label {
-    font-size: 14px;
-    color: #fafafa8b;
-}
-
-/* Burbuja individual */
-.author-bubble {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #fafafa71;
-    background: rgba(118, 117, 117, 0.261);
-    padding: 6px 12px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
-    animation: blink 2s infinite;
-}
 
 /* Separador "&" */
 .and-separator {
@@ -162,22 +220,13 @@ body {
 
 
 /* =====   BOX REDES SOCIALES   ===== */
-
-
 .glass-box.redes-sociales {
-    background: rgba(37, 37, 37, 0.4);
-    border-radius: 16px;
     padding: 12px 20px;
-    margin: 10px auto 20px;
-    max-width: 450px;
-    width: 90%;
+    /* Podemos sobreescribir el padding si es necesario */
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 18px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -192,29 +241,17 @@ body {
 
 /* ===== CONTADOR REGRESIVO ===== */
 .countdown-container {
-    background: rgba(37, 37, 37, 0.4);
-    border-radius: 16px;
-    padding: 15px 20px;
-    /* Reducido de 15px */
     text-align: center;
-    margin: 10px auto 20px;
-    /* Reducido */
-    max-width: 450px;
-    width: 90%;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .countdown-container h3 {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     margin: 0 8px 12px 8px;
-    /* Ajustado: margen horizontal reducido */
-    color: #ebcacc;
+    color: var(--color-enfasis-amarillo);
+    /* <<< Cambio aquí */
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 0 10px;
-    /* Añadido: pequeño padding interno */
 }
 
 #countdown {
@@ -247,7 +284,7 @@ body {
 }
 
 .time-unit span {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
     /* Tamaño óptimo */
     line-height: 1;
     font-weight: bold;
@@ -276,39 +313,25 @@ body {
 
 /* =====   LISTA CALENDARIO  ===== */
 
-/* Estilos para checklist */
-.checklist-container {
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 25px 35px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    background-size: cover;
-    background-blend-mode: overlay;
-    margin: 15px auto 40px;
-    /* Centrado automático */
-    max-width: 450px;
-    /* Aumentado de 400px a 450px */
-    width: 90%;
-    background: rgba(49, 49, 49, 0.307);
-}
+
 
 .checklist-title {
-    color: #caefff;
     padding-left: 6px;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     margin-bottom: 20px;
     text-align: left;
     font-weight: 600;
+    /* --- INICIO DE LÍNEAS MODIFICADAS --- */
+    color: var(--color-texto-principal);
     text-shadow:
-        0 0 4px #80d8ff,
-        0 0 8px #80d8ff,
-        0 0 12px #80d8ff;
+        0 0 2px color-mix(in srgb, var(--color-acento-turquesa) 80%, transparent),
+        0 0 6px color-mix(in srgb, var(--color-acento-turquesa) 70%, transparent),
+        0 0 12px color-mix(in srgb, var(--color-acento-turquesa) 40%, transparent);
+    /* --- FIN DE LÍNEAS MODIFICADAS --- */
 }
 
 /* Nuevos estilos para lista de eventos */
 .events-list {
-    opacity: 0.60;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -320,10 +343,26 @@ body {
     /* padding para mover el contenido a la derecha */
 }
 
+
+
+
 .event-item {
-    margin-bottom: 12px;
     width: 100%;
     transition: transform 0.2s ease;
+    padding-bottom: 12px;
+    /* Añadimos espacio inferior */
+    margin-bottom: 12px;
+    /* Mantenemos el margen */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    /* Línea divisoria sutil */
+}
+
+
+
+/* Al último elemento de la lista le quitamos el borde y el padding */
+.event-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .event-item:hover {
@@ -346,6 +385,8 @@ body {
 }
 
 .event-text {
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    color: rgba(255, 255, 255, 0.71);
     text-align: left;
     display: inline-block;
     width: 100%;
@@ -370,15 +411,7 @@ body {
     justify-content: flex-start;
 }
 
-.events-list {
-    opacity: 0.60;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+
 
 
 /* Columna derecha: imagen */
@@ -417,7 +450,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     opacity: 0;
     z-index: 0;
 }
@@ -461,15 +494,14 @@ body {
 }
 
 /* === Blanco con glow celeste tenue visible === */
+
+
 #next-race-title {
-    color: #ffffff;
+    color: var(--color-texto-principal);
     text-shadow:
-        0 0 2px #80d8ffcc,
-        /* celeste claro, 80% opacidad */
-        0 0 6px #80d8ffaa,
-        /* más expandido */
-        0 0 12px #80d8ff66;
-    /* difuso sutil */
+        0 0 2px color-mix(in srgb, var(--color-acento-turquesa) 80%, transparent),
+        0 0 6px color-mix(in srgb, var(--color-acento-turquesa) 70%, transparent),
+        0 0 12px color-mix(in srgb, var(--color-acento-turquesa) 40%, transparent);
     letter-spacing: 1px;
     font-weight: 600;
     text-transform: uppercase;
@@ -492,7 +524,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
-    color: #80d8ff;
+    color: var(--color-acento-turquesa);
     background: rgba(128, 216, 255, 0.08);
     padding: 2px 8px;
     border-radius: 12px;
@@ -523,18 +555,19 @@ body {
 }
 
 /* Glow difuminado azul */
+
+
 @keyframes glow-telegram {
 
     0%,
     100% {
-        filter: drop-shadow(0 0 4px #80d8ff) drop-shadow(0 0 8px #80d8ff);
+        filter: drop-shadow(0 0 4px var(--color-acento-turquesa)) drop-shadow(0 0 8px var(--color-acento-turquesa));
     }
 
     50% {
-        filter: drop-shadow(0 0 1px #80d8ff) drop-shadow(0 0 3px #80d8ff);
+        filter: drop-shadow(0 0 1px var(--color-acento-turquesa)) drop-shadow(0 0 3px var(--color-acento-turquesa));
     }
 }
-
 
 
 
@@ -571,6 +604,25 @@ body {
         /* Mayor escala final */
     }
 }
+
+
+
+/* Animación de rotación del carro  */
+
+@keyframes rotar-carro {
+    from {
+        transform: rotate(0deg) scale(1.5);
+    }
+
+    /* <-- Escala reducida */
+    to {
+        transform: rotate(360deg) scale(1.5);
+    }
+
+    /* <-- Escala reducida */
+}
+
+
 
 /* Asegura que el contenedor principal esté sobre el fondo */
 .container {
@@ -708,7 +760,7 @@ body {
 /* Efecto hover (agrandado y glow rojo) */
 .platform-icons img:hover {
     transform: scale(1.2);
-    filter: drop-shadow(0 0 8px #ff1a1a);
+    filter: drop-shadow(0 0 8px var(--color-acento-rojo));
 }
 
 
@@ -749,7 +801,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
-    color: #ff4d4d;
+    color: var(--color-acento-rojo);
     background: rgba(255, 77, 77, 0.08);
     padding: 2px 8px;
     border-radius: 12px;
@@ -772,11 +824,11 @@ body {
 
     0%,
     100% {
-        filter: drop-shadow(0 0 4px #ff4d4d) drop-shadow(0 0 8px #ff1a1a);
+        filter: drop-shadow(0 0 4px var(--color-acento-rojo)) drop-shadow(0 0 8px var(--color-acento-rojo));
     }
 
     50% {
-        filter: drop-shadow(0 0 1px #ff4d4d) drop-shadow(0 0 3px #ff1a1a);
+        filter: drop-shadow(0 0 1px var(--color-acento-rojo)) drop-shadow(0 0 3px var(--color-acento-rojo));
     }
 }
 
@@ -795,9 +847,65 @@ body {
 
 
 
+/* =================================
+   5. ESTILO TARJETA CALENDARIO (POLAROID) - CORREGIDO
+   ================================= */
+
+/* 1. Estilo del contenedor principal de la tarjeta. */
+.polaroid-card {
+    background: rgba(68, 68, 68, 0.256);
+    padding: 0;
+}
+
+/* 2. A la sección de texto le redondeamos SOLO las esquinas izquierdas. */
+.polaroid-card .calendar-text {
+    padding: 25px;
+    border-radius: var(--borde-radio-grande) 0 0 var(--borde-radio-grande);
+}
+
+/* 3. Al contenedor de la imagen le redondeamos SOLO las esquinas derechas. */
+.polaroid-card .calendar-image-wrapper {
+    border-radius: 0 var(--borde-radio-grande) var(--borde-radio-grande) 0;
+    overflow: hidden;
+    /* Esto recorta la imagen que está dentro */
+}
+
+/* 4. ¡IMPORTANTE! Anulamos los redondeos de los elementos internos. */
+.polaroid-card .calendar-slider,
+.polaroid-card .calendar-image {
+    border-radius: 0;
+}
 
 
 
+/* =================================
+   6. ESTILOS DE LA LISTA DE EVENTOS
+   ================================= */
+
+.card-divider {
+    border: none;
+    /* Quitamos el borde feo que trae por defecto */
+    height: 1px;
+    /* Le damos un grosor de 1px */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Color blanco translúcido */
+    margin: 10px 0 20px 0;
+    /* Espacio por arriba y por abajo */
+}
+
+.title-container {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    gap: 10px;
+    /* Espacio entre el icono y el texto */
+}
+
+.title-container .checklist-title {
+    margin-bottom: 0;
+    white-space: nowrap;
+    /* Quitamos el margen que ya no necesitamos */
+}
 
 
 
@@ -805,107 +913,127 @@ body {
 
 
 /* ==========================
-XS – Extra Small (0 - 575px)
-========================== */
-
-
+   XS – Extra Small (0 - 575px)
+   ========================== */
 @media screen and (max-width: 575px) {
     .logo {
         width: 160px;
     }
 
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
-        padding: 12px;
-        margin: 10px auto;
-        width: 95%;
+    .glass-card:first-of-type {
+        margin-top: 0;
     }
 
+
+    /* 2. Arreglamos y optimizamos el Calendario Polaroid (VERSIÓN FINAL) */
+    .polaroid-card {
+        padding: 0 !important;
+    }
+
+    .calendar-content {
+        gap: 10px;
+    }
+
+    .polaroid-card .calendar-text {
+        padding: 12px;
+        flex: 1;
+        /* Ocupa el 50% del espacio */
+        min-width: 0;
+    }
+
+    .polaroid-card .calendar-image-wrapper {
+        flex: 1;
+        /* Ocupa el otro 50% del espacio */
+    }
+
+    .event-text {
+        font-size: 7px;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .event-item {
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /* 1. Arreglamos el contador que se desborda */
     .time-unit {
         width: 45px;
         height: 45px;
+        margin: 0 2px;
+        /* Reducimos el margen horizontal */
     }
 
     .time-unit span {
         font-size: 1.1rem;
+        /* Hacemos los números un poco más pequeños */
     }
 
-    #next-race-title {
-        font-size: 0.9rem;
-
+    #countdown {
+        gap: 5px;
+        /* Reducimos el espacio entre las cajas */
     }
 
+
+
+
+    #next-race-title,
     .checklist-title {
-        font-size: 0.95rem;
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     }
 
-    .event-text {
-        font-size: 10px;
-    }
+
 
     .container {
         padding: 10px;
-        margin-top: 20px;
+        margin-top: 10px;
+    }
+
+    .signature,
+    .author-bubble {
+        font-size: clamp(10px, 1.5vw, 14px);
     }
 
     .signature {
-        font-size: 12px;
         margin: 15px 0 30px;
     }
 
-    .icon {
-        width: 28px;
-        height: 28px;
-    }
-
-
     .dual-signature {
         gap: 8px;
-        flex-wrap: wrap;
-        font-size: 12px;
         margin-bottom: 20px;
     }
-
-    .author-bubble {
-        font-size: 12px;
-        padding: 4px 8px;
-        gap: 6px;
-    }
-
-    .icon-small {
-        width: 14px;
-        height: 14px;
-    }
-
-    .by-label {
-        font-size: 12px;
-    }
-
-    .and-separator {
-        font-size: 14px;
-    }
-
 }
 
 
 
-
 /* =========================
-SM – Small (576 - 767px)
-========================= */
+   SM – Small (576 - 767px)
+   ========================= */
 
 @media screen and (min-width: 576px) and (max-width: 767px) {
     .logo {
         width: 180px;
     }
 
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
+    /* Unificamos los cambios de las cajas de cristal */
+    .glass-card {
         padding: 16px;
-        margin: 15px auto;
         width: 90%;
+    }
+
+    .glass-card:first-of-type {
+        margin-top: 0;
     }
 
     .time-unit {
@@ -914,216 +1042,67 @@ SM – Small (576 - 767px)
     }
 
     .time-unit span {
-        font-size: 1.4rem;
+        font-size: clamp(1.2rem, 4vw, 1.7rem);
     }
 
-
-    #next-race-title {
-        font-size: 0.9rem;
-
-    }
-
+    #next-race-title,
     .checklist-title {
-        font-size: 0.95rem;
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     }
-
 
     .event-text {
-        font-size: 10px;
+        font-size: clamp(0.75rem, 2vw, 0.9rem);
     }
 
+    .polaroid-card {
+        padding: 0 !important;
+        /* FORZAMOS a que la tarjeta no tenga padding exterior */
+    }
+
+
     .container {
-        padding: 15px;
-        margin-top: 25px;
+        padding: 10px;
+        margin-top: 1px;
+    }
+
+    .countdown-container h3 {
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    }
+
+    .signature,
+    .author-bubble,
+    .by-label {
+        font-size: clamp(11px, 1.5vw, 14px);
     }
 
     .signature {
-        font-size: 13px;
         margin: 20px 0 40px;
     }
 
-    .icon {
-        width: 30px;
-        height: 30px;
-    }
-
     .dual-signature {
-        gap: 10px;
-        font-size: 13px;
         margin-bottom: 25px;
     }
-
-    .author-bubble {
-        font-size: 13px;
-        padding: 5px 10px;
-        gap: 7px;
-    }
-
-    .icon-small {
-        width: 15px;
-        height: 15px;
-    }
-
-    .by-label {
-        font-size: 13px;
-    }
-
-    .and-separator {
-        font-size: 15px;
-    }
-
-
-
 }
 
-
-/* ===============================
-MD – Medium (768px - 991px)
-=============================== */
-
-
-
-@media screen and (min-width: 768px) and (max-width: 991px) {
-    .logo {
-        width: 200px;
-    }
-
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
-        width: 85%;
-        max-width: 420px;
-        padding: 18px 25px;
-        margin: 15px auto;
-    }
-
-    .container {
-        padding: 20px;
-        margin-top: 30px;
-    }
-
-    .time-unit {
-        width: 60px;
-        height: 60px;
-    }
-
-    .time-unit span {
-        font-size: 1.5rem;
-    }
-
-    .event-text {
-        font-size: 10px;
-    }
-
-    .signature {
-        font-size: 14px;
-        margin-bottom: 40px;
-    }
-
-    .icon {
-        width: 32px;
-        height: 32px;
-    }
-}
 
 
 
 /* ===============================
-LG – Large (992px - 1199px)
-=============================== */
+   MD – Medium (768px - 991px)
+   =============================== */
 
 
-@media screen and (min-width: 992px) and (max-width: 1199px) {
-    .logo {
-        width: 220px;
-    }
 
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
-        width: 80%;
-        max-width: 440px;
-        padding: 22px 30px;
-        margin: 20px auto;
-    }
+/* ===============================
+   LG – Large (992px - 1199px)
+   =============================== */
 
-    .container {
-        padding: 25px;
-        margin-top: 35px;
-    }
-
-    .time-unit {
-        width: 65px;
-        height: 65px;
-    }
-
-    .time-unit span {
-        font-size: 1.6rem;
-    }
-
-    .event-text {
-        font-size: 10px;
-    }
-
-    .signature {
-        font-size: 15px;
-        margin-bottom: 45px;
-    }
-
-    .icon {
-        width: 34px;
-        height: 34px;
-    }
-}
 
 
 /* =================================
 XL – Extra Large (1200px - 1399px)
 ================================= */
 
-
-@media screen and (min-width: 1200px) and (max-width: 1399px) {
-    .logo {
-        width: 230px;
-    }
-
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
-        width: 75%;
-        max-width: 460px;
-        padding: 24px 32px;
-        margin: 25px auto;
-    }
-
-    .container {
-        padding: 30px;
-        margin-top: 40px;
-    }
-
-    .time-unit {
-        width: 70px;
-        height: 70px;
-    }
-
-    .time-unit span {
-        font-size: 1.7rem;
-    }
-
-    .event-text {
-        font-size: 12px;
-    }
-
-    .signature {
-        font-size: 16px;
-        margin-bottom: 50px;
-    }
-
-    .icon {
-        width: 36px;
-        height: 36px;
-    }
-}
 
 
 
@@ -1137,72 +1116,26 @@ XL – Extra Large (1200px - 1399px)
 
 /* ========= FIX para Nest Hub y dispositivos muy anchos con altura limitada ========= */
 
-@media screen and (min-width: 1000px) and (max-width: 1300px) and (max-height: 800px) {
-    .container {
-        max-width: 95%;
-        padding: 0 10px;
-        overflow-x: hidden;
-        margin-top: 10px;
-    }
 
-    .glass-box,
-    .countdown-container,
-    .checklist-container {
-        width: 88%;
-        max-width: 420px;
-        padding: 12px 16px;
-        margin: 8px auto;
-    }
-
-    .countdown-container h3 {
-        font-size: 1rem;
-        margin-bottom: 8px;
-    }
-
-    .time-unit {
-        width: 52px;
-        height: 52px;
-    }
-
-    .time-unit span {
-        font-size: 1.4rem;
-    }
-
-    .unit-label {
-        font-size: 0.6rem;
-    }
-
-    .logo {
-        width: 190px;
-        margin-bottom: 10px;
-    }
-
-    .event-text {
-        font-size: 10px;
-    }
-
-    .telegram-label {
-        top: -22px;
-    }
-}
 
 
 /* ===== Ajuste fino para móviles MUY estrechos (menos de 377px) ===== */
-@media screen and (max-width: 389px) {
+
+/* ===== Ajuste fino para móviles MUY estrechos (menos de 390px) ===== */
+@media screen and (max-width: 390px) {
     .glass-box.redes-sociales {
         gap: 12px;
-        /* Menor espacio entre íconos */
-        padding: 10px 12px;
+        /* Reducimos el espacio entre íconos */
+        padding: 10px 15px;
+        flex-wrap: nowrap;
+        /* ¡La clave! Prohibimos el salto de línea */
+        justify-content: space-between;
+        /* Hacemos que se distribuyan en el espacio disponible */
     }
 
-    .glass-box.redes-sociales .icon,
-    .glass-box.redes-sociales .telegram-icon {
-        width: 26px;
-        height: 26px;
-    }
-
-    .telegram-label {
-        font-size: 10px;
-        top: -20px;
+    .glass-box.redes-sociales .icon {
+        width: 28px;
+        /* Hacemos los iconos un poco más pequeños */
+        height: 28px;
     }
 }
