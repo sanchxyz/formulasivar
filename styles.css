@@ -74,7 +74,6 @@ body {
     width: 100%;
     max-width: 450px;
     margin: 0;
-    /* Eliminamos márgenes individuales */
     box-sizing: border-box;
 }
 
@@ -82,11 +81,9 @@ body {
     margin-top: 0;
     margin-bottom: 0;
     padding: 25px;
-    /* Reducimos padding para móvil */
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-    /* Reducimos espacio entre iconos */
 }
 
 
@@ -101,7 +98,6 @@ body {
 
     background-size: cover;
     z-index: -1;
-    /* background: url('assets/evento_pasado.webp') no-repeat center center; */
     animation: rotar-carro 20s linear infinite;
     pointer-events: none;
     transform-origin: center center;
@@ -117,13 +113,11 @@ body {
    3. COMPONENTES REUTILIZABLES
    ================================= */
 
-/* La base para todas nuestras "cajas de cristal" */
 .glass-card {
     background: var(--glass-background);
     border-radius: var(--borde-radio-grande);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    /* Para compatibilidad */
     box-shadow: var(--glass-shadow);
     padding: 25px;
     width: 90%;
@@ -137,7 +131,6 @@ body {
 
 /* =====  LOGO F1ENSIVAR    ===== */
 
-/* Logo centrado */
 .logo {
     width: 210px;
     margin-bottom: 10px;
@@ -158,7 +151,6 @@ body {
     font-size: clamp(12px, 1.5vw, 14px);
     color: var(--color-texto-secundario);
     background: rgba(118, 117, 117, 0.261);
-    /* Dejamos este RGBA porque es muy específico */
     padding: 6px 12px;
     border-radius: var(--borde-radio-pequeno);
     backdrop-filter: blur(var(--glass-blur));
@@ -284,7 +276,7 @@ body {
 }
 
 .time-unit span {
-    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    font-size: clamp(1.7rem, 4vw, 2.1rem);
     /* Tamaño óptimo */
     line-height: 1;
     font-weight: bold;
@@ -317,7 +309,7 @@ body {
 
 .checklist-title {
     padding-left: 6px;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    font-size: clamp(0.8rem, 2.2vw, 1.1rem);
     margin-bottom: 20px;
     text-align: left;
     font-weight: 600;
@@ -349,14 +341,10 @@ body {
 .event-item {
     width: 100%;
     transition: transform 0.2s ease;
-    padding-bottom: 12px;
-    /* Añadimos espacio inferior */
-    margin-bottom: 12px;
-    /* Mantenemos el margen */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    /* Línea divisoria sutil */
+    padding-bottom: 11px;
+    margin-bottom: 11px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 
 
 /* Al último elemento de la lista le quitamos el borde y el padding */
@@ -385,11 +373,12 @@ body {
 }
 
 .event-text {
-    font-size: clamp(0.75rem, 2vw, 0.9rem);
-    color: rgba(255, 255, 255, 0.71);
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.85);
     text-align: left;
     display: inline-block;
     width: 100%;
+    line-height: 1.4;
 }
 
 
@@ -947,23 +936,25 @@ body {
     }
 
     .event-text {
-        font-size: 7px;
-        line-height: 1.3;
+        font-size: clamp(0.6rem, 2vw, 0.95rem);
         color: rgba(255, 255, 255, 0.85);
+        text-align: left;
+        display: inline-block;
+        width: 100%;
+        line-height: 1.4;
     }
 
     .event-item {
-        margin-bottom: 6px;
-        padding-bottom: 6px;
+        width: 100%;
+        transition: transform 0.2s ease;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-
-
-
-
-
-
-
+    .events-list {
+        padding-left: 0;
+    }
 
 
 
@@ -976,21 +967,28 @@ body {
     }
 
     .time-unit span {
-        font-size: 1.1rem;
-        /* Hacemos los números un poco más pequeños */
+        font-size: 1.3rem !important;
+        /* Aumentado de 1.1rem */
     }
 
-    #countdown {
-        gap: 5px;
-        /* Reducimos el espacio entre las cajas */
+    /* Letras más pequeñas */
+    .unit-label {
+        font-size: 0.6rem !important;
+        /* Reducido de 0.65rem */
     }
 
+    /* Ajustar tamaño de cajas si es necesario */
+    .time-unit {
+        width: 48px;
+        /* Aumentado de 45px si necesitas más espacio */
+        height: 48px;
+    }
 
 
 
     #next-race-title,
     .checklist-title {
-        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        font-size: clamp(0.6rem, 2.2vw, 1.1rem);
     }
 
 
