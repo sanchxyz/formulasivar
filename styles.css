@@ -12,7 +12,7 @@
     /* El del título del contador */
 
     /* Estilos de Glassmorphism */
-    --glass-background: rgba(37, 37, 37, 0.4);
+    --glass-background: rgba(68, 68, 68, 0.256);
     --glass-blur: 10px;
     --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
@@ -234,6 +234,7 @@ body {
 /* ===== CONTADOR REGRESIVO ===== */
 .countdown-container {
     text-align: center;
+    padding: 15px 25px;
 }
 
 .countdown-container h3 {
@@ -486,14 +487,25 @@ body {
 
 
 #next-race-title {
+    /* Mantener estilos actuales de texto */
     color: var(--color-texto-principal);
-    text-shadow:
-        0 0 2px color-mix(in srgb, var(--color-acento-turquesa) 80%, transparent),
+    text-shadow: 0 0 2px color-mix(in srgb, var(--color-acento-turquesa) 80%, transparent),
         0 0 6px color-mix(in srgb, var(--color-acento-turquesa) 70%, transparent),
         0 0 12px color-mix(in srgb, var(--color-acento-turquesa) 40%, transparent);
     letter-spacing: 1px;
     font-weight: 600;
     text-transform: uppercase;
+
+    /* NUEVOS ESTILOS PARA FONDO OSCURO */
+    background: rgba(0, 0, 0, 0.326);
+    /* Fondo oscuro semi-transparente */
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin: 10px 0 0 0;
+    /* Espacio arriba para separar del contador */
+    text-align: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 
@@ -1059,7 +1071,7 @@ body {
 
     #next-race-title,
     .checklist-title {
-        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        font-size: clamp(0.6rem, 2.5vw, 1.2rem);
     }
 
     .event-text {
