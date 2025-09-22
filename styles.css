@@ -1040,7 +1040,21 @@ body {
     }
 
     .time-unit span {
-        font-size: clamp(1.2rem, 4vw, 1.7rem);
+        font-size: 1.3rem !important;
+        /* Aumentado de 1.1rem */
+    }
+
+    /* Letras más pequeñas */
+    .unit-label {
+        font-size: 0.6rem !important;
+        /* Reducido de 0.65rem */
+    }
+
+    /* Ajustar tamaño de cajas si es necesario */
+    .time-unit {
+        width: 48px;
+        /* Aumentado de 45px si necesitas más espacio */
+        height: 48px;
     }
 
     #next-race-title,
@@ -1049,7 +1063,24 @@ body {
     }
 
     .event-text {
-        font-size: clamp(0.75rem, 2vw, 0.9rem);
+        font-size: clamp(0.6rem, 2vw, 0.95rem);
+        color: rgba(255, 255, 255, 0.85);
+        text-align: left;
+        display: inline-block;
+        width: 100%;
+        line-height: 1.4;
+    }
+
+    .event-item {
+        width: 100%;
+        transition: transform 0.2s ease;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .events-list {
+        padding-left: 0;
     }
 
     .polaroid-card {
