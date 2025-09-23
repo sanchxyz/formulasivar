@@ -14,53 +14,72 @@
     <!-- Fondo animado -->
     <div class="rotating-image"></div>
 
-    <div class="container">
-        <!-- LOGO (más pequeño) -->
-        <img src="assets/formulasivar_webp_blank_lowquality.webp" alt="Logo" class="logo podcast-logo" />
+    <!-- NUEVO HEADER SUPERIOR -->
+    <header class="podcast-header">
+        <div class="header-content">
+            <!-- Logo a la izquierda -->
+            <img src="assets/formulasivar_webp_blank_lowquality.webp" alt="Logo" class="podcast-header-logo" />
 
-        <!-- ÍCONO EXTRA DEL PODCAST (del mismo ancho que el logo) -->
-        <img src="assets/al-aire.webp" alt="Icono Podcast" class="logo podcast-icon" />
+            <!-- Iconos de plataformas a la derecha -->
+            <div class="header-platforms">
+                <a href="https://open.spotify.com/show/6fmqieLTdXz2zd1crnDQRQ" target="_blank">
+                    <img src="assets/spotify.png" alt="Spotify" class="platform-icon">
+                </a>
+                <a href="https://youtu.be/PqaEqKyrymE" target="_blank">
+                    <img src="assets/youtube.png" alt="YouTube" class="platform-icon">
+                </a>
+            </div>
+        </div>
+    </header>
 
-        <!-- Cuadro Bento con glassmorfismo -->
-        <div class="bento-container">
-            <div class="glass-box podcast-box">
-                <!-- Título -->
-                <h3 class="podcast-title glow-static">P O D C A S T</h3>
-                <p>¡Aquí podrás escuchar noticias, análisis, debates y toda la pasión por la Fórmula 1 en El Salvador!
-                </p>
+    <div class="container podcast-container">
 
-                <!-- Episodio de Spotify -->
+
+        <!-- GALERÍA DE EPISODIOS -->
+        <div class="episodes-gallery">
+            <!-- Episodio 3 (MÁS RECIENTE) -->
+            <div class="episode-card glass-card">
                 <div class="video-container">
-                    <iframe
-                        src="https://open.spotify.com/embed/episode/7BiA31MPfkAWds2NfMddpK/video?utm_source=generator"
-                        title="Spotify player" frameborder="0" allowfullscreen=""
+                    <iframe data-testid="embed-iframe"
+                        src="https://open.spotify.com/embed/episode/3b42C8cZrChXTvA6r6rBhK/video?utm_source=generator"
+                        title="Episodio 3" frameborder="0" allowfullscreen
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy"></iframe>
                 </div>
-
-                <!-- Texto debajo -->
-                <h4 style="margin-top:15px;">Escúchanos en estas plataformas</h4>
-
-                <!-- Iconos de plataformas -->
-                <div class="platform-icons">
-                    <a href="https://open.spotify.com/show/6fmqieLTdXz2zd1crnDQRQ" target="_blank">
-                        <img src="assets/spotify.png" alt="Spotify">
-                    </a>
-                    <a href="https://podcasts.apple.com/sv/podcast/f%C3%B3rmula-sivar/id1829006823" target="_blank">
-                        <img src="assets/manzana.png" alt="Apple Podcasts">
-                    </a>
-                    <a href="https://youtu.be/PqaEqKyrymE" target="_blank">
-                        <img src="assets/youtube.png" alt="YouTube">
-                    </a>
-                </div>
+                <h3>Episodio 3: Últimas Novedades</h3>
+                <p>Análisis de los recientes acontecimientos en la F1</p>
             </div>
 
+            <!-- Episodio 2 -->
+            <div class="episode-card glass-card">
+                <div class="video-container">
+                    <iframe data-testid="embed-iframe"
+                        src="https://open.spotify.com/embed/episode/5mLhLyvpynqo2Soxt9kOc8/video?utm_source=generator"
+                        title="Episodio 2" frameborder="0" allowfullscreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"></iframe>
+                </div>
+                <h3>Episodio 2: Medio Temporada</h3>
+                <p>Balance de la primera mitad del campeonato</p>
+            </div>
+
+            <!-- Episodio 1 (MÁS ANTIGUO) -->
+            <div class="episode-card glass-card">
+                <div class="video-container">
+                    <iframe
+                        src="https://open.spotify.com/embed/episode/7BiA31MPfkAWds2NfMddpK/video?utm_source=generator"
+                        title="Episodio 1" frameborder="0" allowfullscreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"></iframe>
+                </div>
+                <h3>Episodio 1: Análisis Temporada 2025</h3>
+                <p>Todo sobre los nuevos equipos y pilotos</p>
+            </div>
         </div>
 
-
         <!-- ENLACE DE REGRESO -->
-        <div style="margin-top:30px;">
-            <a href="index.html" style="color:#ffffff5b; text-decoration:none;"> H O M E </a>
+        <div class="home-link">
+            <a href="index.html">← V O L V E R &nbsp; A L &nbsp; I N I C I O</a>
         </div>
     </div>
 </body>

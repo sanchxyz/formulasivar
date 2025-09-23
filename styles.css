@@ -642,87 +642,112 @@ body {
 
 
 
+/* =================================
+   NUEVOS ESTILOS PARA PODCAST REDESIGN
+   ================================= */
 
-
-
-
-
-.podcast-logo {
-    width: 160px;
-    /* Logo más pequeño */
-    margin-bottom: 10px;
-}
-
-.podcast-logo {
-    width: 160px;
-    /* Logo más pequeño */
-    margin-bottom: 10px;
-}
-
-.podcast-icon {
-    width: 160px;
-    /* Mismo ancho que el logo */
-    margin-bottom: 20px;
-    /* Espacio debajo */
-    margin-top: -30px;
-    /* Lo sube para acercarlo al logo */
-    animation: glow-podcast 2s ease-in-out infinite;
-    /* Glow parpadeante rojo */
-}
-
-/* Animación de brillo rojo */
-@keyframes glow-podcast {
-
-    0%,
-    100% {
-        filter: drop-shadow(0 0 4px #ff4d4d) drop-shadow(0 0 10px #ff1a1a);
-        opacity: 1;
-    }
-
-    50% {
-        filter: drop-shadow(0 0 1px #ff4d4d) drop-shadow(0 0 4px #ff1a1a);
-        opacity: 0.6;
-    }
-}
-
-
-
-
-/* ===== ESTILO DEL CUADRO DE PODCAST ===== */
-.podcast-box {
-    max-width: 400px;
-    width: 90%;
-    padding: 30px;
-    text-align: center;
-    border-radius: 20px;
-    background: rgba(158, 157, 157, 0.216);
+/* HEADER SUPERIOR */
+.podcast-header {
+    background: rgba(0, 0, 0, 0.387);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.079);
-    /* Glow rojo sutil */
+    padding: 10px 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* Título dentro del cuadro */
-.podcast-title {
-    font-size: 1.5rem;
-    margin: 0;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.podcast-header-logo {
+    width: 100px;
+    height: auto;
+}
+
+.header-platforms {
+    display: flex;
+    gap: 20px;
+}
+
+.platform-icon {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.platform-icon:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px var(--color-acento-rojo));
+}
+
+/* CONTENEDOR PRINCIPAL DEL PODCAST */
+.podcast-container {
+    margin-top: 20px;
     text-align: center;
 }
 
+.podcast-main-title {
+    font-size: 2.5rem;
+    color: var(--color-texto-principal);
+    text-shadow: 0 0 10px var(--color-acento-rojo);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
 
+.podcast-subtitle {
+    color: var(--color-texto-secundario);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+/* GALERÍA DE EPISODIOS */
+.episodes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
+.episode-card {
+    padding: 20px;
+    text-align: left;
+}
 
+.episode-card h3 {
+    color: var(--color-texto-principal);
+    margin: 15px 0 8px 0;
+    font-size: 1.2rem;
+}
 
+.episode-card p {
+    color: var(--color-texto-secundario);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
 
-/* ===== VIDEO EMBEBIDO RESPONSIVO ===== */
+/* VIDEO CONTAINER (nueva versión) */
 .video-container {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
-    /* Proporción 16:9 */
+    /* 16:9 */
     height: 0;
-    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .video-container iframe {
@@ -731,9 +756,24 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.2);
-    /* Glow leve para que combine */
+    border: none;
+}
+
+/* ENLACE VOLVER */
+.home-link {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.home-link a {
+    color: var(--color-texto-secundario);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.home-link a:hover {
+    color: var(--color-acento-turquesa);
 }
 
 
@@ -742,27 +782,25 @@ body {
 
 
 
-/* ===== ICONOS DE PLATAFORMAS ===== */
-.platform-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin-top: 15px;
-}
 
-.platform-icons img {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    cursor: pointer;
-}
 
-/* Efecto hover (agrandado y glow rojo) */
-.platform-icons img:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 8px var(--color-acento-rojo));
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1178,5 +1216,48 @@ XL – Extra Large (1200px - 1399px)
         width: 28px;
         /* Hacemos los iconos un poco más pequeños */
         height: 28px;
+    }
+}
+
+
+
+/* ===== RESPONSIVE PARA PODCAST HEADER ===== */
+@media screen and (max-width: 767px) {
+    .podcast-header {
+        padding: 8px 0;
+        /* Más compacto en móviles */
+    }
+
+    .podcast-header-logo {
+        width: 80px;
+        /* Logo más pequeño en móviles */
+    }
+
+    .platform-icon {
+        width: 24px;
+        /* Iconos más pequeños en móviles */
+        height: 24px;
+    }
+
+    .header-platforms {
+        gap: 15px;
+        /* Menos espacio entre iconos en móviles */
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .podcast-header-logo {
+        width: 70px;
+        /* Extra pequeño para móviles muy estrechos */
+    }
+
+    .platform-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .header-content {
+        padding: 0 15px;
+        /* Menos padding lateral */
     }
 }
