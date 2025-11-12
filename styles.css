@@ -17,8 +17,8 @@
     --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
     /* Bordes */
-    --borde-radio-grande: 16px;
-    --borde-radio-pequeno: 12px;
+    --borde-radio-grande: 35px;
+    --borde-radio-pequeno: 25px;
 
     /* Fuentes */
     --fuente-principal: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -132,8 +132,8 @@ body {
 /* =====  LOGO F1ENSIVAR    ===== */
 
 .logo {
-    width: 210px;
-    margin-bottom: 10px;
+    width: 190px;
+    margin-bottom: 15px;
 }
 
 
@@ -148,7 +148,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: clamp(12px, 1.5vw, 14px);
+    font-size: clamp(10px, 1.5vw, 12px);
     color: var(--color-texto-secundario);
     background: rgba(118, 117, 117, 0.261);
     padding: 6px 12px;
@@ -258,7 +258,7 @@ body {
 
 .time-unit {
     background: rgba(234, 234, 234, 0.7);
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 0;
     /* Eliminamos padding interno */
     width: 65px;
@@ -408,7 +408,7 @@ body {
 .calendar-image-wrapper {
     flex: 1;
     overflow: hidden;
-    border-radius: 15px;
+
     display: flex;
     align-items: stretch;
 }
@@ -418,7 +418,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
+
 
 
 }
@@ -428,7 +428,6 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
     overflow: hidden;
 }
 
