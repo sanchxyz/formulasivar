@@ -283,40 +283,58 @@
             document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
 
+
+
+
+
+
+
             // Información de próxima carrera
-            const raceIndex = raceDates.indexOf(nextRace.toISOString().split('T')[0]);
-            titleElement.textContent = `GRAN PREMIO DE  ${getRaceName(raceIndex)}`;
+            // Información de próxima carrera - FIXED
+            let raceIndex = -1;
+            for (let i = 0; i < raceDates.length; i++) {
+                const startTime = raceStartTimes[raceDates[i]] || "14:00:00";
+                const potentialRaceDate = new Date(`${raceDates[i]}T${startTime}-06:00`);
+
+                if (potentialRaceDate.getTime() === nextRace.getTime()) {
+                    raceIndex = i;
+                    break;
+                }
+            }
+
+            if (raceIndex !== -1) {
+                titleElement.textContent = `GRAN PREMIO DE ${getRaceName(raceIndex)}`;
+            } else {
+                // Fallback: buscar por fecha formateada localmente
+                const localDateStr = nextRace.toLocaleDateString('en-CA'); // formato YYYY-MM-DD
+                raceIndex = raceDates.indexOf(localDateStr);
+                if (raceIndex !== -1) {
+                    titleElement.textContent = `GRAN PREMIO DE ${getRaceName(raceIndex)}`;
+                } else {
+                    titleElement.textContent = "PRÓXIMO GRAN PREMIO";
+                }
+            }
+
+
         }
 
         // Nombres de carreras para 2025
         function getRaceName(index) {
             const names = [
-                "Australia",                   // 1
-                "China",                       // 2
-                "Japón",                       // 3
-                "Baréin",                      // 4
-                "Arabia Saudita",              // 5
-                "Estados Unidos (Miami)",      // 6
-                "Italia (Imola)",              // 7
-                "Mónaco",                      // 8
-                "España",                      // 9
-                "Canadá",                      // 10
-                "Austria",                     // 11
-                "Gran Bretaña",                // 12
-                "Bélgica",                     // 13
-                "Hungría",                     // 14
-                "Países Bajos",                // 15
-                "Italia (Monza)",              // 16
-                "Azerbaiyán",                  // 17
-                "Singapur 🇸🇬",                    // 18
-                "Estados Unidos (Austin)",     // 19
-                "México",                      // 20
-                "Brasil",                      // 21
-                "Estados Unidos (Las Vegas)",  // 22
-                "Catar",                       // 23
-                "Abu Dabi"                     // 24
+                "Australia", "China", "Japón", "Baréin", "Arabia Saudita",
+                "Estados Unidos (Miami)", "Italia (Imola)", "Mónaco", "España",
+                "Canadá", "Austria", "Gran Bretaña", "Bélgica", "Hungría",
+                "Países Bajos", "Italia (Monza)", "Azerbaiyán", "Singapur",
+                "Estados Unidos (Austin)", "México", "Brasil",
+                "EE UU (Las Vegas)", "Catar", "Abu Dabi"
             ];
-            return names[index];
+
+            // Verificación de seguridad
+            if (index >= 0 && index < names.length) {
+                return names[index];
+            } else {
+                return "PRÓXIMA CARRERA";
+            }
         }
 
         // Iniciar contador al cargar la página
