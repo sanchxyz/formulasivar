@@ -288,7 +288,7 @@ body {
 }
 
 .unit-label {
-    font-size: 0.65rem;
+    font-size: clamp(0.50rem, 2vw, 0.8rem);
     /* Reducido de 0.75rem */
     color: #000000;
     text-transform: uppercase;
@@ -499,8 +499,8 @@ body {
     background: rgba(0, 0, 0, 0.326);
     /* Fondo oscuro semi-transparente */
     padding: 10px 15px;
-    border-radius: 12px;
-    margin: 10px 0 0 0;
+    border-radius: 25px;
+    margin: 25px 0 0 0;
     /* Espacio arriba para separar del contador */
     text-align: center;
     backdrop-filter: blur(5px);
@@ -922,13 +922,24 @@ body {
 
 .card-divider {
     border: none;
-    /* Quitamos el borde feo que trae por defecto */
+    /* quitamos el borde por defecto */
     height: 1px;
-    /* Le damos un grosor de 1px */
-    background-color: rgba(255, 255, 255, 0.1);
-    /* Color blanco translúcido */
+    /* grosor de la línea */
     margin: 10px 0 20px 0;
-    /* Espacio por arriba y por abajo */
+    /* mismos espacios que ya tenías */
+    background: rgba(255, 255, 255, 0.25);
+    /* color del centro */
+    /* 👇 mágica: desvanece 0 px a los lados, 100 % en el centro */
+    mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 20%,
+            black 80%,
+            transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 20%,
+            black 80%,
+            transparent 100%);
 }
 
 .title-container {
@@ -1022,7 +1033,7 @@ body {
 
     /* Letras más pequeñas */
     .unit-label {
-        font-size: 0.6rem !important;
+        font-size: clamp(0.4rem, 2vw, 0.75rem) !important;
         /* Reducido de 0.65rem */
     }
 

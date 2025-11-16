@@ -15,7 +15,19 @@
 </head>
 
 <body>
-    <div class="rotating-image"></div>
+    <!-- Fondo SVG rotante (ahora inline) -->
+    <svg class="rotating-image" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox">
+                <feGaussianBlur stdDeviation="57" edgeMode="none" result="blur" />
+            </filter>
+        </defs>
+        <g filter="url(#bbblurry-filter)">
+            <ellipse rx="150" ry="150" cx="233.85" cy="292.26" fill="hsla(0, 88%, 55%, 1)" />
+            <ellipse rx="150" ry="150" cx="561.71" cy="215.80" fill="hsla(8, 71%, 40%, 1)" />
+            <ellipse rx="150" ry="150" cx="556.67" cy="581.94" fill="hsla(207, 70%, 56%, 1)" />
+        </g>
+    </svg>
     <div class="rotating-car"></div>
 
     <div class="container">
