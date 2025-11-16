@@ -22,6 +22,8 @@
 
     /* Fuentes */
     --fuente-principal: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+
 }
 
 
@@ -148,7 +150,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: clamp(10px, 1.5vw, 12px);
+    font-size: clamp(6px, 2vw, 9px);
     color: var(--color-texto-secundario);
     background: rgba(118, 117, 117, 0.261);
     padding: 6px 12px;
@@ -156,7 +158,7 @@ body {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
-    animation: blink 2s infinite;
+    animation: blink 6s infinite;
 }
 
 .signature {
@@ -177,7 +179,7 @@ body {
 .and-separator {
     color: #ffffff88;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 9px;
 }
 
 .icon-small {
@@ -538,7 +540,7 @@ body {
 }
 
 .telegram-icon {
-    animation: glow-telegram 2s ease-in-out infinite;
+    animation: glow-telegram 4s ease-in-out infinite;
 }
 
 /* Parpadeo suave */
