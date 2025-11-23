@@ -174,7 +174,7 @@ function getRaceName(index) {
         "México",
         "Brasil",
         "EE UU (Las Vegas)",
-        "Catar",
+        "Qatar",
         "Abu Dabi",
     ];
 
