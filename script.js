@@ -197,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Slider de imágenes
 // ============================================================================
 const imageList = [
+    "assets/img_0.webp",
     "assets/img_1.webp",
     "assets/img_2.webp",
     "assets/img_3.webp",
