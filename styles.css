@@ -433,30 +433,61 @@ body {
     overflow: hidden;
 }
 
-.calendar-slider img {
+/* =================================
+   NUEVO SLIDER TIPO CARTAS (CARD STACK)
+   ================================= */
+.calendar-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Mantiene todo dentro del marco */
+    perspective: 1000px;
+    /* IMPORTANTE: Le da profundidad 3D al movimiento */
+}
+
+/* Estilo base compartido para ambas cartas */
+.slider-card {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-    z-index: 0;
+    border-radius: 35px;
+    /* Mantiene tus bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.174);
+    /* Sombra para que parezca una carta real */
+
+    /* Preparamos la transición suave */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s;
 }
 
-.calendar-slider img.visible {
+/* La carta de ARRIBA (La que ves actualmente) */
+.slider-card.front {
+    z-index: 2;
+    /* Se pone encima */
+    transform: translateX(0) rotate(0deg);
     opacity: 1;
+}
+
+/* La carta de ABAJO (La que espera su turno) */
+.slider-card.back {
     z-index: 1;
+    /* Se pone debajo */
+    transform: scale(0.92) translateY(10px);
+    /* Un poco más pequeña y abajo para dar efecto 3D */
+    opacity: 0.6;
+    /* Un poco oscura hasta que le toque subir */
 }
 
-.calendar-slider img.hidden {
-    opacity: 0;
-    z-index: 0;
+/* --- LA ANIMACIÓN --- */
+/* Esta clase se la pondremos con JS para "tirar" la carta */
+.swipe-out {
+    transform: translateX(-120%) rotate(-20deg) !important;
+    /* Se va a la derecha rotando */
+    opacity: 0 !important;
 }
-
-
 
 
 
@@ -584,10 +615,10 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('assets/bbblurry.svg') no-repeat center center;
+
     background-size: cover;
     z-index: -1;
-    animation: rotar 20s linear infinite;
+    animation: rotar 60s linear infinite;
     pointer-events: none;
 
     transform-origin: center center;

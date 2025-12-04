@@ -194,9 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ============================================================================
-// Slider de imágenes
+// NUEVO SLIDER TIPO CARTAS (CARD STACK)
 // ============================================================================
-const imageList = [
+const cardImages = [
     "assets/img_0.webp",
     "assets/img_1.webp",
     "assets/img_2.webp",
@@ -206,40 +206,45 @@ const imageList = [
     "assets/img_6.webp",
 ];
 
-let current = -1;
-const sliderImage = document.getElementById("slider1");
-const transitionTime = 500; // 500ms de animación
-const displayTime = 4000; // 4 segundos visible
+// Empezamos apuntando al índice 2, porque en el HTML ya pusiste la img_1 y img_2
+let nextCardIndex = 2;
 
-// Precargar imágenes
-imageList.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-});
+function startCardSwiper() {
+    // Ejecutamos la función cada 4 segundos (4000 ms)
+    setInterval(() => {
+        // 1. Identificamos quién está al frente y quién atrás AHORA MISMO
+        const activeFront = document.querySelector('.slider-card.front');
+        const activeBack = document.querySelector('.slider-card.back');
 
-// ============================================================================
-// Función del slider de imágenes
-// ============================================================================
-function runSimpleSlider() {
-    // 1. Desvanecer la imagen actual (si ya hay una)
-    sliderImage.classList.remove("visible");
+        if (!activeFront || !activeBack) return; // Seguridad por si acaso
 
-    // 2. Esperar a que termine de desvanecerse
-    setTimeout(() => {
-        // 3. Cargar la siguiente imagen
-        current = (current + 1) % imageList.length;
-        sliderImage.src = imageList[current];
+        // 2. ¡ACCIÓN! Le ponemos la clase que activa la animación de salida (CSS)
+        activeFront.classList.add('swipe-out');
 
-        // 4. Esperar a que la nueva imagen esté cargada
-        sliderImage.onload = () => {
-            // 5. Hacer que la nueva imagen aparezca
-            sliderImage.classList.add("visible");
+        // 3. Esperamos 600ms (lo que dura la transición en CSS) para hacer el cambio lógico
+        setTimeout(() => {
+            // A. La carta de atrás PROSIGUE al frente (se hace grande y brillante)
+            activeBack.classList.remove('back');
+            activeBack.classList.add('front');
 
-            // 6. Programar el siguiente ciclo
-            setTimeout(runSimpleSlider, displayTime);
-        };
-    }, transitionTime);
+            // B. La carta que salió volando REGRESA al fondo (se hace pequeña y oscura)
+            activeFront.classList.remove('front', 'swipe-out');
+            activeFront.classList.add('back');
+
+            // C. Truco de magia: Le cambiamos la foto a la carta que acabamos de mandar al fondo
+            // Así, cuando le toque volver a subir, tendrá una imagen nueva.
+            activeFront.src = cardImages[nextCardIndex];
+
+            // D. Preparamos el índice para la siguiente
+            nextCardIndex++;
+            if (nextCardIndex >= cardImages.length) {
+                nextCardIndex = 0; // Si llegamos al final, volvemos a empezar
+            }
+
+        }, 400); // 600ms debe coincidir con el 'transition' de tu CSS
+
+    }, 4000); // Tiempo entre cambios de carta
 }
 
-// Iniciar el slider cuando la página carga
-runSimpleSlider();
+// Iniciamos el slider
+startCardSwiper();
