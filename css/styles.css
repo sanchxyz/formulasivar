@@ -143,48 +143,60 @@ body {
 
 
 
-/* =====  SIGNATURE   ===== */
-
-.signature,
-.author-bubble {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: clamp(6px, 2vw, 9px);
-    color: var(--color-texto-secundario);
-    background: rgba(118, 117, 117, 0.261);
-    padding: 6px 12px;
-    border-radius: var(--borde-radio-pequeno);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    box-shadow: 0 0 6px rgba(88, 11, 11, 0.3);
-    animation: blink 6s infinite;
-}
-
-.signature {
-    margin-bottom: 60px;
-}
+/* ===== SIGNATURE (ESTILO ORIGINAL - MODO FOOTER) ===== */
 
 .dual-signature {
     display: flex;
     align-items: center;
-    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 10px;
+
+    /* POSICIÓN DE FOOTER */
+    margin-top: 8px;
+    /* Mucho espacio arriba para separarlo del contenido */
     margin-bottom: 30px;
+    /* Margen final */
+
+    /* SUTILEZA: Bajamos la opacidad general para que no destaque tanto */
+    opacity: 0.8;
 }
 
+.author-bubble {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
-/* Separador "&" */
+    /* TAMAÑO: Un poco más pequeño que el original */
+    font-size: 10px;
+    padding: 4px 10px;
+    /* Padding reducido */
+
+    /* ESTILO ORIGINAL DE BURBUJA */
+    color: var(--color-texto-secundario);
+    background: rgba(118, 117, 117, 0.261);
+    border-radius: var(--borde-radio-pequeno);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    /* Sombra un poco más suave */
+
+    /* ANIMACIÓN */
+    animation: blink 6s infinite;
+}
+
+/* El separador "&" */
 .and-separator {
     color: #ffffff88;
     font-weight: bold;
     font-size: 9px;
 }
 
+/* Iconos dentro de la burbuja */
 .icon-small {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    /* Un pelín más pequeños */
+    height: 14px;
     transition: transform 0.3s ease;
 }
 
@@ -192,7 +204,7 @@ body {
     transform: scale(1.3);
 }
 
-
+/* Animación de parpadeo original */
 @keyframes blink {
 
     0%,
@@ -201,11 +213,11 @@ body {
     }
 
     50% {
-        opacity: 0.3;
+        opacity: 0.5;
     }
+
+    /* Cambiado a 0.5 para que no desaparezca tanto */
 }
-
-
 
 
 
@@ -679,6 +691,20 @@ body {
    ================================= */
 
 /* HEADER SUPERIOR */
+
+
+.podcast-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    /* Se queda detrás de todo */
+}
+
+
+
 .podcast-header {
     background: rgba(0, 0, 0, 0.387);
     backdrop-filter: blur(15px);

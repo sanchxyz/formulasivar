@@ -1,59 +1,59 @@
 // ============================================================================
-// Configuración de fechas de carreras 2025
+// Configuración de fechas de carreras 2026
 // ============================================================================
 const raceDates = [
-    "2025-03-16",  // GP Australia
-    "2025-03-23",  // GP China
-    "2025-04-06",  // GP Japón
-    "2025-04-13",  // GP Baréin
-    "2025-04-20",  // GP Arabia Saudita
-    "2025-05-04",  // GP Miami
-    "2025-05-18",  // GP Emilia‑Romagna (Imola)
-    "2025-05-25",  // GP Mónaco
-    "2025-06-01",  // GP España
-    "2025-06-15",  // GP Canadá
-    "2025-06-29",  // GP Austria
-    "2025-07-06",  // GP Gran Bretaña
-    "2025-07-27",  // GP Bélgica
-    "2025-08-03",  // GP Hungría
-    "2025-08-31",  // GP Países Bajos
-    "2025-09-07",  // GP Italia
-    "2025-09-21",  // GP Azerbaiyán
-    "2025-10-05",  // GP Singapur
-    "2025-10-19",  // GP Estados Unidos
-    "2025-10-26",  // GP México
-    "2025-11-09",  // GP Brasil
-    "2025-11-22",  // GP Las Vegas
-    "2025-11-30",  // GP Catar
-    "2025-12-07",  // GP Abu Dabi
+    "2026-03-08",  // GP Australia
+    "2026-03-15",  // GP China
+    "2026-03-29",  // GP Japón
+    "2026-04-12",  // GP Baréin
+    "2026-04-19",  // GP Arabia Saudita
+    "2026-05-03",  // GP Miami
+    "2026-05-24",  // GP Canadá
+    "2026-06-07",  // GP Mónaco
+    "2026-06-14",  // GP España (Barcelona)
+    "2026-06-28",  // GP Austria
+    "2026-07-05",  // GP Gran Bretaña
+    "2026-07-19",  // GP Bélgica
+    "2026-07-26",  // GP Hungría
+    "2026-08-23",  // GP Países Bajos
+    "2026-09-06",  // GP Italia (Monza)
+    "2026-09-13",  // GP España (Madrid)
+    "2026-09-27",  // GP Azerbaiyán (Nota: Ajustado a domingo estándar)
+    "2026-10-11",  // GP Singapur
+    "2026-10-25",  // GP Estados Unidos (Austin)
+    "2026-11-01",  // GP México
+    "2026-11-08",  // GP Brasil
+    "2026-11-21",  // GP Las Vegas (Carrera es Sábado noche / Domingo madrugada)
+    "2026-11-29",  // GP Catar
+    "2026-12-06",  // GP Abu Dabi
 ];
 
-// Horas de inicio específicas por carrera (en UTC-6, El Salvador)
+// Horas de inicio aproximadas (en UTC-6, El Salvador)
 const raceStartTimes = {
-    "2025-03-16": "00:00:00",  // 16:00 en Melbourne (UTC+10) = 00:00 en El Salvador (UTC-6) 🇦🇺
-    "2025-03-23": "00:00:00",  // 14:00 en Shanghai (UTC+8) = 00:00 en El Salvador (UTC-6) 🇨🇳
-    "2025-04-06": "23:00:00",  // 14:00 en Suzuka (UTC+9) = 23:00 (día anterior) en El Salvador (UTC-6) 🇯🇵
-    "2025-04-13": "09:00:00",  // 18:00 en Sakhir (UTC+3) = 09:00 en El Salvador (UTC-6) 🇧🇭
-    "2025-04-20": "09:00:00",  // 18:00 en Jeddah (UTC+3) = 09:00 en El Salvador (UTC-6) 🇸🇦
-    "2025-05-04": "13:00:00",  // 15:00 en Miami (UTC-4) = 13:00 en El Salvador (UTC-6) 🇺🇸
-    "2025-05-18": "07:00:00",  // 15:00 en Imola (UTC+2) = 07:00 en El Salvador (UTC-6) 🇮🇹
-    "2025-05-25": "07:00:00",  // 15:00 en Mónaco (UTC+2) = 07:00 en El Salvador (UTC-6) 🇲🇨
-    "2025-06-01": "07:00:00",  // 15:00 en Barcelona (UTC+2) = 07:00 en El Salvador (UTC-6) 🇪🇸
-    "2025-06-15": "12:00:00",  // 14:00 en Montreal (UTC-4) = 12:00 en El Salvador (UTC-6) 🇨🇦
-    "2025-06-29": "07:00:00",  // 15:00 en Spielberg (UTC+2) = 07:00 en El Salvador (UTC-6) 🇦🇹
-    "2025-07-06": "08:00:00",  // 15:00 en Silverstone (UTC+1) = 08:00 en El Salvador (UTC-6) 🇬🇧
-    "2025-07-27": "07:00:00",  // 15:00 en Spa (UTC+2) = 07:00 en El Salvador (UTC-6) 🇧🇪
-    "2025-08-03": "07:00:00",  // 15:00 en Hungaroring (UTC+2) = 07:00 en El Salvador (UTC-6) 🇭🇺
-    "2025-08-31": "07:00:00",  // 15:00 en Zandvoort (UTC+2) = 07:00 en El Salvador (UTC-6) 🇳🇱
-    "2025-09-07": "07:00:00",  // 15:00 en Monza (UTC+2) = 07:00 en El Salvador (UTC-6) 🇮🇹
-    "2025-09-21": "05:00:00",  // 15:00 en Bakú (UTC+4) = 05:00 en El Salvador (UTC-6) 🇦🇿
-    "2025-10-05": "01:00:00",  // 15:00 en Singapur (UTC+8) = 01:00 en El Salvador (UTC-6) 🇸🇬
-    "2025-10-19": "13:00:00",  // 14:00 en Austin (UTC-5) = 13:00 en El Salvador (UTC-6) 🇺🇸
-    "2025-10-26": "14:00:00",  // 14:00 en Ciudad de México (UTC-6) = 14:00 en El Salvador (UTC-6) 🇲🇽
-    "2025-11-09": "11:00:00",  // 14:00 en Interlagos (UTC-3) = 11:00 en El Salvador (UTC-6) 🇧🇷
-    "2025-11-22": "19:00:00",  // 17:00 en Las Vegas (UTC-8) = 19:00 en El Salvador (UTC-6) 🇺🇸
-    "2025-11-30": "09:00:00",  // 18:00 en Lusail (UTC+3) = 09:00 en El Salvador (UTC-6) 🇶🇦
-    "2025-12-07": "07:00:00",  // 17:00 en Yas Marina (UTC+4) = 07:00 en El Salvador (UTC-6) 🇦🇪
+    "2026-03-08": "00:00:00",  // Australia (00:00 del domingo)
+    "2026-03-15": "01:00:00",  // China
+    "2026-03-29": "23:00:00",  // Japón (Sábado 11pm hora SV)
+    "2026-04-12": "09:00:00",  // Baréin
+    "2026-04-19": "11:00:00",  // Arabia Saudita (Nocturna)
+    "2026-05-03": "14:00:00",  // Miami
+    "2026-05-24": "12:00:00",  // Canadá
+    "2026-06-07": "07:00:00",  // Mónaco
+    "2026-06-14": "07:00:00",  // Barcelona
+    "2026-06-28": "07:00:00",  // Austria
+    "2026-07-05": "08:00:00",  // Gran Bretaña
+    "2026-07-19": "07:00:00",  // Bélgica
+    "2026-07-26": "07:00:00",  // Hungría
+    "2026-08-23": "07:00:00",  // Países Bajos
+    "2026-09-06": "07:00:00",  // Monza
+    "2026-09-13": "07:00:00",  // Madrid (Hora estándar europea)
+    "2026-09-27": "05:00:00",  // Azerbaiyán
+    "2026-10-11": "06:00:00",  // Singapur (Nocturna allá, mañana aquí)
+    "2026-10-25": "13:00:00",  // Austin
+    "2026-11-01": "14:00:00",  // México
+    "2026-11-08": "11:00:00",  // Brasil
+    "2026-11-21": "23:00:00",  // Las Vegas (Sábado noche hora SV)
+    "2026-11-29": "11:00:00",  // Catar
+    "2026-12-06": "07:00:00",  // Abu Dabi
 };
 
 // ============================================================================
@@ -148,37 +148,36 @@ function updateCountdown() {
 }
 
 // ============================================================================
-// Nombres de carreras para 2025
+// Nombres de carreras para 2026
 // ============================================================================
 function getRaceName(index) {
     const names = [
-        "Australia",
+        "Australia - 2026",
         "China",
         "Japón",
         "Baréin",
         "Arabia Saudita",
-        "Estados Unidos (Miami)",
-        "Italia (Imola)",
-        "Mónaco",
-        "España",
+        "EE.UU. (Miami)",
         "Canadá",
+        "Mónaco",
+        "España (Barcelona)",
         "Austria",
         "Gran Bretaña",
         "Bélgica",
         "Hungría",
         "Países Bajos",
         "Italia (Monza)",
+        "España (Madrid)",
         "Azerbaiyán",
         "Singapur",
-        "Estados Unidos (Austin)",
+        "EE.UU. (Austin)",
         "México",
         "Brasil",
-        "EE UU (Las Vegas)",
-        "Qatar",
+        "EE.UU. (Las Vegas)",
+        "Catar",
         "Abu Dabi",
     ];
 
-    // Verificación de seguridad
     if (index >= 0 && index < names.length) {
         return names[index];
     } else {
@@ -197,53 +196,53 @@ document.addEventListener("DOMContentLoaded", () => {
 // NUEVO SLIDER TIPO CARTAS (CARD STACK)
 // ============================================================================
 const cardImages = [
-    "assets/img_0.webp",
-    "assets/img_1.webp",
-    "assets/img_2.webp",
-    "assets/img_3.webp",
-    "assets/img_4.webp",
-    "assets/img_5.webp",
-    "assets/img_6.webp",
+    "assets/galeria/img_0.webp",
+    "assets/galeria/img_1.webp",
+    "assets/galeria/img_2.webp",
+    "assets/galeria/img_3.webp",
+    "assets/galeria/img_4.webp",
+    "assets/galeria/img_5.webp",
+    "assets/galeria/img_6.webp",
 ];
-
 // Empezamos apuntando al índice 2, porque en el HTML ya pusiste la img_1 y img_2
 let nextCardIndex = 2;
 
 function startCardSwiper() {
-    // Ejecutamos la función cada 4 segundos (4000 ms)
     setInterval(() => {
-        // 1. Identificamos quién está al frente y quién atrás AHORA MISMO
         const activeFront = document.querySelector('.slider-card.front');
         const activeBack = document.querySelector('.slider-card.back');
 
-        if (!activeFront || !activeBack) return; // Seguridad por si acaso
+        if (!activeFront || !activeBack) return;
 
-        // 2. ¡ACCIÓN! Le ponemos la clase que activa la animación de salida (CSS)
+        // 1. Iniciamos animación de salida
         activeFront.classList.add('swipe-out');
 
-        // 3. Esperamos 600ms (lo que dura la transición en CSS) para hacer el cambio lógico
+        // 2. Pre-cargamos la SIGUIENTE imagen (la que usaremos en el futuro)
+        // Esto hace que el navegador la baje en background para que esté lista.
+        const nextImgObj = new Image();
+        nextImgObj.src = cardImages[nextCardIndex];
+
+        // 3. Esperamos el tiempo EXACTO de la transición CSS (ajusta 400 o 600 según tu CSS)
         setTimeout(() => {
-            // A. La carta de atrás PROSIGUE al frente (se hace grande y brillante)
+            // Intercambio de roles
             activeBack.classList.remove('back');
             activeBack.classList.add('front');
 
-            // B. La carta que salió volando REGRESA al fondo (se hace pequeña y oscura)
             activeFront.classList.remove('front', 'swipe-out');
             activeFront.classList.add('back');
 
-            // C. Truco de magia: Le cambiamos la foto a la carta que acabamos de mandar al fondo
-            // Así, cuando le toque volver a subir, tendrá una imagen nueva.
+            // Asignamos la imagen (que ya debería estar pre-cargada)
             activeFront.src = cardImages[nextCardIndex];
 
-            // D. Preparamos el índice para la siguiente
+            // Avanzamos índice
             nextCardIndex++;
             if (nextCardIndex >= cardImages.length) {
-                nextCardIndex = 0; // Si llegamos al final, volvemos a empezar
+                nextCardIndex = 0;
             }
 
-        }, 400); // 600ms debe coincidir con el 'transition' de tu CSS
+        }, 400); // IMPORTANTE: Asegúrate que esto coincida con tu "transition" en styles.css
 
-    }, 4000); // Tiempo entre cambios de carta
+    }, 4000);
 }
 
 // Iniciamos el slider

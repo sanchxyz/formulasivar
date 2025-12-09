@@ -7,26 +7,50 @@
     <title>Podcast - FORMULA SIVAR</title>
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
     <!-- Fondo animado -->
-    <div class="rotating-image"></div>
+    <svg class="podcast-bg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800"
+        preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox"
+                primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feGaussianBlur stdDeviation="91" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic"
+                    edgeMode="none" result="blur"></feGaussianBlur>
+            </filter>
+        </defs>
+        <g filter="url(#bbblurry-filter)">
+            <ellipse rx="150" ry="150" cx="415.59" cy="393.26" fill="hsla(42, 61%, 45%, 1.00)"></ellipse>
+            <ellipse rx="150" ry="150" cx="410.66" cy="253.95" fill="hsla(0, 91%, 54%, 1.00)"></ellipse>
+        </g>
+    </svg>
 
     <!-- NUEVO HEADER SUPERIOR -->
     <header class="podcast-header">
         <div class="header-content">
             <!-- Logo a la izquierda -->
-            <img src="assets/formulasivar_webp_blank_lowquality.webp" alt="Logo" class="podcast-header-logo" />
+            <img src="assets/iconos/formulasivar_webp_blank_lowquality.webp" alt="Logo" class="podcast-header-logo" />
 
             <!-- Iconos de plataformas a la derecha -->
             <div class="header-platforms">
-                <a href="https://open.spotify.com/show/6fmqieLTdXz2zd1crnDQRQ" target="_blank">
-                    <img src="assets/spotify.png" alt="Spotify" class="platform-icon">
+                <a href="https://open.spotify.com/show/6fmqieLTdXz2zd1crnDQRQ" target="_blank" style="color: white;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="platform-icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-2.168 11.605c-1.285 -1.927 -4.354 -2.132 -6.387 -.777a1 1 0 0 0 1.11 1.664c1.195 -.797 3.014 -.675 3.613 .223a1 1 0 1 0 1.664 -1.11m1.268 -3.245c-2.469 -1.852 -5.895 -2.187 -8.608 -.589a1 1 0 0 0 1.016 1.724c1.986 -1.171 4.544 -.92 6.392 .465a1 1 0 0 0 1.2 -1.6m1.43 -3.048c-3.677 -2.298 -7.766 -2.152 -10.977 -.546a1 1 0 0 0 .894 1.788c2.635 -1.317 5.997 -1.437 9.023 .454a1 1 0 1 0 1.06 -1.696" />
+                    </svg>
                 </a>
-                <a href="https://youtu.be/PqaEqKyrymE" target="_blank">
-                    <img src="assets/youtube.png" alt="YouTube" class="platform-icon">
+
+                <a href="https://youtu.be/PqaEqKyrymE" target="_blank" style="color: white;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="platform-icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z" />
+                    </svg>
                 </a>
             </div>
         </div>
