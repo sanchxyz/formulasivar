@@ -1,0 +1,197 @@
+/* =========================================
+   1. CONFIGURACIÓN GLOBAL (VARIABLES)
+   ========================================= */
+:root {
+    /* Paleta de Colores */
+    --color-bg: #121212;
+    --color-text-main: #ffffff;
+    --color-text-secondary: #fafafa71;
+
+    /* Colores de Acento */
+    --color-accent-cyan: #80d8ff;
+    --color-accent-red: #ff4d4d;
+    --color-accent-yellow: #ebcacc;
+
+    /* Sistema Glassmorphism (Vidrio) */
+    --glass-bg: rgba(68, 68, 68, 0.25);
+    --glass-blur: 10px;
+    --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Bordes y Espaciado */
+    --radius-lg: 35px;
+    --radius-sm: 25px;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* =========================================
+   2. RESET Y BASES
+   ========================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    /* Evita scroll horizontal */
+    line-height: 1.5;
+}
+
+/* Enlaces por defecto: sin subrayado */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Imágenes responsive por defecto */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* =========================================
+   3. LAYOUT PRINCIPAL
+   ========================================= */
+.container {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================
+   4. COMPONENTES COMPARTIDOS (UI KIT)
+   ========================================= */
+
+/* --- Tarjeta de Cristal Base --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--glass-shadow);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    width: 90%;
+    max-width: 450px;
+    margin: 15px auto;
+}
+
+
+/* --- Logo Principal --- */
+.logo {
+    /* clamp(MINIMO, IDEAL, MAXIMO)
+       1. 140px: Tamaño mínimo en móviles pequeños.
+       2. 35vw:  El logo ocupará el 35% del ancho de la pantalla mientras crece.
+       3. 220px: Tamaño máximo en Desktop (no pasará de aquí).
+    */
+    width: clamp(140px, 35vw, 220px);
+
+    height: auto;
+    /* Mantiene la proporción siempre */
+    margin-bottom: 5px;
+
+    /* Opcional: una transición suave si cambias el tamaño de ventana manualmente */
+    transition: width 0.3s ease;
+}
+
+/* --- Footer / Firmas (Dual Signature) --- */
+.dual-signature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 1. OBLIGATORIO: Nunca bajar de línea */
+    flex-wrap: nowrap;
+
+    /* 2. ESPACIO ELÁSTICO:
+       En móvil el espacio es de 4px, en desktop crece a 10px.
+       Esto ayuda a reducir el ancho total en pantallas pequeñas.
+    */
+    gap: clamp(4px, 1.5vw, 10px);
+
+    margin-top: 8px;
+    margin-bottom: 30px;
+    opacity: 0.8;
+
+    /* 3. ANCHO AJUSTADO AL CONTENIDO PERO CENTRADO:
+       En lugar de forzar el ancho del logo, dejamos que ocupe lo necesario
+       pero reducimos sus elementos internos para que visualmente se vea compacto.
+    */
+    width: fit-content;
+    max-width: 100%;
+    /* Seguridad para que no se salga de la pantalla */
+}
+
+.author-bubble {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    /* Gap interno pequeño fijo */
+
+    /* 4. TEXTO ELÁSTICO:
+       Aquí está la magia.
+       - Min: 8px (Móvil muy pequeño)
+       - Ideal: 2.2% del ancho de pantalla
+       - Max: 11px (Desktop)
+    */
+    font-size: clamp(8px, 2.2vw, 11px);
+
+    /* Padding también elástico */
+    padding: 3px clamp(6px, 1.5vw, 10px);
+
+    color: var(--color-text-secondary);
+    background: rgba(118, 117, 117, 0.26);
+    border-radius: var(--radius-sm);
+    backdrop-filter: blur(var(--glass-blur));
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    animation: blink 6s infinite;
+
+    /* Aseguramos que el nombre no se parta nunca */
+    white-space: nowrap;
+}
+
+/* Ajuste opcional para el separador y el "By" para que escalen igual */
+.and-separator,
+.by-label {
+    /* Que acompañen el tamaño de la burbuja */
+    font-size: clamp(8px, 2vw, 10px);
+}
+
+.icon-small {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+}
+
+.icon-small:hover {
+    transform: scale(1.3);
+}
+
+/* Animación de parpadeo suave para las firmas */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
