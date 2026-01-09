@@ -64,19 +64,252 @@ img {
    ========================================= */
 .container {
     width: 100%;
-    max-width: 980px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 30px 20px;
+
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0px;
+
     position: relative;
     z-index: 1;
 }
 
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    max-width: 480px;
+    flex: 1 1 300px;
+}
+
+
+.secondary-column {
+    display: flex;
+    flex-direction: column;
+    /* Apila sus cajas verticalmente */
+    align-items: center;
+    /* Las centra */
+    width: 100%;
+
+    /* Mismas dimensiones que la principal para equilibrio */
+    max-width: 480px;
+    flex: 1 1 300px;
+
+    /* Opcional: Un poco de espacio entre las cajas de esta columna */
+    gap: 0;
+}
+
+
 /* =========================================
    4. COMPONENTES COMPARTIDOS (UI KIT)
    ========================================= */
+
+
+
+/* --- Tarjeta con Foto de Fondo --- */
+.photo-card {
+    /* 1. DIMENSIONES Y FORMA */
+    width: 90%;
+    /* Igual que tus .glass-card para que se alineen */
+    max-width: 450px;
+    margin: 15px auto;
+    /* Centrado automático */
+
+    /* LA SOLUCIÓN: Usamos proporción matemática en vez de altura fija */
+    aspect-ratio: 16 / 9;
+    /* Forma rectangular perfecta (tipo video de YouTube) */
+    /* Respaldo por si acaso: */
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Para que el texto que pongamos luego quede abajo */
+
+    /* 2. IMAGEN */
+    background-size: cover;
+    /* Cubre el área */
+    background-position: center center;
+    /* Centra lo importante */
+    background-repeat: no-repeat;
+    background-color: #2a2a2a;
+    /* Fondo gris oscuro mientras carga */
+
+    /* 3. ESTÉTICA */
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* --- Capa de Vidrio Radial (Advanced Masking) --- */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* 1. EL FONDO Y EL EFECTO (La base) */
+    /* Un color oscuro sólido que se desvanecerá con la máscara */
+    background-color: rgba(0, 0, 0, 0.7);
+
+    /* Aumenté el blur a 8px para que se note bien el contraste con la parte nítida */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* 2. LA MÁSCARA MÁGICA (El recorte radial) */
+    /* Esto hace que el efecto anterior solo sea visible en un círculo desde la esquina */
+    -webkit-mask-image: radial-gradient(circle at 0% 0%,
+            /* Centro del círculo: Arriba Izquierda */
+            black 0%,
+            /* Inicio: Totalmente visible (Blur + Oscuro) */
+            black 40%,
+            /* Mantiene la fuerza hasta el 40% del camino */
+            transparent 85%
+            /* Fin: Se vuelve invisible (Muestra la foto nítida) */
+        );
+
+    mask-image: radial-gradient(circle at 0% 0%,
+            black 0%,
+            black 40%,
+            transparent 85%);
+
+    /* 3. ALINEACIÓN DEL TEXTO */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+
+    /* Asegura que el texto no se salga de la zona oscurecida */
+    padding-right: 20%;
+}
+
+
+
+/* --- Tipografía Dinámica de la Tarjeta --- */
+.card-title {
+    color: var(--color-text-main);
+
+    /* DINAMISMO: 
+       - Min: 1.1rem (aprox 17px) en móviles pequeños.
+       - Ideal: Crece al 3% del ancho de pantalla.
+       - Max: 1.6rem (aprox 25px) en desktop.
+    */
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+
+    font-weight: 800;
+    /* Extra bold para impacto */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* Elegancia */
+    line-height: 1.1;
+    /* Compacto verticalmente */
+    margin: 0 0 6px 0;
+    /* Separación pequeña con el párrafo */
+
+    /* Sombra fuerte para asegurar lectura sobre cualquier foto */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.card-description {
+    color: var(--color-text-secondary);
+    /* Color grisáceo/blanco suave */
+
+    /* DINAMISMO:
+       - Min: 0.8rem (Texto pequeñito pero legible en móvil).
+       - Max: 0.95rem (Texto estándar en desktop).
+    */
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+
+    font-weight: 500;
+    line-height: 1.4;
+
+    /* Truco de diseño: Limita el ancho del texto al 85% 
+       para que no se meta en la zona transparente de la derecha */
+    max-width: 85%;
+
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+
+
+
+
+/* --- Icono Animado Flotante (Glass Circle) --- */
+.glass-circle-icon {
+    /* 1. Posición: Abajo a la Izquierda (Absoluta respecto a la carta) */
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    /* Para que flote encima de todo */
+
+    /* 2. Tamaño del Círculo */
+    width: 55px;
+    height: 55px;
+
+    /* 3. Efecto Vidrio Esmerilado (Igual que tus cajas pero en círculo) */
+    background: rgba(92, 91, 91, 0.15);
+    /* Un poco más claro para que resalte */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+    /* 4. Forma perfecta */
+    border-radius: 50%;
+
+    /* 5. Centrar la animación dentro del círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    /* Margen interno para que el icono no toque los bordes */
+
+    /* Transición por si quieres que crezca al pasar el mouse */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Efecto Hover Opcional: Crece un poquito al pasar el mouse */
+.glass-circle-icon:hover {
+    transform: scale(1.15) rotate(5deg);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--color-accent-cyan);
+    cursor: pointer;
+}
+
+/* --- Corrección de Color para el Icono Lottie --- */
+.glass-circle-icon svg path {
+    /* 1. FORZAR RELLENO Y LÍNEAS */
+    /* Usamos !important para sobrescribir el color que trae el archivo json */
+    fill: var(--color-text-main) !important;
+    /* Si el icono tiene relleno */
+    stroke: var(--color-text-main) !important;
+    /* Si el icono es de líneas */
+
+    /* 2. OPCIONAL: Si quisieras el color CYAN, cambia lo de arriba por: 
+       stroke: var(--color-accent-cyan) !important; 
+    */
+
+    /* Suavizado para que se vea HD */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 
 /* --- Tarjeta de Cristal Base --- */
 .glass-card {
@@ -93,19 +326,55 @@ img {
 }
 
 
+/* Alineación a la derecha para iconos específicos */
+.icon-right {
+    left: auto !important;
+    /* Desactiva la izquierda */
+    right: 20px;
+    /* Lo pega a la derecha */
+}
+
+
+
+/* --- MODIFICADOR TIPO BANNER --- */
+/* Se usa JUNTO con .photo-card */
+.banner-mode {
+    /* 1. Rompemos la proporción de TV (16/9) */
+    aspect-ratio: unset !important;
+    min-height: unset !important;
+
+    /* 2. Altura Dinámica (La clave del banner) */
+    /* Min: 110px (Móvil), Ideal: 15% del ancho, Max: 140px (PC) */
+    height: clamp(40px, 12vw, 100px);
+
+    /* 3. Ajuste de contenido */
+    /* Centramos el texto verticalmente porque hay menos espacio */
+    justify-content: center;
+}
+
+/* Ajuste fino para el texto dentro del banner */
+.banner-mode .card-overlay {
+    /* Reducimos el padding vertical para aprovechar espacio */
+    padding: 0 25px;
+
+    /* Centrado vertical perfecto del texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Opcional: Si sientes que el título queda muy grande en modo banner */
+.banner-mode .card-title {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-bottom: 2px;
+}
+
+
 /* --- Logo Principal --- */
 .logo {
-    /* clamp(MINIMO, IDEAL, MAXIMO)
-       1. 140px: Tamaño mínimo en móviles pequeños.
-       2. 35vw:  El logo ocupará el 35% del ancho de la pantalla mientras crece.
-       3. 220px: Tamaño máximo en Desktop (no pasará de aquí).
-    */
-    width: clamp(140px, 35vw, 220px);
+    width: clamp(110px, 35vw, 160px);
 
     height: auto;
-    /* Mantiene la proporción siempre */
-    margin-bottom: 5px;
-
     /* Opcional: una transición suave si cambias el tamaño de ventana manualmente */
     transition: width 0.3s ease;
 }
@@ -118,15 +387,8 @@ img {
 
     /* 1. OBLIGATORIO: Nunca bajar de línea */
     flex-wrap: nowrap;
-
-    /* 2. ESPACIO ELÁSTICO:
-       En móvil el espacio es de 4px, en desktop crece a 10px.
-       Esto ayuda a reducir el ancho total en pantallas pequeñas.
-    */
     gap: clamp(4px, 1.5vw, 10px);
 
-    margin-top: 8px;
-    margin-bottom: 30px;
     opacity: 0.8;
 
     /* 3. ANCHO AJUSTADO AL CONTENIDO PERO CENTRADO:
@@ -160,7 +422,6 @@ img {
     border-radius: var(--radius-sm);
     backdrop-filter: blur(var(--glass-blur));
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    animation: blink 6s infinite;
 
     /* Aseguramos que el nombre no se parta nunca */
     white-space: nowrap;
@@ -181,17 +442,4 @@ img {
 
 .icon-small:hover {
     transform: scale(1.3);
-}
-
-/* Animación de parpadeo suave para las firmas */
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
 }

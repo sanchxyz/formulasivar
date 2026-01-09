@@ -2,6 +2,32 @@
    1. HEADER ESPECÍFICO DEL PODCAST
    ========================================= */
 
+
+/* =========================================
+   TEXTURA DE FONDO (Importada del Index)
+   ========================================= */
+.bg-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    /* La clave para que se vea bien en cualquier pantalla */
+    object-fit: cover;
+
+    /* CAPAS (Z-INDEX):
+       -1 es tu SVG de colores (según tu css actual).
+       -2 pondrá esta textura DETRÁS de los colores.
+       Si quieres que la textura esté ENCIMA de los colores para dar efecto "granulado",
+       cambia esto a -1 y agrega "mix-blend-mode: overlay;"
+    */
+    z-index: -2;
+
+    /* Opcional: Ajusta la opacidad si la sientes muy fuerte */
+    opacity: 0.2;
+}
+
 /* Fondo fijo específico para podcast */
 .podcast-bg {
     position: fixed;
@@ -11,7 +37,7 @@
     height: 100vh;
     z-index: -1;
     /* Si tienes una imagen de fondo específica, iría aquí */
-    background-color: var(--color-bg);
+    background-color: transparent;
 }
 
 .podcast-header {

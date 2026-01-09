@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula Sivar - GP Brasil</title>
+
+    <link rel="stylesheet" href="css/global.css">
+
+    <style>
+        /* =========================================
+   SISTEMA DE CAPAS BRASIL (MEJORADO)
+   ========================================= */
+
+        .content-wrapper {
+            background: transparent !important;
+            position: relative;
+            overflow: hidden;
+            /* Esto asegura que las capas respeten el borde redondeado */
+            border-radius: 30px 30px 0 0;
+        }
+
+        /* Regla general para todas las capas */
+        .content-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* Click a través de las capas */
+        }
+
+        /* --- CAPA 1: BASE OSCURA (El Lienzo) --- */
+        .base-layer {
+            background-color: #050505;
+            /* Casi negro */
+            opacity: 0.95;
+            /* 95% Sólido (Ajusta esto si quieres más o menos oscuridad) */
+            z-index: -3;
+        }
+
+        /* --- CAPA 2: COLORES SVG --- */
+        .color-layer {
+            z-index: -2;
+            transform: scale(1.2);
+            /* Zoom leve para suavizar bordes */
+            opacity: 0.2;
+            /* Qué tanto brillan los colores sobre el negro */
+        }
+
+        /* --- CAPA 3: TEXTURA (Control de Zoom) --- */
+        .texture-layer {
+            z-index: -1;
+
+            /* Cargamos la imagen aquí en vez de en HTML */
+            background-image: url('../assets/icons/back_1.webp');
+
+            opacity: 0.20;
+            /* Tu opacidad deseada */
+            mix-blend-mode: overlay;
+            /* Fusión profesional */
+
+            /* TRUCO PARA MÓVIL Y DESKTOP */
+            background-repeat: repeat;
+            /* Que se repita si hace falta */
+            background-position: center;
+
+            /* En Desktop, que cubra todo */
+            background-size: cover;
+        }
+
+        /* AJUSTE PARA MÓVILES (Para que no se vea gigante) */
+        @media screen and (max-width: 768px) {
+            .texture-layer {
+                /* En móvil, en vez de estirar la imagen (cover), 
+           le damos un tamaño fijo más pequeño. 
+           Esto hace que el "grano" de la textura se vea fino. */
+                background-size: 500px auto;
+            }
+        }
+
+        /* =========================================
+           1. RESET Y BASE
+           ========================================= */
+        body {
+            background-color: var(--color-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* BANNER Y HEADER */
+        .hero-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            background-image: url('assets/images/glasscards/saopablobaner.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            box-shadow: inset 0 -50px 50px rgba(0, 0, 0, 0.8);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        .linear-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 18vh;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 25px;
+            gap: 30px;
+        }
+
+        /* LOGOS (Tal cual los dejaste) */
+        .header-logo {
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+            transition: transform 0.3s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-sivar {
+            height: clamp(30px, 5vw, 45px);
+        }
+
+        .logo-casus {
+            height: clamp(30px, 5vw, 45px);
+        }
+
+        .vs-divider {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+
+        /* =========================================
+           2. CONTENEDOR PRINCIPAL
+           ========================================= */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            margin-top: 45vh;
+            background-color: var(--color-bg);
+            min-height: 100vh;
+
+            /* AQUÍ ESTÁ EL AJUSTE DE MÁRGENES QUE PEDISTE */
+            padding: 40px clamp(20px, 8vw, 100px);
+
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* HEADER DEL VIAJE */
+        .trip-header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 10px;
+        }
+
+        .trip-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin: 0;
+            line-height: 1;
+            background: linear-gradient(to right, #fff, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .trip-subtitle {
+            color: var(--color-accent-cyan);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .trip-meta {
+            margin-top: 15px;
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* =========================================
+           3. ESTILOS DE COMPONENTES
+           ========================================= */
+        .glass-card-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            /* Importante para que se estiren en Grid */
+        }
+
+        .glass-card-info h3 {
+            margin-top: 0;
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            border-left: 4px solid var(--color-accent-cyan);
+            padding-left: 15px;
+            margin: 0 0 25px 0;
+            /* Margen limpio para Grid */
+            text-transform: uppercase;
+            color: var(--color-text-main);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            margin: 10px 0;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--color-accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-accent-cyan);
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--color-accent-cyan);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            color: var(--color-text-main);
+        }
+
+        .timeline-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+
+
+        /* Estilo para que la barra de scroll sea bonita y sutil */
+        .grid-area-itin .timeline::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .grid-area-itin .timeline::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .grid-area-itin .timeline::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .highlight-day .timeline-date {
+            color: #FFD700;
+        }
+
+        .highlight-day::before {
+            background: #FFD700;
+            box-shadow: 0 0 15px #FFD700;
+        }
+
+        /* LISTAS */
+        .details-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .check-list,
+        .cross-list,
+        .clean-list {
+            list-style: none;
+            padding: 0;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .check-title {
+            color: #4caf50;
+            margin: 0 0 10px 0;
+        }
+
+        .cross-title {
+            color: #f44336;
+            margin: 20px 0 10px 0;
+        }
+
+        .check-list li::before {
+            content: '✓ ';
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .cross-list li::before {
+            content: '• ';
+            color: #f44336;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* PRECIO */
+        .price-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .price-tag .label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .price-tag .amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .payment-plan {
+            margin: 15px 0;
+            color: var(--color-text-main);
+        }
+
+        /* BOTONES */
+        .nav-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .cta-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .cta-button.primary {
+            background: #FFD700;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* --- BOTÓN CELESTE (MÁS INFORMACIÓN) --- */
+        .cta-button.secondary {
+            border: 2px solid var(--color-accent-cyan);
+            /* Borde cyan como los puntos */
+            color: var(--color-accent-cyan);
+            background: rgba(0, 243, 255, 0.05);
+            /* Un fondo muy sutil */
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--color-accent-cyan);
+            color: #000;
+            /* Texto negro al pasar el mouse para legibilidad */
+            box-shadow: 0 0 20px var(--color-accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        /* --- BOTÓN GRIS (REGRESAR AL INICIO) --- */
+        .cta-button.tertiary {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Borde gris suave */
+            background: rgba(255, 255, 255, 0.05);
+            /* Fondo sutil para que parezca botón */
+            color: rgba(255, 255, 255, 0.6);
+            /* Gris claro */
+        }
+
+        .cta-button.tertiary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            /* Se ilumina al pasar el mouse */
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .section-mb {
+            margin-bottom: 40px;
+        }
+
+        /* Margen para móvil */
+
+        /* =========================================
+           4. LAYOUT INTELIGENTE (GRID)
+           ========================================= */
+
+        /* MÓVIL (Por defecto): Todo en columna */
+        .bento-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* DESKTOP (Pantallas grandes): Activamos Grid y cambiamos el orden */
+        @media screen and (min-width: 1024px) {
+            .content-wrapper {
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 45vh;
+            }
+
+            .bento-grid {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 30px;
+                /* Más espacio entre cajas */
+
+                /* TU MAPA SOLICITADO:
+                   Fila 1: Itinerario (3) | Paquete (3)
+                   Fila 2: Experiencia (2) | Requisitos (2) | Precio (2)
+                */
+                grid-template-areas:
+                    "itin itin itin pack pack pack"
+                    "exp  exp  req  req  pri  pri";
+            }
+
+            /* Asignamos las áreas */
+            .grid-area-itin {
+                grid-area: itin;
+            }
+
+            .grid-area-pack {
+                grid-area: pack;
+            }
+
+            .grid-area-exp {
+                grid-area: exp;
+            }
+
+            .grid-area-req {
+                grid-area: req;
+            }
+
+            .grid-area-pri {
+                grid-area: pri;
+            }
+
+            /* Ajustes visuales Desktop */
+            .nav-footer {
+                flex-direction: row;
+                justify-content: center;
+                max-width: 600px;
+                margin: 60px auto;
+            }
+
+            .section-mb {
+                margin-bottom: 0;
+            }
+
+            .details-box {
+                display: flex;
+                flex-direction: column;
+                /* Volvemos a una sola columna */
+                justify-content: flex-start;
+                /* Alineamos todo al inicio (arriba) */
+                gap: 15px;
+                /* Espacio controlado entre bloques */
+                height: 100%;
+                /* Mantiene el tamaño igual al timeline */
+            }
+
+            .cross-title {
+                margin-top: 20px;
+                /* Le damos un espacio visual al "No incluye" */
+            }
+
+            .details-col {
+                flex: none;
+                /* Quitamos el flex: 1 para que no fuerce tamaños */
+            }
+
+            .grid-area-pack {
+                align-self: start;
+                /* La tarjeta solo crecerá lo necesario y no se estirará por obligación */
+            }
+
+
+
+        }
+
+        /* AJUSTES MÓVILES (Los que ya tenías) */
+        @media screen and (max-width: 768px) {
+            .hero-banner {
+                height: 30vh;
+            }
+
+            .content-wrapper {
+                margin-top: 26vh;
+            }
+
+            .linear-header {
+                height: 15vh;
+                padding-top: 20px;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-banner"></div>
+
+    <div class="linear-header">
+        <img src="assets/icons/formulasivar_webp_blank_lowquality.webp" alt="Logo Izq" class="header-logo logo-sivar">
+        <span class="vs-divider">|</span>
+        <img src="assets/icons/casus_logo.webp" alt="Logo Der" class="header-logo logo-casus">
+    </div>
+
+    <div class="content-wrapper">
+
+        <div class="content-bg base-layer"></div>
+
+        <svg class="content-bg color-layer" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800"
+            preserveAspectRatio="none">
+            <defs>
+                <filter id="bbblurry-filter-br" x="-100%" y="-100%" width="400%" height="400%"
+                    filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feGaussianBlur stdDeviation="104" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic"
+                        edgeMode="none" result="blur"></feGaussianBlur>
+                </filter>
+            </defs>
+            <g filter="url(#bbblurry-filter-br)">
+                <ellipse rx="185.5" ry="150" cx="428" cy="98" fill="hsla(3, 85%, 56%, 1.00)"></ellipse>
+                <ellipse rx="185.5" ry="150" cx="218" cy="661" fill="hsla(32, 100%, 57%, 1.00)"></ellipse>
+            </g>
+        </svg>
+
+        <div class="content-bg texture-layer"></div>
+
+        <div class="trip-header">
+            <h1 class="trip-title">GP SÃO PAULO 2026</h1>
+            <h4 class="trip-subtitle">VIAJE GRUPAL OFICIAL</h4>
+            <div class="trip-meta">
+                <span>📅 05 - 10 Noviembre</span>
+            </div>
+        </div>
+
+        <div class="bento-grid">
+
+            <div class="grid-area-exp section-mb">
+                <div class="glass-card-info">
+                    <h3>🏁 LA EXPERIENCIA</h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        La Fórmula 1 no se vive igual desde casa. Este viaje está diseñado para que vivas la carrera
+                        desde la
+                        pista, en la <strong>Tribuna G</strong>, rodeado de una comunidad apasionada y con toda la
+                        logística
+                        resuelta por expertos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-area-itin section-mb">
+                <h2 class="section-title">ITINERARIO</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">DÍA 1</div>
+                        <div class="timeline-content">
+                            <h4>Vuelo y Conexión</h4>
+                            <p>Salida grupal San Salvador ✈ São Paulo. Inicio de la aventura.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">DÍA 2</div>
+                        <div class="timeline-content">
+                            <h4>Prácticas (FP1 / FP2)</h4>
+                            <p>Llegada, check-in y directo a Interlagos.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">DÍA 3</div>
+                        <div class="timeline-content">
+                            <h4>🔥 Clasificación</h4>
+                            <p>Definición de parrilla y noche libre en SP.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item highlight-day">
+                        <div class="timeline-date">DÍA 4</div>
+                        <div class="timeline-content">
+                            <h4>🏁 EL GRAN PREMIO</h4>
+                            <p>Carrera oficial + Celebración post-evento.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">DÍA 5</div>
+                        <div class="timeline-content">
+                            <h4>City Tour</h4>
+                            <p>Conocemos la ciudad, cultura y compras.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">DÍA 6</div>
+                        <div class="timeline-content">
+                            <h4>Retorno</h4>
+                            <p>Vuelo de regreso a casa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-area-pack section-mb">
+                <h2 class="section-title">TU PAQUETE</h2>
+                <div class="glass-card-info details-box">
+                    <div class="details-col">
+                        <h4 class="check-title">✅ TODO INCLUIDO</h4>
+                        <ul class="check-list">
+                            <li>Vuelo Ida/Vuelta (SAL-GRU)</li>
+                            <li>Hotel 3★ (5 Noches + Desayuno)</li>
+                            <li><strong>Entradas F1 (3 Días - Tribuna G)</strong></li>
+                            <li>Todos los traslados (Aero/Hotel/Pista)</li>
+                            <li>City Tour Guiado</li>
+                            <li>Coordinador Casus</li>
+                        </ul>
+                    </div>
+                    <div class="details-col">
+                        <h4 class="cross-title">❌ NO INCLUYE</h4>
+                        <ul class="cross-list">
+                            <li>Almuerzos y Cenas</li>
+                            <li>Gastos Personales</li>
+                            <li>Seguro de Viaje</li>
+                            <li>Equipaje Facturado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-area-req section-mb">
+                <h2 class="section-title" style="display:none;">REQUISITOS</h2>
+                <div class="glass-card-info">
+                    <h3 style="margin-bottom:15px; color:var(--color-text-main);">📄 REQUISITOS</h3>
+                    <ul class="clean-list">
+                        <li>• Pasaporte Vigente</li>
+                        <li>• Vacuna Fiebre Amarilla</li>
+                        <li>• <strong>Sin Visa</strong> (SV)</li>
+                        <li>• Edad: 18+</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-area-pri section-mb">
+                <div class="price-section">
+                    <div class="price-tag">
+                        <span class="label">INVERSIÓN TOTAL</span>
+                        <span class="amount">$3,000 <small>USD</small></span>
+                    </div>
+
+                    <div class="payment-plan">
+                        <p>Reserva con <strong>$300</strong> y paga en cuotas.</p>
+                    </div>
+
+                    <a href="https://wa.me/+50377865315?text=Hola,%20necesito%20más%20info%20del%20GP%20Brasil"
+                        target="_blank" class="cta-button primary">
+                        RESERVAR CUPO
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="nav-footer">
+            <a href="https://www.casusviajes.com/brasilgp" target="_blank" class="cta-button secondary">
+                MÁS INFORMACIÓN
+            </a>
+            <a href="index.html" class="cta-button tertiary">
+                Regresar al Inicio
+            </a>
+        </div>
+
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

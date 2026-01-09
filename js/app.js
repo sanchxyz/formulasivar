@@ -9,6 +9,72 @@ document.addEventListener("DOMContentLoaded", () => {
     initCardSlider();
 });
 
+
+
+
+/* =========================================
+   ANIMACIONES LOTTIE
+   ========================================= */
+
+// Animación para la Carta 1
+var animation1 = lottie.loadAnimation({
+    container: document.getElementById('icon-anim-1'), // El ID que pusimos en el HTML
+    renderer: 'svg', // Tecnología de renderizado (ligera)
+    loop: true,      // Que se repita infinitamente
+    autoplay: true,  // Que empiece sola
+    path: 'assets/animations/plane_fly.json' // RUTA EXACTA
+});
+
+// Opcional: Ajustar velocidad (0.5 es lento, 1 es normal, 2 es rápido)
+animation1.setSpeed(0.4);
+
+
+
+// Animación para el Contador (Next Race)
+var animationRace = lottie.loadAnimation({
+    container: document.getElementById('race-icon-anim'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    // Usamos el ticket estrella porque parece una "entrada" a la carrera, 
+    // pero puedes cambiar la ruta si prefieres otro.
+    path: 'assets/animations/star medal.json'
+});
+
+// Velocidad un poco más lenta para no distraer tanto del tiempo
+animationRace.setSpeed(0.3);
+
+
+
+// Animación para la Carta 2 (Temporada 2026)
+var animation2 = lottie.loadAnimation({
+    container: document.getElementById('icon-anim-2'), // Ya existe en tu HTML
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/animations/2 users ai.json' // <--- CAMBIA ESTO por el nombre de tu archivo
+});
+
+// Opcional: Ajustar velocidad (Igual que el anterior)
+animation2.setSpeed(0.3);
+
+
+// Animación para el Podcast (A la derecha)
+var animationPodcast = lottie.loadAnimation({
+    container: document.getElementById('podcast-anim'), // ID nuevo
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/animations/microphone.json' // <--- ¡Asegúrate de que este archivo exista!
+});
+
+// Ajuste de velocidad
+animationPodcast.setSpeed(0.7);
+
+
+
+
+
 /* ============================================================================
    1. CONFIGURACIÓN DE DATOS (FUENTE ÚNICA DE VERDAD)
    ============================================================================ 
