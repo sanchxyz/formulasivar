@@ -336,39 +336,65 @@ img {
 
 
 
-/* --- MODIFICADOR TIPO BANNER --- */
-/* Se usa JUNTO con .photo-card */
+/* --- MODIFICADOR TIPO BANNER (VERSIÓN SLIM) --- */
 .banner-mode {
-    /* 1. Rompemos la proporción de TV (16/9) */
     aspect-ratio: unset !important;
     min-height: unset !important;
 
-    /* 2. Altura Dinámica (La clave del banner) */
-    /* Min: 110px (Móvil), Ideal: 15% del ancho, Max: 140px (PC) */
-    height: clamp(40px, 12vw, 100px);
+    /* ALTURA MÁS DELGADA:
+       - Min: 80px (Móvil)
+       - Max: 100px (PC)
+       Esto es casi un 30% más delgado que antes.
+    */
+    height: clamp(80px, 12vw, 100px);
 
-    /* 3. Ajuste de contenido */
-    /* Centramos el texto verticalmente porque hay menos espacio */
+    /* Alineación */
     justify-content: center;
 }
 
-/* Ajuste fino para el texto dentro del banner */
+/* Ajuste del contenido de texto para el espacio reducido */
 .banner-mode .card-overlay {
-    /* Reducimos el padding vertical para aprovechar espacio */
     padding: 0 25px;
-
-    /* Centrado vertical perfecto del texto */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* Centrado vertical estricto */
 }
 
-/* Opcional: Si sientes que el título queda muy grande en modo banner */
+/* Título un poco más compacto para que no choque */
 .banner-mode .card-title {
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    margin-bottom: 2px;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    margin-bottom: 0;
+    /* Quitamos margen para ahorrar espacio */
 }
 
+/* Descripción más sutil (opcional: puedes borrar esto si quieres la letra normal) */
+.banner-mode .card-description {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+/* --- TRUCO VISUAL: CENTRAR EL ICONO --- */
+/* Como el banner es delgado, "bottom: 20px" ya no sirve. 
+   Hay que centrarlo matemáticamente. */
+.banner-mode .glass-circle-icon {
+    /* Desactivamos la posición original */
+    bottom: auto;
+
+    /* Lo ponemos a la mitad exacta de la altura */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Corrección matemática de centro */
+
+    /* Reducimos un poco el círculo para que respire (de 55px a 45px) */
+    width: 45px;
+    height: 45px;
+
+    /* Aseguramos que siga a la derecha */
+    left: auto !important;
+    right: 20px;
+}
 
 /* --- Logo Principal --- */
 .logo {
