@@ -81,6 +81,7 @@ animationPodcast.setSpeed(0.7);
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
 const SEASON_SCHEDULE = [
+    { name: "Cadillac Livery", date: "2026-02-08", time: "05:30:00" },
     { name: "Australia", date: "2026-03-08", time: "00:00:00" },
     { name: "China", date: "2026-03-15", time: "01:00:00" },
     { name: "Japón", date: "2026-03-29", time: "23:00:00" },
@@ -157,7 +158,7 @@ function initCountdown() {
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         updateDOM(days, hours, minutes, seconds);
-        titleEl.textContent = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
+        titleEl.textContent = `SUPER BOWL | ${raceName.toUpperCase()}`;
     };
 
     // Helper para actualizar el HTML
@@ -234,4 +235,91 @@ function initCardSlider() {
         }, 400);
 
     }, 4000); // Cambio cada 4 segundos
+}
+
+
+
+
+function renderCalendar() {
+    const grid = document.getElementById("calendar-grid");
+    if (!grid) return;
+
+    // 1. NUEVO: Diccionario de imágenes (si quieres control manual)
+    const raceImages = {
+        "Australia": "assets/images/tracks/australia.webp",
+        "China": "assets/images/tracks/china.webp",
+        "Japón": "assets/images/tracks/japan.webp",
+        "Baréin": "assets/images/tracks/bahrain.webp",
+        "Arabia Saudita": "assets/images/tracks/saudi_arabia.webp",
+        "EE.UU. (Miami)": "assets/images/tracks/miami.webp",
+        // ... añade las 24
+    };
+
+    // 2. Diccionario de descripciones (el que ya tienes)
+    const raceDescriptions = {
+        "Bahrein": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
+        "Arabia Saudita": "Jeddah Corniche desafía a los pilotos en el circuito callejero más rápido.",
+        "Australia": "Albert Park nos recibe con sol, lagos y la energía única de Melbourne.",
+        "Japón": "Suzuka es la prueba definitiva de habilidad con sus legendarias curvas en 'S'.",
+        "China": "El Circuito de Shanghai regresa con sus largas rectas y estrategia pura.",
+        "Miami": "El Autódromo de Miami combina glamour, yates y velocidad alrededor del estadio.",
+        "Imola": "El Enzo e Dino Ferrari respira historia en el corazón del Valle del Motor.",
+        "Mónaco": "Las calles de Montecarlo no perdonan errores en la joya de la corona.",
+        "España": "Madrid se estrena en el calendario con un circuito callejero híbrido inédito.",
+        "Canadá": "El Gilles Villeneuve nos espera con su famoso 'Muro de los Campeones'.",
+        "Austria": "El Red Bull Ring es corto, rápido y siempre garantiza adelantamientos.",
+        "Gran Bretaña": "Silverstone, la cuna del deporte, nos recuerda por qué amamos las carreras.",
+        "Hungría": "El Hungaroring es un karting gigante donde la clasificación lo es todo.",
+        "Bélgica": "Spa-Francorchamps separa a los niños de los adultos en el mítico Eau Rouge.",
+        "Países Bajos": "Zandvoort se tiñe de naranja en una pista estrecha y peraltada.",
+        "Italia": "Monza es el 'Templo de la Velocidad', pura potencia y frenadas al límite.",
+        "Azerbaiyán": "Las calles de Bakú mezclan la velocidad extrema con la zona del castillo.",
+        "Singapur": "Marina Bay brilla en la noche más física y calurosa del año.",
+        "Austin": "El COTA en Texas nos regala desniveles, baches y batallas en la curva 1.",
+        "México": "El Autódromo Hermanos Rodríguez vibra con la 'F1ESTA' más grande del mundo.",
+        "Brasil": "Interlagos siempre nos regala finales épicos y clima impredecible.",
+        "Las Vegas": "El Strip de Las Vegas convierte la carrera en el mayor espectáculo del planeta.",
+        "Qatar": "El Circuito de Lusail es una montaña rusa nocturna de alta velocidad.",
+        "Abu Dhabi": "Yas Marina cierra la temporada con fuegos artificiales y el campeón definitivo."
+    };
+
+    grid.innerHTML = "";
+
+    SEASON_SCHEDULE.forEach((race, index) => {
+        const raceCard = document.createElement("div");
+        raceCard.className = "race-card";
+
+        // 3. OPCIÓN A: Usar el diccionario de imágenes
+        const imageUrl = raceImages[race.name] || "assets/images/gallery/img_1.webp";
+
+        // OPCIÓN B (alternativa): Generar nombre de archivo automático (más arriesgado)
+        // const safeName = race.name.toLowerCase()
+        //     .replace(/\./g, '')
+        //     .replace(/\(/g, '')
+        //     .replace(/\)/g, '')
+        //     .replace(/\s+/g, '_')
+        //     .normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Quita acentos
+        // const imageUrl = `assets/images/tracks/${safeName}.webp`;
+
+        raceCard.style.backgroundImage = `url('${imageUrl}')`;
+
+        const desc = raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
+
+        raceCard.innerHTML = `
+            <div class="race-number">#${index + 1}</div>
+            <div class="race-overlay">
+                <span class="race-date">${formatDate(race.date)} | ${race.time.substring(0, 5)} SV</span>
+                <h3 class="race-name">${race.name.toUpperCase()}</h3>
+                <p class="race-desc">${desc}</p>
+            </div>
+        `;
+
+        grid.appendChild(raceCard);
+    });
+}
+
+// Helper para poner la fecha bonita
+function formatDate(dateStr) {
+    const options = { day: '2-digit', month: 'short' };
+    return new Date(dateStr + "T00:00:00").toLocaleDateString('es-ES', options).toUpperCase();
 }
