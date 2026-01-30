@@ -187,14 +187,13 @@ function initCountdown() {
 }
 
 /* ============================================================================
-   3. MÓDULO DEL SLIDER (CARD STACK)
+   3. MÓDULO DEL SLIDER (CINEMATIC FADE)
    ============================================================================ */
 function initCardSlider() {
-    // Verificamos si estamos en la página del slider
-    const sliderContainer = document.querySelector('.calendar-slider');
+    const sliderContainer = document.getElementById('cinematic-slider');
     if (!sliderContainer) return;
 
-    // Rutas actualizadas a la nueva estructura de carpetas
+    // Rutas de imágenes
     const cardImages = [
         "assets/images/gallery/img_0.webp",
         "assets/images/gallery/img_1.webp",
@@ -205,40 +204,28 @@ function initCardSlider() {
         "assets/images/gallery/img_6.webp",
     ];
 
-    let nextCardIndex = 2; // Empezamos después de las 2 que ya están en HTML
+    // 1. Generar elementos DOM
+    cardImages.forEach((src, index) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'cinematic-slide';
+        if (index === 0) img.classList.add('active'); // Activar la primera
+        sliderContainer.appendChild(img);
+    });
+
+    // 2. Lógica de Rotación
+    let currentIndex = 0;
+    const slides = sliderContainer.querySelectorAll('.cinematic-slide');
 
     setInterval(() => {
-        const activeFront = document.querySelector('.slider-card.front');
-        const activeBack = document.querySelector('.slider-card.back');
+        // Quitar active a la actual
+        slides[currentIndex].classList.remove('active');
 
-        if (!activeFront || !activeBack) return;
+        // Calcular siguiente índice
+        currentIndex = (currentIndex + 1) % slides.length;
 
-        // 1. Animación de salida
-        activeFront.classList.add('swipe-out');
-
-        // 2. Pre-cargar siguiente imagen
-        const nextImgObj = new Image();
-        nextImgObj.src = cardImages[nextCardIndex];
-
-        // 3. Esperar transición (debe coincidir con CSS transition: 0.4s)
-        setTimeout(() => {
-            // Reset de clases (Intercambio de roles)
-            activeBack.classList.remove('back');
-            activeBack.classList.add('front');
-
-            activeFront.classList.remove('front', 'swipe-out');
-            activeFront.classList.add('back');
-
-            // Asignar nueva imagen a la carta que se fue al fondo
-            activeFront.src = cardImages[nextCardIndex];
-
-            // Ciclar índice
-            nextCardIndex++;
-            if (nextCardIndex >= cardImages.length) {
-                nextCardIndex = 0;
-            }
-
-        }, 400);
+        // Activar siguiente (el CSS maneja el fade y zoom)
+        slides[currentIndex].classList.add('active');
 
     }, 4000); // Cambio cada 4 segundos
 }
