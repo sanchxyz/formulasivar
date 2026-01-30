@@ -469,3 +469,160 @@ img {
 .icon-small:hover {
     transform: scale(1.3);
 }
+
+
+
+
+/* =========================================
+   BOTÓN FUTURISTA "LIQUID GLASS" - VERSIÓN NARANJA
+   ========================================= */
+
+/* Contenedor (Sin cambios) */
+.futuristic-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+/* Botón principal - Efecto Vidrio Líquido */
+.futuristic-btn {
+    /* 1. DIMENSIONES Y FORMA (Mantenidas) */
+    width: 100%;
+    max-width: 400px;
+    min-height: 60px;
+    padding: 20px 40px;
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    /* 2. BASE LIQUID GLASS (La magia ocurre aquí) */
+    /* Hacemos el fondo semitransparente naranja */
+    background: linear-gradient(180deg,
+            rgba(255, 200, 150, 0.25) 0%,
+            rgba(255, 100, 0, 0.15) 100%);
+
+    /* Desenfoque del fondo (Efecto Frosted/Glass) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* 3. BORDES DE CRISTAL */
+    /* Borde superior blanco brillante, inferior transparente */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 100, 0, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* 4. SOMBRAS Y VOLUMEN LÍQUIDO */
+    box-shadow:
+        /* Brillo especular interno superior (reflejo de luz) */
+        inset 0 10px 20px rgba(255, 255, 255, 0.2),
+        /* Brillo interno inferior (profundidad) */
+        inset 0 -10px 20px rgba(255, 100, 0, 0.2),
+        /* Sombra externa suave naranja */
+        0 15px 35px rgba(255, 100, 0, 0.3),
+        /* Sombra de caída cercana */
+        0 5px 10px rgba(0, 0, 0, 0.1);
+
+    /* 5. TEXTO */
+    font-family: var(--font-main);
+    font-weight: 800;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    /* Transiciones fluidas */
+    transition: all 0.4s ease;
+}
+
+/* Brillo líquido que pasa al hacer hover */
+.futuristic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    /* Empieza fuera */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.futuristic-btn:hover::before {
+    left: 100%;
+    /* Atraviesa el botón */
+    transition: 0.7s ease-in-out;
+}
+
+/* Efecto Hover: Más brillante y "flotante" */
+.futuristic-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(180deg,
+            rgba(255, 200, 150, 0.35) 0%,
+            rgba(255, 100, 0, 0.25) 100%);
+    box-shadow:
+        inset 0 10px 20px rgba(255, 255, 255, 0.3),
+        inset 0 -10px 20px rgba(255, 100, 0, 0.3),
+        0 20px 40px rgba(255, 100, 0, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Efecto Active: Presionar el gel */
+.futuristic-btn:active {
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 5px 10px rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(255, 100, 0, 0.3);
+}
+
+/* Texto del botón */
+.btn-text {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Sombra para legibilidad sobre cristal */
+}
+
+/* Brillo central extra para dar sensación de "gota" */
+.glow-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* Ajuste responsive (Mantenido) */
+@media screen and (max-width: 575px) {
+    .futuristic-btn-wrapper {
+        margin-top: 25px;
+        padding: 0 10px;
+    }
+
+    .futuristic-btn {
+        min-height: 55px;
+        padding: 18px 30px;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+}
