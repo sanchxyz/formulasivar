@@ -87,7 +87,7 @@ lottieConfigs.forEach(config => {
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
 const SEASON_SCHEDULE = [
-    { name: "Cadillac Livery", date: "2026-02-08", time: "05:30:00" },
+    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00" },
     { name: "Australia", date: "2026-03-08", time: "00:00:00" },
     { name: "China", date: "2026-03-15", time: "01:00:00" },
     { name: "Japón", date: "2026-03-29", time: "23:00:00" },
