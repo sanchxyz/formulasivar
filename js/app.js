@@ -69,7 +69,7 @@ lottieConfigs.forEach(config => {
     });
 
     anim.setSpeed(config.speed);
-    
+
     // Guardamos la referencia de la animación en el propio elemento HTML para acceder luego
     container.lottieInstance = anim;
 
@@ -87,31 +87,31 @@ lottieConfigs.forEach(config => {
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
 const SEASON_SCHEDULE = [
-    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00" },
-    { name: "Australia", date: "2026-03-08", time: "00:00:00" },
-    { name: "China", date: "2026-03-15", time: "01:00:00" },
-    { name: "Japón", date: "2026-03-29", time: "23:00:00" },
-    { name: "Baréin", date: "2026-04-12", time: "09:00:00" },
-    { name: "Arabia Saudita", date: "2026-04-19", time: "11:00:00" },
-    { name: "EE.UU. (Miami)", date: "2026-05-03", time: "14:00:00" },
-    { name: "Canadá", date: "2026-05-24", time: "12:00:00" },
-    { name: "Mónaco", date: "2026-06-07", time: "07:00:00" },
-    { name: "España (Barcelona)", date: "2026-06-14", time: "07:00:00" },
-    { name: "Austria", date: "2026-06-28", time: "07:00:00" },
-    { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00" },
-    { name: "Bélgica", date: "2026-07-19", time: "07:00:00" },
-    { name: "Hungría", date: "2026-07-26", time: "07:00:00" },
-    { name: "Países Bajos", date: "2026-08-23", time: "07:00:00" },
-    { name: "Italia (Monza)", date: "2026-09-06", time: "07:00:00" },
-    { name: "España (Madrid)", date: "2026-09-13", time: "07:00:00" },
-    { name: "Azerbaiyán", date: "2026-09-27", time: "05:00:00" },
-    { name: "Singapur", date: "2026-10-11", time: "06:00:00" },
-    { name: "EE.UU. (Austin)", date: "2026-10-25", time: "13:00:00" },
-    { name: "México", date: "2026-11-01", time: "14:00:00" },
-    { name: "Brasil", date: "2026-11-08", time: "11:00:00" },
-    { name: "EE.UU. (Las Vegas)", date: "2026-11-21", time: "23:00:00" },
-    { name: "Catar", date: "2026-11-29", time: "11:00:00" },
-    { name: "Abu Dabi", date: "2026-12-06", time: "07:00:00" },
+    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: null },
+    { name: "Australia", date: "2026-03-08", time: "00:00:00", customImagePath: null },
+    { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: null },
+    { name: "Japón", date: "2026-03-29", time: "23:00:00", customImagePath: null },
+    { name: "Baréin", date: "2026-04-12", time: "09:00:00", customImagePath: null },
+    { name: "Arabia Saudita", date: "2026-04-19", time: "11:00:00", customImagePath: null },
+    { name: "EE.UU. (Miami)", date: "2026-05-03", time: "14:00:00", customImagePath: null },
+    { name: "Canadá", date: "2026-05-24", time: "12:00:00", customImagePath: null },
+    { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: null },
+    { name: "España (Barcelona)", date: "2026-06-14", time: "07:00:00", customImagePath: null },
+    { name: "Austria", date: "2026-06-28", time: "07:00:00", customImagePath: null },
+    { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00", customImagePath: null },
+    { name: "Bélgica", date: "2026-07-19", time: "07:00:00", customImagePath: null },
+    { name: "Hungría", date: "2026-07-26", time: "07:00:00", customImagePath: null },
+    { name: "Países Bajos", date: "2026-08-23", time: "07:00:00", customImagePath: null },
+    { name: "Italia (Monza)", date: "2026-09-06", time: "07:00:00", customImagePath: null },
+    { name: "España (Madrid)", date: "2026-09-13", time: "07:00:00", customImagePath: null },
+    { name: "Azerbaiyán", date: "2026-09-27", time: "05:00:00", customImagePath: null },
+    { name: "Singapur", date: "2026-10-11", time: "06:00:00", customImagePath: null },
+    { name: "EE.UU. (Austin)", date: "2026-10-25", time: "13:00:00", customImagePath: null },
+    { name: "México", date: "2026-11-01", time: "14:00:00", customImagePath: null },
+    { name: "Brasil", date: "2026-11-08", time: "11:00:00", customImagePath: null },
+    { name: "EE.UU. (Las Vegas)", date: "2026-11-21", time: "23:00:00", customImagePath: null },
+    { name: "Catar", date: "2026-11-29", time: "11:00:00", customImagePath: null },
+    { name: "Abu Dabi", date: "2026-12-06", time: "07:00:00", customImagePath: null },
 ];
 
 /* ============================================================================
@@ -239,13 +239,31 @@ function renderCalendar() {
 
     // 1. NUEVO: Diccionario de imágenes (si quieres control manual)
     const raceImages = {
-        "Australia": "assets/images/tracks/australia.webp",
-        "China": "assets/images/tracks/china.webp",
-        "Japón": "assets/images/tracks/japan.webp",
-        "Baréin": "assets/images/tracks/bahrain.webp",
-        "Arabia Saudita": "assets/images/tracks/saudi_arabia.webp",
-        "EE.UU. (Miami)": "assets/images/tracks/miami.webp",
-        // ... añade las 24
+        "Cadillac Livery": "assets/images/tracks/cadillac_livery/track.webp",
+        "Australia": "assets/images/tracks/australia/track.webp",
+        "China": "assets/images/tracks/china/track.webp",
+        "Japón": "assets/images/tracks/japon/track.webp",
+        "Baréin": "assets/images/tracks/barein/track.webp",
+        "Arabia Saudita": "assets/images/tracks/arabia_saudita/track.webp",
+        "EE.UU. (Miami)": "assets/images/tracks/usa_miami/track.webp",
+        "Canadá": "assets/images/tracks/canada/track.webp",
+        "Mónaco": "assets/images/tracks/monaco/track.webp",
+        "España (Barcelona)": "assets/images/tracks/espana_barcelona/track.webp",
+        "Austria": "assets/images/tracks/austria/track.webp",
+        "Gran Bretaña": "assets/images/tracks/gran_bretana/track.webp",
+        "Bélgica": "assets/images/tracks/belgica/track.webp",
+        "Hungría": "assets/images/tracks/hungria/track.webp",
+        "Países Bajos": "assets/images/tracks/paises_bajos/track.webp",
+        "Italia (Monza)": "assets/images/tracks/italia_monza/track.webp",
+        "España (Madrid)": "assets/images/tracks/espana_madrid/track.webp",
+        "Azerbaiyán": "assets/images/tracks/azerbaiyan/track.webp",
+        "Singapur": "assets/images/tracks/singapur/track.webp",
+        "EE.UU. (Austin)": "assets/images/tracks/usa_austin/track.webp",
+        "México": "assets/images/tracks/mexico/track.webp",
+        "Brasil": "assets/images/tracks/brasil/track.webp",
+        "EE.UU. (Las Vegas)": "assets/images/tracks/usa_las_vegas/track.webp",
+        "Catar": "assets/images/tracks/catar/track.webp",
+        "Abu Dabi": "assets/images/tracks/abu_dabi/track.webp",
     };
 
     // 2. Diccionario de descripciones (el que ya tienes)
@@ -282,23 +300,26 @@ function renderCalendar() {
         const raceCard = document.createElement("div");
         raceCard.className = "race-card";
 
-        // 3. OPCIÓN A: Usar el diccionario de imágenes
-        const imageUrl = raceImages[race.name] || "assets/images/gallery/img_1.webp";
+        // The default SVG background image (always present)
+        const defaultSvgBackgroundSrc = "assets/icons/default_race_icon.svg";
 
-        // OPCIÓN B (alternativa): Generar nombre de archivo automático (más arriesgado)
-        // const safeName = race.name.toLowerCase()
-        //     .replace(/\./g, '')
-        //     .replace(/\(/g, '')
-        //     .replace(/\)/g, '')
-        //     .replace(/\s+/g, '_')
-        //     .normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Quita acentos
-        // const imageUrl = `assets/images/tracks/${safeName}.webp`;
+        // Determine the optional main image source that overlays the SVG
+        // Only use customImagePath provided by the user to avoid broken image icons from raceImages.
+        let mainImageSrc = ""; // Initialize as empty
 
-        raceCard.style.backgroundImage = `url('${imageUrl}')`;
+        if (race.customImagePath && race.customImagePath !== 'null') {
+            mainImageSrc = race.customImagePath;
+        }
+        // If customImagePath is not provided, mainImageSrc remains empty,
+        // and only the SVG background will be visible as the main image element won't be rendered.
 
         const desc = raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
 
         raceCard.innerHTML = `
+            <div class="race-card-images">
+                <img src="${defaultSvgBackgroundSrc}" alt="Default Background" class="race-default-background-image">
+                ${mainImageSrc ? `<img src="${mainImageSrc}" alt="${race.name}" class="race-main-image">` : ''}
+            </div>
             <div class="race-number">#${index + 1}</div>
             <div class="race-overlay">
                 <span class="race-date">${formatDate(race.date)} | ${race.time.substring(0, 5)} SV</span>

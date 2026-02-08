@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario 2026 | Formula Sivar</title>
+    <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/global.css">
+
+    <link rel="stylesheet" href="css/calendar-2026.css">
+
+
+</head>
+
+<body>
+
+    <div class="hero-banner">
+        <video autoplay muted loop playsinline id="banner-video" src="assets/videos/wide_video_background.mp4"></video>
+        <div class="video-overlay"></div>
+        <div class="banner-title-container">
+            <h1 class="page-title">
+                <img src="assets/icons/formulasivar_webp_blank_lowquality.webp" alt="Formula Sivar Logo" class="banner-logo">
+                <span>TEMPORADA 2026</span>
+            </h1>
+
+        </div>
+
+        <!-- Contenedor para detalles de evento (álbum de fotos e info) -->
+        <div id="event-detail-container" class="event-detail-container hidden">
+            <button id="close-event-details" class="close-button">X</button>
+            <div class="event-detail-content">
+                <div class="event-images-slider">
+                    <div id="event-images-track" class="event-images-track">
+                        <!-- Las imágenes se cargarán aquí dinámicamente -->
+                    </div>
+                    <button id="prev-image" class="slider-arrow prev-arrow">&#10094;</button>
+                    <button id="next-image" class="slider-arrow next-arrow">&#10095;</button>
+                    <div id="slider-indicators" class="slider-indicators"></div>
+                </div>
+                <div class="event-text-content">
+                    <h2 id="event-detail-title" class="event-detail-title"></h2>
+                    <p id="event-detail-description" class="event-detail-description"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-wrapper">
+
+
+
+        <main class="container">
+            <div id="calendar-grid" class="calendar-grid">
+                <p>Cargando los motores...</p>
+            </div>
+        </main>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof renderCalendar === "function") {
+                renderCalendar();
+            }
+        });
+    </script>
+</body>
+
+</html>
