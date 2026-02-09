@@ -87,31 +87,31 @@ lottieConfigs.forEach(config => {
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
 const SEASON_SCHEDULE = [
-    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: null },
-    { name: "Australia", date: "2026-03-08", time: "00:00:00", customImagePath: null },
-    { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: null },
-    { name: "Japón", date: "2026-03-29", time: "23:00:00", customImagePath: null },
-    { name: "Baréin", date: "2026-04-12", time: "09:00:00", customImagePath: null },
-    { name: "Arabia Saudita", date: "2026-04-19", time: "11:00:00", customImagePath: null },
-    { name: "EE.UU. (Miami)", date: "2026-05-03", time: "14:00:00", customImagePath: null },
-    { name: "Canadá", date: "2026-05-24", time: "12:00:00", customImagePath: null },
-    { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: null },
-    { name: "España (Barcelona)", date: "2026-06-14", time: "07:00:00", customImagePath: null },
-    { name: "Austria", date: "2026-06-28", time: "07:00:00", customImagePath: null },
-    { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00", customImagePath: null },
-    { name: "Bélgica", date: "2026-07-19", time: "07:00:00", customImagePath: null },
-    { name: "Hungría", date: "2026-07-26", time: "07:00:00", customImagePath: null },
-    { name: "Países Bajos", date: "2026-08-23", time: "07:00:00", customImagePath: null },
-    { name: "Italia (Monza)", date: "2026-09-06", time: "07:00:00", customImagePath: null },
-    { name: "España (Madrid)", date: "2026-09-13", time: "07:00:00", customImagePath: null },
-    { name: "Azerbaiyán", date: "2026-09-27", time: "05:00:00", customImagePath: null },
-    { name: "Singapur", date: "2026-10-11", time: "06:00:00", customImagePath: null },
-    { name: "EE.UU. (Austin)", date: "2026-10-25", time: "13:00:00", customImagePath: null },
-    { name: "México", date: "2026-11-01", time: "14:00:00", customImagePath: null },
-    { name: "Brasil", date: "2026-11-08", time: "11:00:00", customImagePath: null },
-    { name: "EE.UU. (Las Vegas)", date: "2026-11-21", time: "23:00:00", customImagePath: null },
-    { name: "Catar", date: "2026-11-29", time: "11:00:00", customImagePath: null },
-    { name: "Abu Dabi", date: "2026-12-06", time: "07:00:00", customImagePath: null },
+    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: "assets/images/tracks/cadillac_livery/cadillac_7.jpg", folderPath: "assets/images/tracks/cadillac_livery/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Australia", date: "2026-03-08", time: "00:00:00", customImagePath: "assets/images/tracks/australia/track.webp", folderPath: "assets/images/tracks/australia/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: "assets/images/tracks/china/track.webp", folderPath: "assets/images/tracks/china/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Japón", date: "2026-03-29", time: "23:00:00", customImagePath: "assets/images/tracks/japon/track.webp", folderPath: "assets/images/tracks/japon/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Baréin", date: "2026-04-12", time: "09:00:00", customImagePath: "assets/images/tracks/barein/track.webp", folderPath: "assets/images/tracks/barein/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Arabia Saudita", date: "2026-04-19", time: "11:00:00", customImagePath: "assets/images/tracks/arabia_saudita/track.webp", folderPath: "assets/images/tracks/arabia_saudita/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "EE.UU. (Miami)", date: "2026-05-03", time: "14:00:00", customImagePath: "assets/images/tracks/usa_miami/track.webp", folderPath: "assets/images/tracks/usa_miami/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Canadá", date: "2026-05-24", time: "12:00:00", customImagePath: "assets/images/tracks/canada/track.webp", folderPath: "assets/images/tracks/canada/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: "assets/images/tracks/monaco/track.webp", folderPath: "assets/images/tracks/monaco/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "España (Barcelona)", date: "2026-06-14", time: "07:00:00", customImagePath: "assets/images/tracks/espana_barcelona/track.webp", folderPath: "assets/images/tracks/espana_barcelona/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Austria", date: "2026-06-28", time: "07:00:00", customImagePath: "assets/images/tracks/austria/track.webp", folderPath: "assets/images/tracks/austria/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00", customImagePath: "assets/images/tracks/gran_bretana/track.webp", folderPath: "assets/images/tracks/gran_bretana/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Bélgica", date: "2026-07-19", time: "07:00:00", customImagePath: "assets/images/tracks/belgica/track.webp", folderPath: "assets/images/tracks/belgica/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Hungría", date: "2026-07-26", time: "07:00:00", customImagePath: "assets/images/tracks/hungria/track.webp", folderPath: "assets/images/tracks/hungria/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Países Bajos", date: "2026-08-23", time: "07:00:00", customImagePath: "assets/images/tracks/paises_bajos/track.webp", folderPath: "assets/images/tracks/paises_bajos/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Italia (Monza)", date: "2026-09-06", time: "07:00:00", customImagePath: "assets/images/tracks/italia_monza/track.webp", folderPath: "assets/images/tracks/italia_monza/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "España (Madrid)", date: "2026-09-13", time: "07:00:00", customImagePath: "assets/images/tracks/espana_madrid/track.webp", folderPath: "assets/images/tracks/espana_madrid/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Azerbaiyán", date: "2026-09-27", time: "05:00:00", customImagePath: "assets/images/tracks/azerbaiyan/track.webp", folderPath: "assets/images/tracks/azerbaiyan/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Singapur", date: "2026-10-11", time: "06:00:00", customImagePath: "assets/images/tracks/singapur/track.webp", folderPath: "assets/images/tracks/singapur/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "EE.UU. (Austin)", date: "2026-10-25", time: "13:00:00", customImagePath: "assets/images/tracks/usa_austin/track.webp", folderPath: "assets/images/tracks/usa_austin/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "México", date: "2026-11-01", time: "14:00:00", customImagePath: "assets/images/tracks/mexico/track.webp", folderPath: "assets/images/tracks/mexico/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Brasil", date: "2026-11-08", time: "11:00:00", customImagePath: "assets/images/tracks/brasil/track.webp", folderPath: "assets/images/tracks/brasil/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "EE.UU. (Las Vegas)", date: "2026-11-21", time: "23:00:00", customImagePath: "assets/images/tracks/usa_las_vegas/track.webp", folderPath: "assets/images/tracks/usa_las_vegas/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Catar", date: "2026-11-29", time: "11:00:00", customImagePath: "assets/images/tracks/catar/track.webp", folderPath: "assets/images/tracks/catar/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Abu Dabi", date: "2026-12-06", time: "07:00:00", customImagePath: "assets/images/tracks/abu_dabi/track.webp", folderPath: "assets/images/tracks/abu_dabi/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
 ];
 
 /* ============================================================================
@@ -268,30 +268,32 @@ function renderCalendar() {
 
     // 2. Diccionario de descripciones (el que ya tienes)
     const raceDescriptions = {
-        "Bahrein": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
+        "Baréin": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
+        "Cadillac Livery": "Primer encuentro del año con la comunidad para ver la presentacion de la Livery del monoplaza de Cadillac F1 Team",
         "Arabia Saudita": "Jeddah Corniche desafía a los pilotos en el circuito callejero más rápido.",
         "Australia": "Albert Park nos recibe con sol, lagos y la energía única de Melbourne.",
         "Japón": "Suzuka es la prueba definitiva de habilidad con sus legendarias curvas en 'S'.",
         "China": "El Circuito de Shanghai regresa con sus largas rectas y estrategia pura.",
-        "Miami": "El Autódromo de Miami combina glamour, yates y velocidad alrededor del estadio.",
+        "EE.UU. (Miami)": "El Autódromo de Miami combina glamour, yates y velocidad alrededor del estadio.",
         "Imola": "El Enzo e Dino Ferrari respira historia en el corazón del Valle del Motor.",
         "Mónaco": "Las calles de Montecarlo no perdonan errores en la joya de la corona.",
-        "España": "Madrid se estrena en el calendario con un circuito callejero híbrido inédito.",
+        "España (Barcelona)": "El Circuit de Barcelona-Catalunya te espera con su trazado icónico.",
+        "España (Madrid)": "El nuevo circuito urbano de Madrid promete emociones fuertes.",
         "Canadá": "El Gilles Villeneuve nos espera con su famoso 'Muro de los Campeones'.",
         "Austria": "El Red Bull Ring es corto, rápido y siempre garantiza adelantamientos.",
         "Gran Bretaña": "Silverstone, la cuna del deporte, nos recuerda por qué amamos las carreras.",
         "Hungría": "El Hungaroring es un karting gigante donde la clasificación lo es todo.",
         "Bélgica": "Spa-Francorchamps separa a los niños de los adultos en el mítico Eau Rouge.",
         "Países Bajos": "Zandvoort se tiñe de naranja en una pista estrecha y peraltada.",
-        "Italia": "Monza es el 'Templo de la Velocidad', pura potencia y frenadas al límite.",
+        "Italia (Monza)": "Monza es el 'Templo de la Velocidad', pura potencia y frenadas al límite.",
         "Azerbaiyán": "Las calles de Bakú mezclan la velocidad extrema con la zona del castillo.",
         "Singapur": "Marina Bay brilla en la noche más física y calurosa del año.",
-        "Austin": "El COTA en Texas nos regala desniveles, baches y batallas en la curva 1.",
+        "EE.UU. (Austin)": "El COTA en Texas nos regala desniveles, baches y batallas en la curva 1.",
         "México": "El Autódromo Hermanos Rodríguez vibra con la 'F1ESTA' más grande del mundo.",
         "Brasil": "Interlagos siempre nos regala finales épicos y clima impredecible.",
-        "Las Vegas": "El Strip de Las Vegas convierte la carrera en el mayor espectáculo del planeta.",
-        "Qatar": "El Circuito de Lusail es una montaña rusa nocturna de alta velocidad.",
-        "Abu Dhabi": "Yas Marina cierra la temporada con fuegos artificiales y el campeón definitivo."
+        "EE.UU. (Las Vegas)": "El Strip de Las Vegas convierte la carrera en el mayor espectáculo del planeta.",
+        "Catar": "El Circuito de Lusail es una montaña rusa nocturna de alta velocidad.",
+        "Abu Dabi": "Yas Marina cierra la temporada con fuegos artificiales y el campeón definitivo."
     };
 
     grid.innerHTML = "";
@@ -299,6 +301,7 @@ function renderCalendar() {
     SEASON_SCHEDULE.forEach((race, index) => {
         const raceCard = document.createElement("div");
         raceCard.className = "race-card";
+        raceCard.dataset.raceIndex = index;
 
         // The default SVG background image (always present)
         const defaultSvgBackgroundSrc = "assets/icons/default_race_icon.svg";
@@ -318,7 +321,7 @@ function renderCalendar() {
         raceCard.innerHTML = `
             <div class="race-card-images">
                 <img src="${defaultSvgBackgroundSrc}" alt="Default Background" class="race-default-background-image">
-                ${mainImageSrc ? `<img src="${mainImageSrc}" alt="${race.name}" class="race-main-image">` : ''}
+                ${mainImageSrc ? `<img src="${mainImageSrc}" alt="${race.name}" class="race-main-image" onerror="this.style.display='none'">` : ''}
             </div>
             <div class="race-number">#${index + 1}</div>
             <div class="race-overlay">
