@@ -507,6 +507,10 @@
 
 /* Flechas del slider */
 .slider-arrow {
+    display: none; /* Oculta las flechas de navegación del slider */
+}
+
+.slider-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

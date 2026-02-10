@@ -70,8 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Actualizar título y descripción directamente
         eventDetailTitle.textContent = race.name.toUpperCase();
-        const description = window.raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
-        eventDetailDescription.textContent = description;
+        eventDetailDescription.textContent = race.longDescription || window.raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
 
         // Prepend the logo only if it doesn't already exist to avoid duplicates
         const textContentContainer = document.querySelector('.event-text-content');
@@ -82,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             logoImg.classList.add('event-detail-logo');
             textContentContainer.prepend(logoImg);
         }
-        eventDetailDescription.textContent = description;
+
 
         // Limpiar y preparar imágenes para el slider
         eventImagesTrack.innerHTML = ''; 
