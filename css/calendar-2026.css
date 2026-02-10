@@ -354,22 +354,32 @@
 
 /* Ocultar/Mostrar el contenedor de detalles */
 .event-detail-container {
-    position: absolute; /* O 'fixed' si quieres que se mantenga en la vista incluso con scroll */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; /* Changed to fixed for better centering relative to viewport */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering trick */
+    
+    /* Desktop default size */
+    width: 100%; /* Make it occupy full width */
+    max-width: 100%; /* Remove max width constraint */
+    height: 100%; /* Make it occupy full height */
+    max-height: 100%; /* Remove max height constraint */
+
     background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
     backdrop-filter: blur(20px) saturate(180%); /* Efecto de cristal esmerilado */
     z-index: 10; /* Asegura que esté por encima del video y del banner-title-container */
-    display: flex;
+    display: flex; /* Keep flex for centering its content */
     justify-content: center;
     align-items: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    padding: 20px; /* Padding general para el contenido */
-    box-sizing: border-box; /* Incluir padding en el ancho/alto */
+    padding: 0; /* Remove general padding */
+    box-sizing: border-box; /* Include padding in the width/height */
+
+    border-radius: 0; /* Remove border-radius for full screen */
+    border: none; /* Remove border for full screen */
+    box-shadow: none; /* Remove box-shadow for full screen */
 }
 
 .event-detail-container.visible {
@@ -406,19 +416,74 @@
 }
 
 /* Contenido principal de los detalles */
+/* Contenido principal de los detalles */
 .event-detail-content {
-    display: flex;
-    flex-direction: column;
-    max-width: 900px; /* Ancho máximo para el contenido */
+    display: flex; /* Default for mobile/smaller screens */
+    flex-direction: column; /* Stack for mobile */
+    max-width: 100%; /* No max-width here, let parent .event-detail-container control */
     width: 100%;
-    max-height: 90vh; /* Altura máxima para el contenido */
-    background: rgba(255, 255, 255, 0.05); /* Fondo glassmorphism para el contenido */
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    overflow: hidden; /* Para que las imágenes no se salgan */
+    max-height: 100%; /* No max-height here, let parent .event-detail-container control */
+    background: transparent; /* Background on container, not content */
+    border-radius: 0; /* No border-radius or border on this inner div */
+    border: none;
+    box-shadow: none;
+    overflow: hidden; /* For inner scrolling */
+    height: 100%; /* Fill parent height */
 }
 
+/* Media Query para Desktop Layout */
+    @media screen and (min-width: 769px) {
+    .event-detail-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        grid-template-areas: "text-area image-area"; /* Text on left, images on right */
+        flex-direction: row; /* Ensure row direction for desktop */
+    }
+
+    .event-text-content {
+        grid-area: text-area; /* Assign to text area */
+        /* Styling for the left column */
+        padding: 30px; /* More padding for text on desktop */
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align to top */
+        overflow-y: auto; /* Allow scroll for long text */
+        background: rgba(0, 0, 0, 0.4); /* Darker background for text for contrast */
+        border-right: 1px solid rgba(255, 255, 255, 0.1); /* Separator on right */
+        border-left: none; /* Remove left border */
+    }
+
+    .event-images-slider {
+        grid-area: image-area; /* Assign to image area */
+        position: relative; /* Needs to be relative for pseudo-element positioning */
+        /* Styling for the right column */
+        width: 100%; /* Take full width of its grid cell */
+        height: 100%; /* Take full height of its grid cell */
+        aspect-ratio: auto; /* Let it fill the space, object-fit will handle images */
+        background-color: #1A1A1A; /* Dark background */
+        border-left: 1px solid rgba(255, 255, 255, 0.1); /* Separator on left */
+        border-right: none; /* Remove right border */
+    }
+
+    .event-images-slider::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0; /* Keep gradient on the right side of the images */
+        width: 5%; /* Covers 5% of the right side */
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.7)); /* From transparent to dark */
+        pointer-events: none; /* Allows clicks to pass through */
+        z-index: 2; /* Ensure it's above the images but below any controls if needed */
+    }
+    
+    /* Ensure images within the slider fill the space */
+    .event-images-track, .event-image {
+        height: 100%;
+        width: 100%;
+    }
+}
 /* Sección de imágenes del slider */
 .event-images-slider {
     position: relative;
@@ -499,6 +564,13 @@
     padding: 20px;
     color: white;
     overflow-y: auto; /* Scroll si el contenido es largo */
+}
+
+.event-detail-logo {
+    width: 120px; /* Adjust as needed */
+    height: auto;
+    margin-bottom: 20px; /* Space between logo and title */
+    filter: drop-shadow(0 2px 8px rgba(51, 52, 52, 0.3)); /* Optional: same as banner logo */
 }
 
 .event-detail-title {

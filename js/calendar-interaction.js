@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Referencias a elementos del DOM
     const eventDetailContainer = document.getElementById("event-detail-container");
     const closeEventDetailsButton = document.getElementById("close-event-details");
-    const eventDetailTitle = document.getElementById("event-detail-title");
-    const eventDetailDescription = document.getElementById("event-detail-description");
+    let eventDetailTitle = document.getElementById("event-detail-title"); // Changed from const to let
+    let eventDetailDescription = document.getElementById("event-detail-description"); // Changed from const to let
     const eventImagesTrack = document.getElementById("event-images-track");
     const sliderIndicatorsContainer = document.getElementById("slider-indicators"); // Renombrado para claridad
     const prevImageButton = document.getElementById("prev-image");
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Variables para el slider de detalles del evento
     let currentDetailImageIndex = 0;
     let currentEventImages = []; // Array de URLs de imágenes para el evento actual
+    let sliderInterval; // Variable to hold the interval ID
 
     // Función para actualizar la visualización del slider
     function updateSliderDisplay() {
@@ -67,9 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Actualizar título y descripción
+        // Actualizar título y descripción directamente
         eventDetailTitle.textContent = race.name.toUpperCase();
         const description = window.raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
+        eventDetailDescription.textContent = description;
+
+        // Prepend the logo only if it doesn't already exist to avoid duplicates
+        const textContentContainer = document.querySelector('.event-text-content');
+        if (textContentContainer && !textContentContainer.querySelector('.event-detail-logo')) {
+            const logoImg = document.createElement('img');
+            logoImg.src = "assets/icons/formulasivar_webp_blank_lowquality.webp";
+            logoImg.alt = "Formula Sivar Logo";
+            logoImg.classList.add('event-detail-logo');
+            textContentContainer.prepend(logoImg);
+        }
         eventDetailDescription.textContent = description;
 
         // Limpiar y preparar imágenes para el slider
@@ -111,6 +123,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Actualizar el display del slider (incluye indicadores)
         updateSliderDisplay();
+
+        // Start automatic slider if more than one image
+        if (currentEventImages.length > 1) {
+            clearInterval(sliderInterval); // Clear any existing interval
+            sliderInterval = setInterval(() => {
+                navigateSlider(1); // Navigate to the next image
+            }, 5000); // Change image every 5 seconds
+        } else {
+            clearInterval(sliderInterval); // Clear interval if only one image
+        }
 
         // Mostrar el contenedor de detalles
         eventDetailContainer.classList.remove("hidden");

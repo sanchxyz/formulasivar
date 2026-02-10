@@ -88,7 +88,7 @@ lottieConfigs.forEach(config => {
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
 window.SEASON_SCHEDULE = [
-    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: "assets/images/tracks/cadillac_livery/cadillac_7.jpg", folderPath: "assets/images/tracks/cadillac_livery/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
+    { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: "assets/images/tracks/cadillac_livery/cadillac_7.jpg", folderPath: "assets/images/tracks/cadillac_livery/", imageFiles: ["cadillac_1.jpg", "cadillac_2.jpg", "cadillac_3.jpg", "cadillac_4.jpg", "cadillac_5.jpg", "cadillac_6.jpg", "cadillac_7.jpg"] },
     { name: "Australia", date: "2026-03-08", time: "00:00:00", customImagePath: "assets/images/tracks/australia/track.webp", folderPath: "assets/images/tracks/australia/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
     { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: "assets/images/tracks/china/track.webp", folderPath: "assets/images/tracks/china/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
     { name: "Japón", date: "2026-03-29", time: "23:00:00", customImagePath: "assets/images/tracks/japon/track.webp", folderPath: "assets/images/tracks/japon/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
