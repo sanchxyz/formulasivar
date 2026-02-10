@@ -7,6 +7,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     initCountdown();
     initCardSlider();
+    renderCalendar(); // Moved from temp-2026.html
 });
 
 
@@ -86,7 +87,7 @@ lottieConfigs.forEach(config => {
    ============================================================================ 
    Aquí defines todo. Si cambia una fecha, solo la tocas aquí.
 */
-const SEASON_SCHEDULE = [
+window.SEASON_SCHEDULE = [
     { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: "assets/images/tracks/cadillac_livery/cadillac_7.jpg", folderPath: "assets/images/tracks/cadillac_livery/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
     { name: "Australia", date: "2026-03-08", time: "00:00:00", customImagePath: "assets/images/tracks/australia/track.webp", folderPath: "assets/images/tracks/australia/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
     { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: "assets/images/tracks/china/track.webp", folderPath: "assets/images/tracks/china/", imageFiles: ["track.webp", "img_01.webp", "img_02.webp"] },
@@ -267,7 +268,7 @@ function renderCalendar() {
     };
 
     // 2. Diccionario de descripciones (el que ya tienes)
-    const raceDescriptions = {
+    window.raceDescriptions = {
         "Baréin": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
         "Cadillac Livery": "Primer encuentro del año con la comunidad para ver la presentacion de la Livery del monoplaza de Cadillac F1 Team",
         "Arabia Saudita": "Jeddah Corniche desafía a los pilotos en el circuito callejero más rápido.",

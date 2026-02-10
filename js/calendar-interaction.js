@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para mostrar los detalles de un evento
     function showEventDetails(raceIndex) {
         // Asegurarse de que SEASON_SCHEDULE y raceDescriptions estén disponibles (vienen de app.js)
-        if (typeof SEASON_SCHEDULE === 'undefined' || typeof raceDescriptions === 'undefined') {
-            console.error("Variables globales SEASON_SCHEDULE o raceDescriptions no están definidas. Asegúrate de que app.js se carga primero.");
+        if (typeof window.SEASON_SCHEDULE === 'undefined' || typeof window.raceDescriptions === 'undefined') {
+            console.error("Variables globales SEASON_SCHEDULE o raceDescriptions no están definidas en window. Asegúrate de que app.js se carga primero y las asigna a window.");
             return;
         }
 
-        const race = SEASON_SCHEDULE[raceIndex];
+        const race = window.SEASON_SCHEDULE[raceIndex];
         if (!race) {
             console.error("No se encontró la carrera para el índice:", raceIndex);
             return;
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Actualizar título y descripción
         eventDetailTitle.textContent = race.name.toUpperCase();
-        const description = raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
+        const description = window.raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
         eventDetailDescription.textContent = description;
 
         // Limpiar y preparar imágenes para el slider
@@ -148,14 +148,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const raceCards = calendarGrid.querySelectorAll(".race-card");
         if (raceCards.length > 0) {
             raceCards.forEach(card => {
+                // Ensure listener is only added once
+                if (!card.dataset.listenerAttached) {
+                    card.addEventListener("click", () => {
+                        const raceIndex = parseInt(card.dataset.raceIndex);
+                        showEventDetails(raceIndex);
+                    });
+                    card.dataset.listenerAttached = "true"; // Mark as attached
+                }
+            });
+            // Disconnect after initial cards are processed, assuming no more dynamic additions post-load
+            // If more dynamic additions are expected, this disconnect should be handled differently.
+            observer.disconnect();
+        }
+    });
+
+    // === NEW: Manually check for already rendered cards on initial load ===
+    const initialRaceCards = calendarGrid.querySelectorAll(".race-card");
+    if (initialRaceCards.length > 0) {
+        initialRaceCards.forEach(card => {
+            if (!card.dataset.listenerAttached) {
                 card.addEventListener("click", () => {
                     const raceIndex = parseInt(card.dataset.raceIndex);
                     showEventDetails(raceIndex);
                 });
-            });
-            observer.disconnect();
-        }
-    });
+                card.dataset.listenerAttached = "true";
+            }
+        });
+    }
 
     observer.observe(calendarGrid, { childList: true });
 
