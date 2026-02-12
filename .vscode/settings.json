@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "**/.codex": true,
+    "**/.claude": true,
+    "**/.gemini": true,
+    "**/.cursor": true,
+    "**/.antigravity": true,
+    "**/.agents/generated": true
+  },
+  "search.exclude": {
+    "**/.codex": true,
+    "**/.claude": true,
+    "**/.gemini": true,
+    "**/.cursor": true,
+    "**/.antigravity": true,
+    "**/.agents/generated": true
+  }
+}

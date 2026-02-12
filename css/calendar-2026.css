@@ -97,6 +97,112 @@
 }
 
 /* =========================================
+   TÍTULO SOBRE EL BANNER
+   ========================================= */
+/* Ajuste del contenedor para alinear a la izquierda */
+.banner-title-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+        display: flex;
+        align-items: flex-start; /* Alineado arriba */
+        padding-top: 15vh; /* Lo baja para centrarlo en la mitad superior */
+        justify-content: flex-start;
+    /* Alineación horizontal a la izquierda */
+    padding-left: 8%;
+    /* Ajusta este porcentaje para moverlo más o menos a la derecha */
+    z-index: 1;
+    /* Asegura que el título esté sobre el video */
+}
+
+/* Ajuste del título principal */
+.hero-banner .page-title {
+    margin: 0;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    display: flex;
+    flex-direction: column; /* Se ajusta la posición de los elementos para que el logo esté arriba del texto */
+    align-items: flex-start;
+    /* CLAVE: Alinea los elementos internos (span) a la izquierda */
+    text-align: left;
+    /* Asegura que el texto fluya a la izquierda */
+    line-height: 1;
+}
+
+/* Estilo para el logo en el banner */
+.hero-banner .page-title .banner-logo {
+    width: clamp(90px, 16.5vw, 150px);
+    height: auto;
+    margin-bottom: 0px;
+}
+
+
+
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
+
+@media screen and (min-width: 1200px) {
+    .calendar-grid {
+        /* En pantallas muy grandes, forzamos 4 columnas exactas para control total */
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+}
+
+/* Ajustes para Móvil (QUERY COMBINADA) */
+@media screen and (max-width: 768px) {
+    .hero-banner {
+        /* Reducimos la altura del banner al 35% de la pantalla */
+        height: 35vh;
+    }
+
+    .content-wrapper {
+        top: 55vh;
+        /* Bajamos un poco el contenedor en móvil */
+        /* Ajustado al 35vh del banner */
+        /* En móvil aumentamos un poco la opacidad para mejorar la legibilidad */
+        background: rgba(18, 18, 18, 0.35);
+        backdrop-filter: blur(18px) saturate(160%);
+    }
+
+    /* Ajustamos el tamaño del título para que no quede muy apretado en el nuevo espacio */
+    .hero-banner .page-title {
+        font-size: clamp(1.5rem, 5vw, 2.2rem);
+        /* Reducimos el tamaño para móvil */
+        align-items: center; /* Centra horizontalmente el logo y el texto apilados */
+        text-align: center; /* Asegura que el texto fluya al centro */
+    }
+
+    .hero-banner .page-title span {
+        font-size: 0.4em;
+        letter-spacing: 3px;
+        margin-top: 5px;
+    }
+
+    /* Ajuste de tamaño del logo para móvil */
+    .hero-banner .page-title .banner-logo {
+        width: clamp(63px, 11.55vw, 105px);
+        /* Reducido 30% para móvil */
+    }
+
+    /* Ajustamos el banner-title-container para centrar su contenido en móvil */
+    .banner-title-container {
+        padding-left: 0; /* Elimina el padding izquierdo */
+        padding-top: 20vh; /* Baja el contenido para que esté visualmente debajo del video y centrado */
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        position: absolute; /* Asegura que la posición sea absoluta para top/left */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* =========================================
    GRID DE CARRERAS
    ========================================= */
 .calendar-grid {
@@ -221,50 +327,6 @@
 }
 
 /* =========================================
-   TÍTULO SOBRE EL BANNER
-   ========================================= */
-/* Ajuste del contenedor para alinear a la izquierda */
-.banner-title-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-        display: flex;
-        align-items: flex-start; /* Alineado arriba */
-        padding-top: 15vh; /* Lo baja para centrarlo en la mitad superior */
-        justify-content: flex-start;
-    /* Alineación horizontal a la izquierda */
-    padding-left: 8%;
-    /* Ajusta este porcentaje para moverlo más o menos a la derecha */
-    z-index: 1;
-    /* Asegura que el título esté sobre el video */
-}
-
-/* Ajuste del título principal */
-.hero-banner .page-title {
-    margin: 0;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    display: flex;
-    flex-direction: column; /* Se ajusta la posición de los elementos para que el logo esté arriba del texto */
-    align-items: flex-start;
-    /* CLAVE: Alinea los elementos internos (span) a la izquierda */
-    text-align: left;
-    /* Asegura que el texto fluya a la izquierda */
-    line-height: 1;
-}
-
-/* Estilo para el logo en el banner */
-.hero-banner .page-title .banner-logo {
-    width: clamp(90px, 16.5vw, 150px);
-    height: auto;
-    margin-bottom: 0px;
-}
-
-
-
-/* =========================================
    MEDIA QUERIES
    ========================================= */
 
@@ -284,36 +346,12 @@
     }
 
     .content-wrapper {
-        top: 35vh;
+        top: 55vh;
         /* Bajamos un poco el contenedor en móvil */
         /* Ajustado al 35vh del banner */
         /* En móvil aumentamos un poco la opacidad para mejorar la legibilidad */
         background: rgba(18, 18, 18, 0.35);
         backdrop-filter: blur(18px) saturate(160%);
-    }
-
-    /* Ajustamos el tamaño del título para que no quede muy apretado en el nuevo espacio */
-    .hero-banner .page-title {
-        font-size: clamp(1.5rem, 5vw, 2.2rem);
-        /* Reducimos el tamaño para móvil */
-    }
-
-    .hero-banner .page-title span {
-        font-size: 0.4em;
-        letter-spacing: 3px;
-        margin-top: 5px;
-    }
-
-    /* Ajuste de tamaño del logo para móvil */
-    .hero-banner .page-title .banner-logo {
-        width: clamp(63px, 11.55vw, 105px);
-        /* Reducido 30% para móvil */
-    }
-
-    /* Reducimos el padding lateral en móvil para ganar espacio */
-    .banner-title-container {
-        padding-left: 5%;
-        padding-top: 8vh; /* Ajuste para la altura del banner móvil */
     }
 }
 
@@ -352,34 +390,30 @@
    DETALLES DE EVENTO (SLIDESHOW)
    ========================================= */
 
-/* Ocultar/Mostrar el contenedor de detalles */
+/* Panel de detalles: 60% pantalla (desktop) / 70% (móvil); resto = calendario visible */
 .event-detail-container {
-    position: fixed; /* Changed to fixed for better centering relative to viewport */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centering trick */
-    
-    /* Desktop default size */
-    width: 100%; /* Make it occupy full width */
-    max-width: 100%; /* Remove max width constraint */
-    height: 100%; /* Make it occupy full height */
-    max-height: 100%; /* Remove max height constraint */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh; /* Desktop: 60% info, 40% calendario */
 
-    background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
-    backdrop-filter: blur(20px) saturate(180%); /* Efecto de cristal esmerilado */
-    z-index: 10; /* Asegura que esté por encima del video y del banner-title-container */
-    display: flex; /* Keep flex for centering its content */
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    z-index: 10;
+    display: flex;
+    align-items: flex-start;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    padding: 0; /* Remove general padding */
-    box-sizing: border-box; /* Include padding in the width/height */
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
 
-    border-radius: 0; /* Remove border-radius for full screen */
-    border: none; /* Remove border for full screen */
-    box-shadow: none; /* Remove box-shadow for full screen */
+/* Cuando el modal está abierto, el panel del calendario empieza justo debajo (items visibles arriba) */
+.event-detail-container.visible ~ .content-wrapper {
+    top: 60vh;
 }
 
 .event-detail-container.visible {
@@ -415,24 +449,31 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Contenido principal de los detalles */
-/* Contenido principal de los detalles */
+/* Contenido principal de los detalles: llena el panel sin salirse */
 .event-detail-content {
-    display: flex; /* Default for mobile/smaller screens */
-    flex-direction: column; /* Stack for mobile */
-    max-width: 100%; /* No max-width here, let parent .event-detail-container control */
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-height: 100%; /* No max-height here, let parent .event-detail-container control */
-    background: transparent; /* Background on container, not content */
-    border-radius: 0; /* No border-radius or border on this inner div */
-    border: none;
-    box-shadow: none;
-    overflow: hidden; /* For inner scrolling */
-    height: 100%; /* Fill parent height */
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    background: transparent;
+    border-radius: inherit;
+    overflow: hidden;
 }
 
 /* Media Query para Desktop Layout */
-    @media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) {
+    /* Misma idea que en móvil: modal detrás del panel para que las esquinas redondeadas no muestren triángulo de fondo */
+    .event-detail-container {
+        z-index: 0;
+        height: 68vh; /* Un poco más que 60vh para que más porción quede detrás del panel y rellene las esquinas */
+    }
+
+    .event-detail-container.visible ~ .content-wrapper {
+        top: 60vh; /* Panel del calendario en la misma posición; 40% visible para los items */
+    }
+
     .event-detail-content {
         display: grid;
         grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -442,38 +483,69 @@
 
     .event-text-content {
         grid-area: text-area; /* Assign to text area */
-        /* Styling for the left column */
+        position: relative;
         padding: 30px; /* More padding for text on desktop */
         text-align: left;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Align to top */
+        justify-content: center; /* Contenido más abajo / centrado verticalmente, no pegado arriba */
         overflow-y: auto; /* Allow scroll for long text */
-        background: rgba(0, 0, 0, 0.4); /* Darker background for text for contrast */
         border-right: 1px solid rgba(255, 255, 255, 0.1); /* Separator on right */
         border-left: none; /* Remove left border */
+    }
+
+    /* Degradado gris de abajo hacia arriba (como en móvil): mismo gris que las capas para que se aprecie */
+    .event-text-content::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 55%;
+        background: linear-gradient(to top, #1c1c1c 0%, rgba(28, 28, 28, 0.85) 25%, rgba(28, 28, 28, 0.4) 55%, transparent 100%);
+        pointer-events: none;
+        z-index: 1;
     }
 
     .event-images-slider {
         grid-area: image-area; /* Assign to image area */
         position: relative; /* Needs to be relative for pseudo-element positioning */
-        /* Styling for the right column */
-        width: 100%; /* Take full width of its grid cell */
-        height: 100%; /* Take full height of its grid cell */
-        aspect-ratio: auto; /* Let it fill the space, object-fit will handle images */
-        background-color: #1A1A1A; /* Dark background */
-        border-left: 1px solid rgba(255, 255, 255, 0.1); /* Separator on left */
-        border-right: none; /* Remove right border */
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        background-color: #1A1A1A;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: none;
+        margin: 0;
+        padding: 0;
+        /* Difuminado del borde inferior de las imágenes (máscara) */
+        -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 45%, transparent 100%);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+
+    /* Overlay gris de abajo hacia arriba sobre las imágenes (como en móvil), mismo gris que las capas */
+    .event-images-slider::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 55%;
+        background: linear-gradient(to top, #1c1c1c 0%, rgba(28, 28, 28, 0.9) 20%, rgba(28, 28, 28, 0.5) 50%, transparent 100%);
+        pointer-events: none;
+        z-index: 1;
     }
 
     .event-images-slider::after {
         content: '';
         position: absolute;
         top: 0;
-        right: 0; /* Keep gradient on the right side of the images */
-        width: 5%; /* Covers 5% of the right side */
+        left: 0; /* Keep gradient on the right side of the images */
+        width: 15%; /* Covers 5% of the right side */
         height: 100%;
-        background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.7)); /* From transparent to dark */
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent); /* From transparent to dark */
         pointer-events: none; /* Allows clicks to pass through */
         z-index: 2; /* Ensure it's above the images but below any controls if needed */
     }
@@ -563,42 +635,76 @@
     background-color: white;
 }
 
-/* Sección de texto */
+/* Sección de texto: logo, título y párrafo más centrados verticalmente; encima del slider/degradado */
 .event-text-content {
     padding: 20px;
     color: white;
     overflow-y: auto; /* Scroll si el contenido es largo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el bloque (logo + título + desc) en el eje vertical */
+    min-height: 0; /* Necesario para que el scroll funcione bien con flex */
+    position: relative;
+    z-index: 2; /* Por encima del slider y cualquier degradado dentro del modal */
 }
 
+/* Tamaños dinámicos alineados al banner (logo + título sobre el video) */
 .event-detail-logo {
-    width: 120px; /* Adjust as needed */
+    width: clamp(50px, 11vw, 120px);
     height: auto;
-    margin-bottom: 20px; /* Space between logo and title */
-    filter: drop-shadow(0 2px 8px rgba(51, 52, 52, 0.3)); /* Optional: same as banner logo */
+    margin-bottom: clamp(6px, 1.2vw, 14px);
+    filter: drop-shadow(0 2px 8px rgba(51, 52, 52, 0.3));
 }
 
 .event-detail-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.1rem, 3.5vw, 1.75rem);
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: clamp(4px, 1vw, 10px);
     color: var(--color-text-main);
 }
 
 .event-detail-description {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    line-height: 1.55;
     color: var(--color-text-secondary);
 }
 
-/* Media Queries para ajustar en móvil */
+/* Móvil: modal más alto para que más quede detrás de las esquinas; calendario en la misma posición */
 @media screen and (max-width: 768px) {
-    .event-detail-content {
-        max-width: 95%;
-        max-height: 95vh;
+    .event-detail-container {
+        height: 72vh; /* Más alto: más porción queda detrás del panel y rellena mejor las esquinas redondeadas */
+        z-index: 0; /* Por debajo de la capa del calendario: borde redondeado encima, triángulos rellenados por el modal */
     }
 
+    .event-detail-container.visible ~ .content-wrapper {
+        top: 65vh; /* Panel del calendario sigue igual; 35% visible para los items */
+    }
+
+    .event-detail-content {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        padding: 0;
+        background: #1c1c1c;
+    }
+
+    .event-text-content {
+        text-align: center;
+        align-items: center; /* Logo, título y párrafo centrados en móvil */
+    }
+
+    /* Difuminar el borde inferior de las imágenes con máscara CSS (no se altera el archivo) */
     .event-images-slider {
-        aspect-ratio: 4 / 3; /* Más cuadrado en móvil */
+        aspect-ratio: 4 / 3;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        flex-shrink: 0;
+        -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 98%);
+        mask-image: linear-gradient(to bottom, black 72%, transparent 98%);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
     }
 
     .slider-arrow {
@@ -614,11 +720,15 @@
         font-size: 1.2rem;
     }
 
+    .event-detail-logo {
+        width: clamp(45px, 10vw, 90px);
+    }
+
     .event-detail-title {
-        font-size: 1.4rem;
+        font-size: clamp(1rem, 4vw, 1.35rem);
     }
 
     .event-detail-description {
-        font-size: 0.9rem;
+        font-size: clamp(0.75rem, 2vw, 0.9rem);
     }
 }

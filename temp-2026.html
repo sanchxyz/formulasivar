@@ -28,25 +28,25 @@
 
         </div>
 
-        <!-- Contenedor para detalles de evento (álbum de fotos e info) -->
-        <div id="event-detail-container" class="event-detail-container hidden">
-            <button id="close-event-details" class="close-button">X</button>
-            <div class="event-detail-content">
-                <div class="event-images-slider">
-                    <div id="event-images-track" class="event-images-track">
-                        <!-- Las imágenes se cargarán aquí dinámicamente -->
-                    </div>
-                    <button id="prev-image" class="slider-arrow prev-arrow">&#10094;</button>
-                    <button id="next-image" class="slider-arrow next-arrow">&#10095;</button>
-                    <div id="slider-indicators" class="slider-indicators"></div>
+    </div>
+
+    <!-- Modal fuera del banner para que z-index quede por encima del calendario -->
+    <div id="event-detail-container" class="event-detail-container hidden">
+        <button id="close-event-details" class="close-button">X</button>
+        <div class="event-detail-content">
+            <div class="event-images-slider">
+                <div id="event-images-track" class="event-images-track">
+                    <!-- Las imágenes se cargarán aquí dinámicamente -->
                 </div>
-                <div class="event-text-content">
-                    <h2 id="event-detail-title" class="event-detail-title"></h2>
-                    <p id="event-detail-description" class="event-detail-description"></p>
-                </div>
+                <button id="prev-image" class="slider-arrow prev-arrow">&#10094;</button>
+                <button id="next-image" class="slider-arrow next-arrow">&#10095;</button>
+                <div id="slider-indicators" class="slider-indicators"></div>
+            </div>
+            <div class="event-text-content">
+                <h2 id="event-detail-title" class="event-detail-title"></h2>
+                <p id="event-detail-description" class="event-detail-description"></p>
             </div>
         </div>
-
     </div>
 
     <div class="content-wrapper">

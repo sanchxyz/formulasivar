@@ -1,0 +1,10 @@
+.agents/local.json
+.agents/
+.agents/generated/
+.codex/
+.gemini/
+.vscode/mcp.json
+.claude/skills
+.cursor/
+.antigravity/
+AGENTS.md

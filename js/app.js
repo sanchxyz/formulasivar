@@ -165,7 +165,7 @@ function initCountdown() {
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         updateDOM(days, hours, minutes, seconds);
-        titleEl.textContent = `SUPER BOWL | ${raceName.toUpperCase()}`;
+        titleEl.textContent = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
     };
 
     // Helper para actualizar el HTML
