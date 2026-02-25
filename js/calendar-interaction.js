@@ -29,21 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const offset = -currentDetailImageIndex * 100;
         eventImagesTrack.style.transform = `translateX(${offset}%)`;
 
-        // Actualizar indicadores
-        sliderIndicatorsContainer.innerHTML = ''; // Limpiar indicadores anteriores
-        currentEventImages.forEach((_, idx) => {
-            const indicator = document.createElement('div');
-            indicator.classList.add('slider-indicator');
-            if (idx === currentDetailImageIndex) {
-                indicator.classList.add('active');
-            }
-            // Agrega un event listener a cada indicador para navegar directamente
-            indicator.addEventListener('click', () => {
-                currentDetailImageIndex = idx;
-                updateSliderDisplay();
-            });
-            sliderIndicatorsContainer.appendChild(indicator);
-        });
+
     }
 
     // Función para navegar por el slider
