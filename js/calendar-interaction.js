@@ -81,13 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         } 
         
-        // Si no hay imageFiles específicos, usar customImagePath como fallback
-        // Esto cubre el caso donde un evento no tiene una galería pero sí una imagen principal
-        if (imagesToLoad.length === 0 && race.customImagePath && race.customImagePath !== 'null') {
-            imagesToLoad.push(race.customImagePath);
+        // NUEVO: Si no hay archivos de imagen específicos, cargar la imagen "Coming Soon" de su carpeta
+        if (imagesToLoad.length === 0 && race.folderPath) {
+            imagesToLoad.push(race.folderPath + "coming_soon.webp");
         }
 
-        // Si todavía no hay imágenes, usar el icono por defecto
+        // Si todavía no hay imágenes (caso extremo), usar el icono por defecto
         if (imagesToLoad.length === 0) {
             imagesToLoad.push("assets/icons/default_race_icon.svg");
         }

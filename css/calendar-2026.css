@@ -418,6 +418,18 @@
         text-align: left;
         padding: 60px;
     }
+    .event-images-slider {
+        grid-area: image;
+        height: 100%;
+        aspect-ratio: auto;
+        /* Suavizado lateral y inferior combinado */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%), 
+                            linear-gradient(to top, transparent 0%, black 20%, black 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%), 
+                    linear-gradient(to top, transparent 0%, black 20%, black 100%);
+        -webkit-mask-composite: source-in;
+        mask-composite: intersect;
+    }
     .event-detail-description {
         max-width: 100%;
     }
