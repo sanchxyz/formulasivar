@@ -5,24 +5,35 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    /* Asegura que el video no se salga del contenedor */
-
-    /* ANTES: 85vh | AHORA: 60vh */
-    /* Reducimos la altura para que no ocupe tanto espacio vertical */
     height: 60vh;
-
-    /* La imagen de fondo actúa como fallback si el video no carga */
     background-image: url('/assets/icons/baner_calendario.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -1;
-
-    /* Ajustamos la máscara para que el desvanecido empiece antes */
-    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    z-index: -2; /* Bajado para asegurar que sea la base absoluta */
 }
 
+#banner-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.5) 40%, rgba(18, 18, 18, 0) 100%);
+}
 
 .content-wrapper {
     position: fixed;
@@ -31,27 +42,19 @@
     left: 0;
     right: 0;
     bottom: 0;
-
-    background: rgba(18, 18, 18, 0.15);
-
+    background: rgba(18, 18, 18, 0.4); 
     border-radius: 40px 40px 0 0;
-
-    /* Borde superior sutil que simula el grosor del cristal */
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-
-    /* Sombra profunda para dar peso al material */
     box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.6);
     padding-top: 20px;
     overflow-y: auto;
-    /* Permitir scroll vertical */
-    overflow-x: hidden;
-    /* Ocultar scroll horizontal */
-
-    /* Estilos de scrollbar para Firefox (Oculto) */
     scrollbar-width: none;
 }
 
-/* Brillo sutil de "Reflejo Líquido" en la parte superior del contenedor */
+.content-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 .content-wrapper::before {
     content: "";
     position: absolute;
@@ -59,10 +62,7 @@
     left: 0;
     right: 0;
     height: 150px;
-    /* Solo en la parte superior */
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
     border-radius: 40px 40px 0 0;
 }
@@ -70,26 +70,22 @@
 /* =========================================
    CONFIGURACIÓN DE LA PÁGINA
    ========================================= */
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .page-title {
-    /* 1. Tipografía y Tamaño Dinámico */
     font-size: clamp(0.80rem, 7vw, 3.5rem);
-    /* Lo hacemos un poco más grande para el impacto */
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 3px;
     text-align: center;
     margin: 40px 0;
     color: #d6d4d4;
-
     filter: drop-shadow(0 2px 8px rgba(51, 52, 52, 0.3));
 }
 
-/* Elimina o comenta esto si quieres el fondo exacto del Home */
-.color-bg-fixed {
-    display: none;
-}
-
-/* Asegúrate de que la textura herede el efecto de home.css */
 .texture-layer {
     mix-blend-mode: overlay !important;
     opacity: 0.20 !important;
@@ -99,196 +95,107 @@
 /* =========================================
    TÍTULO SOBRE EL BANNER
    ========================================= */
-/* Ajuste del contenedor para alinear a la izquierda */
 .banner-title-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-        display: flex;
-        align-items: flex-start; /* Alineado arriba */
-        padding-top: 15vh; /* Lo baja para centrarlo en la mitad superior */
-        justify-content: flex-start;
-    /* Alineación horizontal a la izquierda */
-    padding-left: 8%;
-    /* Ajusta este porcentaje para moverlo más o menos a la derecha */
-    z-index: 1;
-    /* Asegura que el título esté sobre el video */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 37vh;
+    justify-content: flex-start;
+    z-index: 5;
+    pointer-events: none; /* Permite clics pasen al fondo */
 }
 
-/* Ajuste del título principal */
+.banner-title-container > * {
+    pointer-events: auto; /* Logo y texto siguen siendo interactivos */
+}
+
 .hero-banner .page-title {
     margin: 0;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     display: flex;
-    flex-direction: column; /* Se ajusta la posición de los elementos para que el logo esté arriba del texto */
-    align-items: flex-start;
-    /* CLAVE: Alinea los elementos internos (span) a la izquierda */
-    text-align: left;
-    /* Asegura que el texto fluya a la izquierda */
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
     line-height: 1;
 }
 
-/* Estilo para el logo en el banner */
+.hero-banner .banner-subtitle {
+    font-size: clamp(0.65rem, 0.9vw, 0.85rem);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin-top: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    padding: 0 20px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-banner .page-title span {
+    font-size: 0.45em;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .hero-banner .page-title .banner-logo {
-    width: clamp(90px, 16.5vw, 150px);
+    width: clamp(80px, 14vw, 120px); 
     height: auto;
-    margin-bottom: 0px;
-}
-
-
-
-/* =========================================
-   MEDIA QUERIES
-   ========================================= */
-
-@media screen and (min-width: 1200px) {
-    .calendar-grid {
-        /* En pantallas muy grandes, forzamos 4 columnas exactas para control total */
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-    }
-}
-
-/* Ajustes para Móvil (QUERY COMBINADA) */
-@media screen and (max-width: 768px) {
-    .hero-banner {
-        /* Reducimos la altura del banner al 35% de la pantalla */
-        height: 35vh;
-    }
-
-    .content-wrapper {
-        top: 55vh;
-        /* Bajamos un poco el contenedor en móvil */
-        /* Ajustado al 35vh del banner */
-        /* En móvil aumentamos un poco la opacidad para mejorar la legibilidad */
-        background: rgba(18, 18, 18, 0.35);
-        backdrop-filter: blur(18px) saturate(160%);
-    }
-
-    /* Ajustamos el tamaño del título para que no quede muy apretado en el nuevo espacio */
-    .hero-banner .page-title {
-        font-size: clamp(1.5rem, 5vw, 2.2rem);
-        /* Reducimos el tamaño para móvil */
-        align-items: center; /* Centra horizontalmente el logo y el texto apilados */
-        text-align: center; /* Asegura que el texto fluya al centro */
-    }
-
-    .hero-banner .page-title span {
-        font-size: 0.4em;
-        letter-spacing: 3px;
-        margin-top: 5px;
-    }
-
-    /* Ajuste de tamaño del logo para móvil */
-    .hero-banner .page-title .banner-logo {
-        width: clamp(63px, 11.55vw, 105px);
-        /* Reducido 30% para móvil */
-    }
-
-    /* Ajustamos el banner-title-container para centrar su contenido en móvil */
-    .banner-title-container {
-        padding-left: 0; /* Elimina el padding izquierdo */
-        padding-top: 20vh; /* Baja el contenido para que esté visualmente debajo del video y centrado */
-        justify-content: center; /* Centra horizontalmente */
-        align-items: center; /* Centra verticalmente */
-        position: absolute; /* Asegura que la posición sea absoluta para top/left */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+    margin-bottom: 2px;
 }
 
 /* =========================================
-   GRID DE CARRERAS
+   GRID DE CARRERAS (ESTILO BASE)
    ========================================= */
 .calendar-grid {
     display: grid;
-    /* 1. Reducimos el mínimo a 260px para permitir 4 columnas en desktop estándar */
-    /* 2. Usamos auto-fill para que mantengan su tamaño real y no se estiren de más */
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
     width: 100%;
-    padding-bottom: 50px;
+    margin: 0 auto;
+    padding: 0 15px 50px;
+    justify-content: center; /* Asegura el centrado total */
+    justify-items: center;
 }
 
-/* =========================================
-   RACE CARD (Efecto Vidrio Premium)
-   ========================================= */
 .race-card {
     position: relative;
+    width: 100%;
+    max-width: 450px;
     aspect-ratio: 16 / 9;
-    height: auto;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-lg); 
     overflow: hidden;
-    border: var(--glass-border);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    background-color: #1a1a1a;
 }
 
-.race-card-images {
-    position: absolute;
-    inset: 0;
-    background-color: #1A1A1A; /* Dark background for the image container, fallback if SVG fails */
-}
-
-.race-default-background-image { /* The always-present SVG */
+.race-card-images, .race-default-background-image, .race-main-image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0; /* Lowest layer */
 }
-
-.race-main-image { /* The optional main image */
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover the container without distortion */
-    opacity: 0.7; /* Slightly dim the primary image to make text more legible */
-    transition: opacity 0.3s ease;
-    z-index: 1; /* Above the default background */
-}
-
-.race-card:hover .race-main-image {
-    opacity: 1; /* Brighten on hover */
-}
-
-.race-card:hover {
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* =========================================
-   RACE CARD (Ajuste de Nitidez)
-   ========================================= */
 
 .race-overlay {
     position: absolute;
     inset: 0;
-    /* Mantenemos el degradado para que el texto sea legible */
     background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.2) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px;
-
-    /* ELIMINADO: backdrop-filter: blur(2px); */
-    /* Mantenemos la transición solo por si decides añadir otro efecto luego */
-    transition: background 0.3s ease;
-    z-index: 2; /* Added z-index */
-}
-
-.race-card:hover .race-overlay {
-    /* ELIMINADO: backdrop-filter: blur(0px); */
-
-    /* OPCIONAL: Podemos hacer que el fondo se oscurezca un poquito más 
-       en hover para resaltar el texto en lugar de usar blur */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 30%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: 2;
 }
 
 .race-number {
@@ -318,7 +225,7 @@
 
 .race-desc {
     font-size: 0.85rem;
-    color: var(--color-text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -327,108 +234,83 @@
 }
 
 /* =========================================
-   MEDIA QUERIES
+   MEDIA QUERIES (MÓVIL)
    ========================================= */
-
-@media screen and (min-width: 1200px) {
-    .calendar-grid {
-        /* En pantallas muy grandes, forzamos 4 columnas exactas para control total */
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-    }
-}
-
-/* Ajustes para Móvil (QUERY COMBINADA) */
 @media screen and (max-width: 768px) {
     .hero-banner {
-        /* Reducimos la altura del banner al 35% de la pantalla */
-        height: 35vh;
+        height: 42vh;
     }
-
-    .content-wrapper {
-        top: 55vh;
-        /* Bajamos un poco el contenedor en móvil */
-        /* Ajustado al 35vh del banner */
-        /* En móvil aumentamos un poco la opacidad para mejorar la legibilidad */
-        background: rgba(18, 18, 18, 0.35);
-        backdrop-filter: blur(18px) saturate(160%);
+    .banner-title-container {
+        padding-top: 28vh;
+    }
+    .hero-banner .page-title {
+        font-size: 1.1rem !important;
+        font-weight: 700;
+    }
+    .hero-banner .page-title .banner-logo {
+        width: 65px;
+        margin-bottom: 4px;
+    }
+    .hero-banner .banner-subtitle {
+        font-size: 0.6rem;
+        max-width: 90%;
     }
 }
 
 /* =========================================
-   CUSTOM SCROLLBAR (WEBKIT) - Oculta
+   MEDIA QUERIES (ESCRITORIO)
    ========================================= */
-.content-wrapper::-webkit-scrollbar {
-    display: none; /* Oculta la barra de scroll en Chrome, Safari, etc. */
+@media screen and (min-width: 1024px) {
+    .container {
+        max-width: 1700px !important;
+        width: 95% !important;
+    }
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 35px;
+        padding: 0 40px 80px;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    }
 }
 
 /* =========================================
-   VIDEO BACKGROUND
+   DETALLES DE EVENTO (MODAL)
    ========================================= */
-#banner-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Hace que el video cubra todo el espacio sin deformarse */
-    z-index: -1;
-    /* Lo pone detrás del contenido del banner (el título) */
-}
-
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: radial-gradient(circle at top left, rgba(0, 0, 0, 0.8) 30%, rgba(0, 0, 0, 0) 70%);
-}
-/* =========================================
-   DETALLES DE EVENTO (SLIDESHOW)
-   ========================================= */
-
-/* Panel de detalles: 60% pantalla (desktop) / 70% (móvil); resto = calendario visible */
 .event-detail-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60vh; /* Desktop: 60% info, 40% calendario */
-
-    background-color: rgba(0, 0, 0, 0.88);
-    backdrop-filter: blur(20px) saturate(180%);
-    z-index: 10;
+    height: 60vh; 
+    background-color: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(25px) saturate(200%);
+    z-index: 0; 
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-    padding: 0;
-    box-sizing: border-box;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
     overflow: hidden;
 }
 
 .event-detail-container::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -10%;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/assets/icons/blurry-background.svg');
+    background-image: url('../assets/icons/blurry-background.svg');
     background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: 100% auto;
-    opacity: 0.6; /* Opacidad inicial, podemos ajustarla */
-    z-index: 1; /* Detrás del contenido principal */
-}
-
-/* Cuando el modal está abierto, el panel del calendario empieza justo debajo (items visibles arriba) */
-.event-detail-container.visible ~ .content-wrapper {
-    top: 60vh;
+    background-position: center bottom;
+    background-size: 110% auto;
+    opacity: 0.9;
+    z-index: -1; 
 }
 
 .event-detail-container.visible {
@@ -436,314 +318,107 @@
     visibility: visible;
 }
 
-.event-detail-container.hidden {
-    display: none; /* Asegura que no ocupe espacio cuando está oculto */
-}
-
-/* Botón de cerrar */
-.close-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 11; /* Por encima del contenedor de detalles */
-    transition: background 0.3s ease;
-}
-
-.close-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Contenido principal de los detalles: llena el panel sin salirse */
 .event-detail-content {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    background: transparent;
-    border-radius: inherit;
-    overflow: hidden;
 }
 
-/* Media Query para Desktop Layout */
-@media screen and (min-width: 769px) {
-    /* Misma idea que en móvil: modal detrás del panel para que las esquinas redondeadas no muestren triángulo de fondo */
-    .event-detail-container {
-        z-index: 0;
-        height: 68vh; /* Un poco más que 60vh para que más porción quede detrás del panel y rellene las esquinas */
-    }
-
-    .event-detail-container.visible ~ .content-wrapper {
-        top: 60vh; /* Panel del calendario en la misma posición; 40% visible para los items */
-    }
-
-    .event-detail-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Two equal columns */
-        grid-template-areas: "text-area image-area"; /* Text on left, images on right */
-        flex-direction: row; /* Ensure row direction for desktop */
-    }
-
-    .event-text-content {
-        grid-area: text-area; /* Assign to text area */
-        position: relative;
-        padding: 30px; /* More padding for text on desktop */
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Contenido más abajo / centrado verticalmente, no pegado arriba */
-        overflow-y: auto; /* Allow scroll for long text */
-        border-right: 1px solid rgba(255, 255, 255, 0.1); /* Separator on right */
-        border-left: none; /* Remove left border */
-    }
-
-    /* Degradado gris de abajo hacia arriba (como en móvil): mismo gris que las capas para que se aprecie */
-    .event-text-content::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 55%;
-        background: linear-gradient(to top, #1c1c1c 0%, rgba(28, 28, 28, 0.85) 25%, rgba(28, 28, 28, 0.4) 55%, transparent 100%);
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .event-images-slider {
-        grid-area: image-area; /* Assign to image area */
-        position: relative; /* Needs to be relative for pseudo-element positioning */
-        width: 100%;
-        height: 100%;
-        aspect-ratio: auto;
-        background-color: #1A1A1A;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
-        border-right: none;
-        margin: 0;
-        padding: 0;
-        /* Difuminado del borde inferior de las imágenes (máscara) */
-        -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 45%, transparent 100%);
-        -webkit-mask-size: 100% 100%;
-        mask-size: 100% 100%;
-    }
-
-    /* Overlay gris de abajo hacia arriba sobre las imágenes (como en móvil), mismo gris que las capas */
-    .event-images-slider::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 55%;
-        background: linear-gradient(to top, #1c1c1c 0%, rgba(28, 28, 28, 0.9) 20%, rgba(28, 28, 28, 0.5) 50%, transparent 100%);
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .event-images-slider::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0; /* Keep gradient on the right side of the images */
-        width: 15%; /* Covers 5% of the right side */
-        height: 100%;
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent); /* From transparent to dark */
-        pointer-events: none; /* Allows clicks to pass through */
-        z-index: 2; /* Ensure it's above the images but below any controls if needed */
-    }
-    
-    /* Ensure images within the slider fill the space */
-    .event-images-track, .event-image {
-        height: 100%;
-        width: 100%;
-    }
-}
-/* Sección de imágenes del slider */
 .event-images-slider {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9; /* Relación de aspecto para las imágenes */
+    aspect-ratio: 4 / 3;
+    flex-shrink: 0;
     overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
 
 .event-images-track {
     display: flex;
     width: 100%;
     height: 100%;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .event-image {
-    min-width: 100%; /* Cada imagen ocupa el 100% del ancho del track */
+    min-width: 100%;
     height: 100%;
-    object-fit: cover; /* Cubre el contenedor sin distorsionar */
+    object-fit: cover;
 }
 
-/* Flechas del slider */
-.slider-arrow {
-    display: none; /* Oculta las flechas de navegación del slider */
-}
-
-.slider-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    font-size: 2rem;
-    padding: 10px 15px;
-    cursor: pointer;
-    z-index: 5; /* Por encima de las imágenes */
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.slider-arrow:hover {
-    opacity: 1;
-}
-
-.prev-arrow {
-    left: 10px;
-    border-radius: 0 5px 5px 0;
-}
-
-.next-arrow {
-    right: 10px;
-    border-radius: 5px 0 0 5px;
-}
-
-/* Indicadores de diapositivas (puntos) */
-.slider-indicators {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 5;
-}
-
-.slider-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.slider-indicator.active {
-    background-color: white;
-}
-
-/* Sección de texto: logo, título y párrafo más centrados verticalmente; encima del slider/degradado */
 .event-text-content {
-    padding: 20px;
-    color: white;
-    overflow-y: auto; /* Scroll si el contenido es largo */
+    padding: 25px 15px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra el bloque (logo + título + desc) en el eje vertical */
-    min-height: 0; /* Necesario para que el scroll funcione bien con flex */
-    position: relative;
-    z-index: 2; /* Por encima del slider y cualquier degradado dentro del modal */
+    align-items: center; 
+    text-align: center;
+    color: white;
+    overflow-y: auto; 
+    flex-grow: 1;
+    justify-content: flex-start;
 }
 
-/* Tamaños dinámicos alineados al banner (logo + título sobre el video) */
 .event-detail-logo {
-    width: clamp(50px, 11vw, 120px);
-    height: auto;
-    margin-bottom: clamp(6px, 1.2vw, 14px);
-    filter: drop-shadow(0 2px 8px rgba(51, 52, 52, 0.3));
+    width: clamp(45px, 12vw, 65px); 
+    margin-bottom: 8px;
+    display: block !important;
 }
 
 .event-detail-title {
-    font-size: clamp(1.1rem, 3.5vw, 1.75rem);
+    font-size: clamp(0.75rem, 3.5vw, 0.95rem);
     font-weight: 800;
-    margin-bottom: clamp(4px, 1vw, 10px);
-    color: var(--color-text-main);
+    margin-bottom: 2px;
+    text-transform: uppercase;
 }
 
 .event-detail-description {
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
-    line-height: 1.55;
-    color: var(--color-text-secondary);
+    font-size: clamp(0.55rem, 2.8vw, 0.7rem);
+    font-style: italic; 
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 95%;
 }
 
-/* Móvil: modal más alto para que más quede detrás de las esquinas; calendario en la misma posición */
-@media screen and (max-width: 768px) {
-    .event-detail-container {
-        height: 64vh; /* Ajustado para mayor solape */
-        z-index: 0; /* Por debajo de la capa del calendario: borde redondeado encima, triángulos rellenados por el modal */
-    }
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 110;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .event-detail-container.visible ~ .content-wrapper {
-        top: 60vh; /* Panel del calendario empieza después del 60% */
+@media screen and (min-width: 769px) {
+    .event-detail-container::before {
+        background-image: url('../assets/icons/desktop-modal-blur.svg');
+        background-position: left center;
+        background-size: contain;
+        bottom: 0;
+        opacity: 0.8;
     }
-
     .event-detail-content {
-        max-width: 100%;
-        width: 100%;
-        height: 100%;
-        max-height: 100%;
-        padding: 0;
-        background: #1c1c1c;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "text image";
     }
-
     .event-text-content {
-        text-align: center;
-        align-items: center; /* Logo, título y párrafo centrados en móvil */
+        grid-area: text;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+        padding: 60px;
     }
-
-    /* Difuminar el borde inferior de las imágenes con máscara CSS (no se altera el archivo) */
-    .event-images-slider {
-        aspect-ratio: 4 / 3;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        flex-shrink: 0;
-        -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 98%);
-        mask-image: linear-gradient(to bottom, black 72%, transparent 98%);
-        -webkit-mask-size: 100% 100%;
-        mask-size: 100% 100%;
-    }
-
-    .slider-arrow {
-        font-size: 1.5rem;
-        padding: 5px 10px;
-    }
-
-    .close-button {
-        top: 10px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        font-size: 1.2rem;
-    }
-
-    .event-detail-logo {
-        width: clamp(45px, 10vw, 90px);
-    }
-
-    .event-detail-title {
-        font-size: clamp(1rem, 4vw, 1.35rem);
-    }
-
     .event-detail-description {
-        font-size: clamp(0.75rem, 2vw, 0.9rem);
+        max-width: 100%;
     }
 }

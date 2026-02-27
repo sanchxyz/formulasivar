@@ -54,19 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Referencia al logo que ya existe en el HTML
+        const logoImg = document.getElementById('event-detail-logo');
+        if (logoImg) {
+            logoImg.src = "assets/icons/formulasivar_webp_blank_lowquality.webp";
+            logoImg.style.display = 'block';
+        }
+
         // Actualizar título y descripción directamente
         eventDetailTitle.textContent = race.name.toUpperCase();
         eventDetailDescription.textContent = race.longDescription || window.raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
-
-        // Prepend the logo only if it doesn't already exist to avoid duplicates
-        const textContentContainer = document.querySelector('.event-text-content');
-        if (textContentContainer && !textContentContainer.querySelector('.event-detail-logo')) {
-            const logoImg = document.createElement('img');
-            logoImg.src = "assets/icons/formulasivar_webp_blank_lowquality.webp";
-            logoImg.alt = "Formula Sivar Logo";
-            logoImg.classList.add('event-detail-logo');
-            textContentContainer.prepend(logoImg);
-        }
 
 
         // Limpiar y preparar imágenes para el slider
