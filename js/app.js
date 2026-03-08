@@ -332,6 +332,10 @@ async function renderCalendar() {
             if (realImages.length > 0) {
                 mainImageSrc = realImages[0]; // Tomamos la primera imagen encontrada como portada
             }
+            // 3. Fallback: Si el escaneo falló (común en producción), usamos el primer archivo declarado en imageFiles
+            else if (race.imageFiles && race.imageFiles.length > 0) {
+                mainImageSrc = race.folderPath + race.imageFiles[0];
+            }
         }
 
         const desc = raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
