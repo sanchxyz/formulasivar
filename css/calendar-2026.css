@@ -349,7 +349,7 @@
 }
 
 .event-text-content {
-    padding: 5px 5px clamp(15px, 5vh, 40px);
+    padding: 5px 5px;
     display: flex;
     flex-direction: column;
     align-items: center; 
