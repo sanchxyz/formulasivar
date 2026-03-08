@@ -89,7 +89,7 @@ lottieConfigs.forEach(config => {
 */
 window.SEASON_SCHEDULE = [
     { name: "Cadillac Livery", date: "2026-02-08", time: "17:30:00", customImagePath: "assets/images/tracks/cadillac_livery/portada_cadillac_livery_.webp", folderPath: "assets/images/tracks/cadillac_livery/", imageFiles: ["cadillac_1.jpg", "cadillac_2.jpg", "cadillac_3.jpg", "cadillac_4.jpg", "cadillac_5.jpg", "cadillac_6.jpg", "cadillac_7.jpg"], longDescription: "Primera reunión del año con la comunidad, en la que tuvimos la oportunidad de presenciar la revelación de la livery del equipo Cadillac, presentada durante el Super Bowl. El encuentro se llevó a cabo en Bendita Burger y contó, además, con la grata asistencia de Nestlé." },
-    { name: "Australia", date: "2026-03-07", time: "22:00:00", customImagePath: null, folderPath: "assets/images/tracks/australia/", imageFiles: [], longDescription: "El Gran Premio de Australia en Albert Park es el vibrante inicio de la temporada. Conoce la historia de este circuito semi-permanente, los desafíos únicos que presenta a los pilotos y las expectativas para una carrera llena de giros inesperados. Descubre la atmósfera festiva de Melbourne que rodea este emocionante evento." },
+    { name: "Australia", date: "2026-03-07", time: "22:00:00", customImagePath: null, folderPath: "assets/images/tracks/australia/", imageFiles: [], longDescription: "Damos por iniciada oficialmente la segunda temporada de Formula Sivar. Es un honor que nos permitan ser parte de su historia y fortalecer esta gran comunidad. Los invitamos a sentirse como en casa, con la certeza de que nuestra pasión compartida por la Fórmula 1 seguirá siendo el motor que nos mantenga unidos en esta temporada 2026.\n\nEste recorrido no sería el mismo sin el respaldo de quienes creen en nuestra visión. Gracias a Yard House, KitKat y Heineken por acompañarnos y ser parte fundamental de esta gran aventura." },
     { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: null, folderPath: "assets/images/tracks/china/", imageFiles: [], longDescription: "El regreso del Gran Premio de China al Circuito Internacional de Shanghái marca un hito. Explora las características técnicas de esta pista, famosa por su larga recta y la desafiante curva caracol. Analiza las estrategias de carrera que los equipos suelen emplear y el impacto de su retorno al calendario." },
     { name: "Japón", date: "2026-03-29", time: "23:00:00", customImagePath: null, folderPath: "assets/images/tracks/japon/", imageFiles: [], longDescription: "El Gran Premio de Japón en Suzuka es uno de los favoritos de pilotos y aficionados, conocido por su diseño en forma de '8' y sus curvas de alta velocidad. Sumérgete en la rica historia de esta carrera, los momentos icónicos que ha producido y lo que hace a Suzuka una prueba definitiva de habilidad y coraje." },
     { name: "Baréin", date: "2026-04-12", time: "09:00:00", customImagePath: null, folderPath: "assets/images/tracks/barein/", imageFiles: [], longDescription: "El Gran Premio de Baréin ilumina el desierto con su espectáculo nocturno. Descubre el Circuito Internacional de Baréin en Sakhir, su diseño técnico y cómo las condiciones de la pista cambian entre el día y la noche. Conoce el papel de esta carrera en la apertura de la temporada y las emocionantes batallas que ofrece." },
@@ -234,40 +234,47 @@ function initCardSlider() {
 
 
 
-function renderCalendar() {
+/* ============================================================================
+   FUNCIÓN GLOBAL DE UTILIDAD: ESCANEO DE CARPETAS
+   ============================================================================ */
+window.getImagesFromFolder = async function(folderPath) {
+    try {
+        const response = await fetch(folderPath);
+        if (!response.ok) return [];
+        
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        const links = Array.from(doc.querySelectorAll('a'));
+        const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg'];
+        
+        let images = links
+            .map(link => link.getAttribute('href'))
+            .filter(href => {
+                if (!href) return false;
+                const lowHref = href.toLowerCase();
+                return imageExtensions.some(ext => lowHref.endsWith(ext)) && 
+                       !lowHref.includes('../') && 
+                       !lowHref.includes('?');
+            })
+            .map(href => {
+                if (href.startsWith('http') || href.startsWith('/')) return href;
+                return folderPath + href;
+            });
+
+        return [...new Set(images)];
+    } catch (error) {
+        console.error("Error cargando imágenes de la carpeta:", error);
+        return [];
+    }
+};
+
+async function renderCalendar() {
     const grid = document.getElementById("calendar-grid");
     if (!grid) return;
 
-    // 1. NUEVO: Diccionario de imágenes (si quieres control manual)
-    const raceImages = {
-        "Cadillac Livery": "assets/images/tracks/cadillac_livery/track.webp",
-        "Australia": "assets/images/tracks/australia/track.webp",
-        "China": "assets/images/tracks/china/track.webp",
-        "Japón": "assets/images/tracks/japon/track.webp",
-        "Baréin": "assets/images/tracks/barein/track.webp",
-        "Arabia Saudita": "assets/images/tracks/arabia_saudita/track.webp",
-        "EE.UU. (Miami)": "assets/images/tracks/usa_miami/track.webp",
-        "Canadá": "assets/images/tracks/canada/track.webp",
-        "Mónaco": "assets/images/tracks/monaco/track.webp",
-        "España (Barcelona)": "assets/images/tracks/espana_barcelona/track.webp",
-        "Austria": "assets/images/tracks/austria/track.webp",
-        "Gran Bretaña": "assets/images/tracks/gran_bretana/track.webp",
-        "Bélgica": "assets/images/tracks/belgica/track.webp",
-        "Hungría": "assets/images/tracks/hungria/track.webp",
-        "Países Bajos": "assets/images/tracks/paises_bajos/track.webp",
-        "Italia (Monza)": "assets/images/tracks/italia_monza/track.webp",
-        "España (Madrid)": "assets/images/tracks/espana_madrid/track.webp",
-        "Azerbaiyán": "assets/images/tracks/azerbaiyan/track.webp",
-        "Singapur": "assets/images/tracks/singapur/track.webp",
-        "EE.UU. (Austin)": "assets/images/tracks/usa_austin/track.webp",
-        "México": "assets/images/tracks/mexico/track.webp",
-        "Brasil": "assets/images/tracks/brasil/track.webp",
-        "EE.UU. (Las Vegas)": "assets/images/tracks/usa_las_vegas/track.webp",
-        "Catar": "assets/images/tracks/catar/track.webp",
-        "Abu Dabi": "assets/images/tracks/abu_dabi/track.webp",
-    };
-
-    // 2. Diccionario de descripciones (el que ya tienes)
+    // Diccionario de descripciones (el que ya tienes)
     window.raceDescriptions = {
         "Baréin": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
         "Cadillac Livery": "Presentacion de la Livery del monoplaza de Cadillac F1 Team",
@@ -299,7 +306,9 @@ function renderCalendar() {
 
     grid.innerHTML = "";
 
-    SEASON_SCHEDULE.forEach((race, index) => {
+    // Usamos un bucle for...of para poder usar await
+    for (let index = 0; index < SEASON_SCHEDULE.length; index++) {
+        const race = SEASON_SCHEDULE[index];
         const raceCard = document.createElement("div");
         raceCard.className = "race-card";
         raceCard.dataset.raceIndex = index;
@@ -307,11 +316,22 @@ function renderCalendar() {
         // The default SVG background image (always present)
         const defaultSvgBackgroundSrc = "assets/icons/default_race_icon.svg";
 
-        // Determine the optional main image source that overlays the SVG
+        // Lógica de portada dinámica
         let mainImageSrc = ""; 
 
+        // 1. Si hay una ruta personalizada definida en el código, la usamos.
         if (race.customImagePath && race.customImagePath !== 'null') {
             mainImageSrc = race.customImagePath;
+        } 
+        // 2. Si NO hay ruta personalizada, escaneamos la carpeta buscando la primera imagen real.
+        else if (race.folderPath) {
+            const folderImages = await window.getImagesFromFolder(race.folderPath);
+            // Filtramos para ignorar el 'coming_soon' si hay otras fotos
+            const realImages = folderImages.filter(img => !img.toLowerCase().includes('coming_soon.webp'));
+            
+            if (realImages.length > 0) {
+                mainImageSrc = realImages[0]; // Tomamos la primera imagen encontrada como portada
+            }
         }
 
         const desc = raceDescriptions[race.name] || `Prepárate para el Gran Premio de ${race.name}. Una cita imperdible de la temporada 2026.`;
@@ -330,7 +350,7 @@ function renderCalendar() {
         `;
 
         grid.appendChild(raceCard);
-    });
+    }
 }
 
 // Helper para formato de hora (12h AM/PM)

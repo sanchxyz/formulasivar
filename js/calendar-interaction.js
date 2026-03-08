@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Función para mostrar los detalles de un evento
-    function showEventDetails(raceIndex) {
+    async function showEventDetails(raceIndex) {
         // Asegurarse de que SEASON_SCHEDULE y raceDescriptions estén disponibles (vienen de app.js)
         if (typeof window.SEASON_SCHEDULE === 'undefined' || typeof window.raceDescriptions === 'undefined') {
-            console.error("Variables globales SEASON_SCHEDULE o raceDescriptions no están definidas en window. Asegúrate de que app.js se carga primero y las asigna a window.");
+            console.error("Variables globales SEASON_SCHEDULE o raceDescriptions no están definidas en window.");
             return;
         }
 
@@ -69,24 +69,39 @@ document.addEventListener("DOMContentLoaded", () => {
         // Limpiar y preparar imágenes para el slider
         eventImagesTrack.innerHTML = ''; 
         currentEventImages = [];
-        currentDetailImageIndex = 0; // Resetear a la primera imagen al abrir
+        currentDetailImageIndex = 0;
 
-        // === LÓGICA ACTUALIZADA PARA CARGAR MÚLTIPLES IMÁGENES ===
-        const imagesToLoad = [];
+        // === LÓGICA DINÁMICA: ESCANEO DE CARPETA ===
+        let imagesToLoad = [];
 
-        // Primero, si tiene imageFiles, cargarlos.
-        if (race.imageFiles && race.imageFiles.length > 0) {
+        if (race.folderPath) {
+            // Intentamos obtener las imágenes de la carpeta automáticamente
+            const folderImages = await window.getImagesFromFolder(race.folderPath);
+            
+            // Si encontramos imágenes que no sean 'coming_soon.webp', las priorizamos
+            const realImages = folderImages.filter(img => !img.toLowerCase().includes('coming_soon.webp'));
+            
+            if (realImages.length > 0) {
+                imagesToLoad = realImages;
+            } else if (folderImages.length > 0) {
+                // Si solo está coming_soon o no hay nada más, lo usamos
+                imagesToLoad = folderImages;
+            }
+        }
+
+        // Fallback: Si no se pudo obtener nada dinámicamente, usar lo que esté en imageFiles (manual)
+        if (imagesToLoad.length === 0 && race.imageFiles && race.imageFiles.length > 0) {
             race.imageFiles.forEach(filename => {
                 imagesToLoad.push(race.folderPath + filename);
             });
         } 
         
-        // NUEVO: Si no hay archivos de imagen específicos, cargar la imagen "Coming Soon" de su carpeta
+        // Segundo Fallback: Si sigue vacío, buscar coming_soon.webp de forma manual
         if (imagesToLoad.length === 0 && race.folderPath) {
             imagesToLoad.push(race.folderPath + "coming_soon.webp");
         }
 
-        // Si todavía no hay imágenes (caso extremo), usar el icono por defecto
+        // Tercer Fallback: Icono por defecto
         if (imagesToLoad.length === 0) {
             imagesToLoad.push("assets/icons/default_race_icon.svg");
         }
@@ -153,15 +168,14 @@ document.addEventListener("DOMContentLoaded", () => {
             raceCards.forEach(card => {
                 // Ensure listener is only added once
                 if (!card.dataset.listenerAttached) {
-                    card.addEventListener("click", () => {
+                    card.addEventListener("click", async () => {
                         const raceIndex = parseInt(card.dataset.raceIndex);
-                        showEventDetails(raceIndex);
+                        await showEventDetails(raceIndex);
                     });
                     card.dataset.listenerAttached = "true"; // Mark as attached
                 }
             });
-            // Disconnect after initial cards are processed, assuming no more dynamic additions post-load
-            // If more dynamic additions are expected, this disconnect should be handled differently.
+            // Disconnect after initial cards are processed
             observer.disconnect();
         }
     });
@@ -171,9 +185,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (initialRaceCards.length > 0) {
         initialRaceCards.forEach(card => {
             if (!card.dataset.listenerAttached) {
-                card.addEventListener("click", () => {
+                card.addEventListener("click", async () => {
                     const raceIndex = parseInt(card.dataset.raceIndex);
-                    showEventDetails(raceIndex);
+                    await showEventDetails(raceIndex);
                 });
                 card.dataset.listenerAttached = "true";
             }
