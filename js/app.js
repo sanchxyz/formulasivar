@@ -4,9 +4,9 @@
  * ============================================================================
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     initCountdown();
-    initCardSlider();
+    await initCardSlider();
     renderCalendar(); // Moved from temp-2026.html
 });
 
@@ -190,23 +190,39 @@ function initCountdown() {
 /* ============================================================================
    3. MÓDULO DEL SLIDER (CINEMATIC FADE)
    ============================================================================ */
-function initCardSlider() {
+async function initCardSlider() {
     const sliderContainer = document.getElementById('cinematic-slider');
     if (!sliderContainer) return;
 
-    // Rutas de imágenes
-    const cardImages = [
-        "assets/images/gallery/img_0.webp",
-        "assets/images/gallery/img_1.webp",
-        "assets/images/gallery/img_2.webp",
-        "assets/images/gallery/img_3.webp",
-        "assets/images/gallery/img_4.webp",
-        "assets/images/gallery/img_5.webp",
-        "assets/images/gallery/img_6.webp",
-    ];
+    // 1. ESCANEO DINÁMICO DE CARPETA
+    // Intentamos obtener las imágenes de la carpeta automáticamente como en temp-2026
+    const galleryPath = "assets/images/gallery/";
+    let imagesToLoad = [];
 
-    // 1. Generar elementos DOM
-    cardImages.forEach((src, index) => {
+    try {
+        const folderImages = await window.getImagesFromFolder(galleryPath);
+        if (folderImages && folderImages.length > 0) {
+            imagesToLoad = folderImages;
+        }
+    } catch (error) {
+        console.warn("No se pudo escanear la carpeta de galería automáticamente:", error);
+    }
+
+    // 2. FALLBACK: Si falla el escaneo dinámico (común en producción), usamos las rutas manuales
+    if (imagesToLoad.length === 0) {
+        imagesToLoad = [
+            "assets/images/gallery/img_0.webp",
+            "assets/images/gallery/img_1.webp",
+            "assets/images/gallery/img_2.webp",
+            "assets/images/gallery/img_3.webp",
+            "assets/images/gallery/img_4.webp",
+            "assets/images/gallery/img_5.webp",
+            "assets/images/gallery/img_6.webp",
+        ];
+    }
+
+    // 3. Generar elementos DOM
+    imagesToLoad.forEach((src, index) => {
         const img = document.createElement('img');
         img.src = src;
         img.className = 'cinematic-slide';
@@ -214,9 +230,11 @@ function initCardSlider() {
         sliderContainer.appendChild(img);
     });
 
-    // 2. Lógica de Rotación
+    // 4. Lógica de Rotación
     let currentIndex = 0;
     const slides = sliderContainer.querySelectorAll('.cinematic-slide');
+
+    if (slides.length === 0) return;
 
     setInterval(() => {
         // Quitar active a la actual
