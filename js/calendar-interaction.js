@@ -161,40 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Inicializar listeners después de que el DOM esté completamente cargado y el calendario renderizado
-    const observer = new MutationObserver((mutationsList, observer) => {
-        const raceCards = calendarGrid.querySelectorAll(".race-card");
-        if (raceCards.length > 0) {
-            raceCards.forEach(card => {
-                // Ensure listener is only added once
-                if (!card.dataset.listenerAttached) {
-                    card.addEventListener("click", async () => {
-                        const raceIndex = parseInt(card.dataset.raceIndex);
-                        await showEventDetails(raceIndex);
-                    });
-                    card.dataset.listenerAttached = "true"; // Mark as attached
-                }
-            });
-            // Disconnect after initial cards are processed
-            observer.disconnect();
+    // Delegación de eventos para el calendario
+    // En lugar de usar un MutationObserver que se desconecta, escuchamos los clics en el contenedor padre.
+    calendarGrid.addEventListener("click", (event) => {
+        const card = event.target.closest(".race-card");
+        if (card) {
+            const raceIndex = parseInt(card.dataset.raceIndex);
+            showEventDetails(raceIndex);
         }
     });
-
-    // === NEW: Manually check for already rendered cards on initial load ===
-    const initialRaceCards = calendarGrid.querySelectorAll(".race-card");
-    if (initialRaceCards.length > 0) {
-        initialRaceCards.forEach(card => {
-            if (!card.dataset.listenerAttached) {
-                card.addEventListener("click", async () => {
-                    const raceIndex = parseInt(card.dataset.raceIndex);
-                    await showEventDetails(raceIndex);
-                });
-                card.dataset.listenerAttached = "true";
-            }
-        });
-    }
-
-    observer.observe(calendarGrid, { childList: true });
 
     // Listener para el botón de cerrar
     closeEventDetailsButton.addEventListener("click", hideEventDetails);
