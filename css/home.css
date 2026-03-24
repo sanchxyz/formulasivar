@@ -172,41 +172,37 @@
     /* Borde sutil dorado */
 
     /* PADDING MAGISTRAL: 
-       4px a la izquierda/arriba/abajo para que el círculo "flote" dentro del borde.
+       2px a la izquierda para que el icono esté al borde.
        20px a la derecha para dar aire al texto. 
     */
-    padding: 4px 20px 4px 4px;
+    padding: 4px 20px 4px 2px;
 
     /* ANCHO Y POSICIÓN */
-    width: fit-content;
-    /* Se ajusta al contenido */
-    max-width: 92%;
-    /* Seguridad móvil */
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px; /* Mantiene la altura para que el icono de 40px quepa con aire */
     margin: 20px auto 0 auto;
 
     /* FLEXBOX */
     display: flex;
-    /* O inline-flex para mejor ajuste */
-    flex-direction: row;
     align-items: center;
-    /* Centrado vertical estricto */
     justify-content: center;
+    position: relative;
 
     gap: 12px;
-    /* Espacio entre círculo y texto */
-
-    /* SEGURIDAD ANTI-DESBORDE */
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    /* Sombra elegante */
 }
 
 
 
 /* 3. El Círculo de Cristal (Contenedor del Icono) */
 .race-icon-mini {
-    /* TAMAÑO FIJO: Ligeramente más grande para llenar la curva */
+    /* POSICIONAMIENTO ANCLADO AL BORDE IZQUIERDO */
+    position: absolute;
+    left: 6px; /* Ajustado para simetría perfecta con el top/bottom (4px) */
+    top: 50%;
+    transform: translateY(-50%);
+
+    /* TAMAÑO FIJO */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -219,24 +215,35 @@
     background: rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.05);
 
-    /* Anillo dorado fino */
-
     /* CENTRADO DEL LOTTIE */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    /* PROHIBIDO ENCOGERSE */
 
-    position: relative;
-    /* Para asegurar z-index */
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s ease;
+}
+
+/* 2. El Texto (h3) */
+#next-race-title {
+    color: var(--color-text-main);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 auto;
+    /* Centrado automático */
+
+    /* CLAMP: El texto se hace pequeño antes de romper la píldora */
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+    text-align: center;
 }
 
 
 /* Efecto Hover */
 .next-race-badge:hover .race-icon-mini {
-    transform: scale(1) rotate(15deg);
+    /* Mantenemos el centrado vertical para que no salte */
+    transform: translateY(-50%) scale(1.1) rotate(15deg);
     background: rgba(255, 215, 0, 0.2);
     box-shadow: 0 0 15px rgba(250, 250, 248, 0.4);
 }
@@ -503,6 +510,11 @@
    5. RESPONSIVE (MEDIA QUERIES)
    ========================================= */
 @media screen and (max-width: 575px) {
+    .next-race-badge {
+        /* Equilibramos el padding en móvil para centro perfecto */
+        padding: 4px; 
+    }
+
     .polaroid-card {
         flex-direction: row;
     }
