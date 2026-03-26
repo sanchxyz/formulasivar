@@ -250,6 +250,7 @@ img {
 
     font-weight: 500;
     line-height: 1.4;
+    font-style: italic;
 
     /* Truco de diseño: Limita el ancho del texto al 85% 
        para que no se meta en la zona transparente de la derecha */
@@ -393,10 +394,11 @@ img {
 
 /* Descripción más sutil (opcional: puedes borrar esto si quieres la letra normal) */
 .banner-mode .card-description {
-    font-size: 0.70rem; /* Un poco más pequeña para asegurar que no se desborde */
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem); /* Un poco más pequeña para asegurar que no se desborde */
     line-height: 1.1;
     margin-top: 2px;
     max-width: 85%; /* Evita que choque con el icono animado */
+    font-style: italic;
 }
 
 /* --- TRUCO VISUAL: CENTRAR EL ICONO --- */
