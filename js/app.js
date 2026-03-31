@@ -218,6 +218,8 @@ async function initCardSlider() {
             "assets/images/gallery/img_4.webp",
             "assets/images/gallery/img_5.webp",
             "assets/images/gallery/img_6.webp",
+            "assets/images/gallery/img_7.webp",
+            "assets/images/gallery/img_8.webp",
         ];
     }
 
