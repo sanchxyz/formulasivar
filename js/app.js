@@ -92,8 +92,7 @@ window.SEASON_SCHEDULE = [
     { name: "Australia", date: "2026-03-07", time: "22:00:00", customImagePath: null, folderPath: "assets/images/tracks/australia/", imageFiles: ["GP_AUSTRALIA_2026.jpg", "GP_AUSTRALIA_2026_01.jpg", "GP_AUSTRALIA_2026_02.jpg", "GP_AUSTRALIA_2026_03.jpg", "GP_AUSTRALIA_2026_04.jpg", "GP_AUSTRALIA_2026_05.jpg", "GP_AUSTRALIA_2026_06.jpg", "GP_AUSTRALIA_2026_07.jpg", "GP_AUSTRALIA_2026_08.jpg", "GP_AUSTRALIA_2026_09.jpg", "GP_AUSTRALIA_2026_010.jpg", "GP_AUSTRALIA_2026_011.jpg", "GP_AUSTRALIA_2026_012.jpg", "GP_AUSTRALIA_2026_013.jpg", "GP_AUSTRALIA_2026_014.jpg"], longDescription: "Damos por iniciada oficialmente la segunda temporada de Formula Sivar.Los invitamos a sentirse como en casa, con la certeza de que nuestra pasión compartida por la Fórmula 1 seguirá siendo el motor que nos mantenga unidos en esta temporada 2026.\n\nEste recorrido no sería el mismo sin el respaldo de quienes creen en nuestra visión. Gracias a Yard House, KitKat y Heineken por acompañarnos en esta gran aventura." },
     { name: "China", date: "2026-03-15", time: "01:00:00", customImagePath: null, folderPath: "assets/images/tracks/china/", imageFiles: ["spt_china_01.jpg", "spt_china_02.jpg", "spt_china_03.jpg", "spt_china_04.jpg", "spt_china_05.jpg", "spt_china_06.jpg", "spt_china_07.jpg", "spt_china_08.jpg", "spt_china_09.jpg", "spt_china_010.jpg", "spt_china_011.jpg", "spt_china_012.jpg", "spt_china_013.jpg"], longDescription: "La comunidad de Formula Sivar nos reunimos para ver el Sprint de China; tuvimos una dinámica con el simulador gracias a FAST LAP y contamos con la grata asistencia de KitKat." },
     { name: "Japón", date: "2026-03-28", time: "23:00:00", customImagePath: null, folderPath: "assets/images/tracks/japon/", imageFiles: [], longDescription: "El Gran Premio de Japón en Suzuka es uno de los favoritos de pilotos y aficionados, conocido por su diseño en forma de '8' y sus curvas de alta velocidad. Sumérgete en la rica historia de esta carrera, los momentos icónicos que ha producido y lo que hace a Suzuka una prueba definitiva de habilidad y coraje." },
-    { name: "Baréin", date: "2026-04-12", time: "09:00:00", customImagePath: null, folderPath: "assets/images/tracks/barein/", imageFiles: [], longDescription: "El Gran Premio de Baréin ilumina el desierto con su espectáculo nocturno. Descubre el Circuito Internacional de Baréin en Sakhir, su diseño técnico y cómo las condiciones de la pista cambian entre el día y la noche. Conoce el papel de esta carrera en la apertura de la temporada y las emocionantes batallas que ofrece." },
-    { name: "Arabia Saudita", date: "2026-04-19", time: "11:00:00", customImagePath: null, folderPath: "assets/images/tracks/arabia_saudita/", imageFiles: [], longDescription: "El Gran Premio de Arabia Saudita en Jeddah Corniche es el circuito urbano más rápido del mundo. Explora la velocidad y el riesgo de sus curvas ciegas y su trazado junto al mar Rojo. Entiende los desafíos únicos que presenta a los pilotos y la estrategia necesaria para dominar esta pista de alta adrenalina." },
+    { name: "Aniversario Formula Sivar", date: "2026-04-12", time: "09:00:00", customImagePath: null, folderPath: "assets/images/tracks/japon/", imageFiles: ["japon-2026.jpg"], longDescription: "¡Celebramos nuestro aniversario! Únete a la comunidad de Formula Sivar en este evento especial donde compartiremos nuestra pasión por la velocidad, recordaremos los mejores momentos de la temporada y disfrutaremos de sorpresas preparadas para todos los fans de la F1 en El Salvador." },
     { name: "EE.UU. (Miami)", date: "2026-05-03", time: "14:00:00", customImagePath: null, folderPath: "assets/images/tracks/usa_miami/", imageFiles: [], longDescription: "El Gran Premio de Miami trae el glamour de la Fórmula 1 a Florida. Conoce el circuito temporal alrededor del Hard Rock Stadium, su atmósfera vibrante y cómo combina la alta velocidad con un toque de espectáculo americano. Descubre los puntos clave de adelantamiento y las celebridades que asisten a este evento." },
     { name: "Canadá", date: "2026-05-24", time: "14:00:00", customImagePath: null, folderPath: "assets/images/tracks/canada/", imageFiles: [], longDescription: "El Gran Premio de Canadá en el Circuito Gilles Villeneuve es famoso por su icónico 'Muro de los Campeones'. Sumérgete en la historia de esta carrera, su ubicación en la Isla de Notre Dame y cómo las chicanes y las zonas de DRS promueven adelantamientos emocionantes. Conoce la pasión de los aficionados canadienses." },
     { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/monaco/", imageFiles: [], longDescription: "El Gran Premio de Mónaco es la joya de la corona de la Fórmula 1, un circuito urbano sin margen para errores. Explora la estrechez de sus calles, el famoso túnel y la glamurosa atmósfera que lo rodea. Entiende por qué la clasificación es crucial aquí y cómo la habilidad del piloto se pone a prueba al límite." },
@@ -165,7 +164,15 @@ function initCountdown() {
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         updateDOM(days, hours, minutes, seconds);
-        titleEl.textContent = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
+
+        // Lógica personalizada para el título del contador
+        if (raceName.toLowerCase().includes("aniversario")) {
+            titleEl.textContent = `${raceName.toUpperCase()}`;
+        } else if (raceName.toLowerCase().includes("livery")) {
+            titleEl.textContent = `PRESENTACIÓN: ${raceName.toUpperCase()}`;
+        } else {
+            titleEl.textContent = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
+        }
     };
 
     // Helper para actualizar el HTML
@@ -296,9 +303,8 @@ async function renderCalendar() {
 
     // Diccionario de descripciones (el que ya tienes)
     window.raceDescriptions = {
-        "Baréin": "El Circuito de Sakhir ilumina el desierto para abrir la nueva era de la F1.",
+        "Aniversario Formula Sivar": "¡Celebramos 5 años de pasión por la F1! Acompáñanos en este evento especial de aniversario.",
         "Cadillac Livery": "Presentacion de la Livery del monoplaza de Cadillac F1 Team",
-        "Arabia Saudita": "Jeddah Corniche desafía a los pilotos en el circuito callejero más rápido.",
         "Australia": "Albert Park nos recibe con sol, lagos y la energía única de Melbourne.",
         "Japón": "Suzuka es la prueba definitiva de habilidad con sus legendarias curvas en 'S'.",
         "China": "El Circuito de Shanghai regresa con sus largas rectas y estrategia pura.",
