@@ -71,42 +71,50 @@ document.addEventListener("DOMContentLoaded", () => {
         currentEventImages = [];
         currentDetailImageIndex = 0;
 
-        // === LÓGICA DINÁMICA: ESCANEO DE CARPETA ===
+        // === LÓGICA DE CARGA DE IMÁGENES ===
         let imagesToLoad = [];
 
-        if (race.folderPath) {
-            // Intentamos obtener las imágenes de la carpeta automáticamente
+        // 1. Prioridad: Si hay archivos definidos manualmente en imageFiles
+        if (race.imageFiles && race.imageFiles.length > 0) {
+            race.imageFiles.forEach(filename => {
+                // Evitar duplicar el path si ya viene completo
+                const fullPath = filename.startsWith('assets/') ? filename : (race.folderPath + filename);
+                imagesToLoad.push(fullPath);
+            });
+        } 
+        // 2. Fallback: Escaneo dinámico si no hay archivos manuales
+        else if (race.folderPath) {
             const folderImages = await window.getImagesFromFolder(race.folderPath);
-            
-            // Si encontramos imágenes que no sean 'coming_soon.webp', las priorizamos
             const realImages = folderImages.filter(img => !img.toLowerCase().includes('coming_soon.webp'));
             
             if (realImages.length > 0) {
                 imagesToLoad = realImages;
-            } else if (folderImages.length > 0) {
-                // Si solo está coming_soon o no hay nada más, lo usamos
+            } else {
                 imagesToLoad = folderImages;
             }
         }
 
-        // Fallback: Si no se pudo obtener nada dinámicamente, usar lo que esté en imageFiles (manual)
-        if (imagesToLoad.length === 0 && race.imageFiles && race.imageFiles.length > 0) {
-            race.imageFiles.forEach(filename => {
-                imagesToLoad.push(race.folderPath + filename);
-            });
-        } 
-        
-        // Segundo Fallback: Si sigue vacío, buscar coming_soon.webp de forma manual
-        if (imagesToLoad.length === 0 && race.folderPath) {
-            imagesToLoad.push(race.folderPath + "coming_soon.webp");
+        // 3. Garantizar que la portada (customImagePath) esté de primera si existe y no está ya
+        if (race.customImagePath && race.customImagePath !== 'null') {
+            const coverPath = race.customImagePath;
+            if (!imagesToLoad.includes(coverPath)) {
+                imagesToLoad.unshift(coverPath);
+            } else {
+                // Si ya está, la movemos al principio
+                imagesToLoad = [coverPath, ...imagesToLoad.filter(img => img !== coverPath)];
+            }
         }
-
-        // Tercer Fallback: Icono por defecto
+        
+        // 4. Fallback final: si sigue vacío
         if (imagesToLoad.length === 0) {
-            imagesToLoad.push("assets/icons/default_race_icon.svg");
+            if (race.folderPath) {
+                imagesToLoad.push(race.folderPath + "coming_soon.webp");
+            } else {
+                imagesToLoad.push("assets/icons/default_race_icon.svg");
+            }
         }
         
-        currentEventImages = imagesToLoad;
+        currentEventImages = [...new Set(imagesToLoad)]; // Eliminar posibles duplicados
 
         // Crear elementos <img> para cada imagen y añadirlos al track
         currentEventImages.forEach(src => {

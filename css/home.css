@@ -348,7 +348,7 @@
 
 /* --- TEXTOS --- */
 .mini-date {
-    font-size: 0.65rem;
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -367,14 +367,14 @@
 
 .mini-content h4 {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 2.5vw, 1rem);
     color: var(--color-text-main);
     font-weight: 600;
 }
 
 .mini-content p {
     margin: 0;
-    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    font-size: clamp(0.6rem, 2vw, 0.85rem);
     /* Letra pequeña para que quepa, adaptable */
     color: var(--color-text-secondary);
     font-style: italic;
