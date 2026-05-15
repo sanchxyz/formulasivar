@@ -166,6 +166,31 @@ img {
     transition: transform 0.3s ease;
 }
 
+/* --- Contenedor para tarjetas divididas --- */
+.split-cards-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.split-cards-container .photo-card.split-card {
+    width: calc(50% - 7.5px);
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    min-height: unset;
+}
+
+.split-card .glass-circle-icon {
+    width: 42px;
+    height: 42px;
+    bottom: 12px;
+    left: 12px;
+    padding: 8px;
+}
+
 /* --- Capa de Vidrio Radial (Advanced Masking) --- */
 .card-overlay {
     position: absolute;
@@ -217,12 +242,8 @@ img {
 .card-title {
     color: var(--color-text-main);
 
-    /* DINAMISMO: 
-       - Min: 1.1rem (aprox 17px) en móviles pequeños.
-       - Ideal: Crece al 3% del ancho de pantalla.
-       - Max: 1.6rem (aprox 25px) en desktop.
-    */
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    /* Ajustado para ser más flexible y legible en varios tamaños */
+    font-size: clamp(0.9rem, 2.5vw, 1.4rem);
 
     font-weight: 800;
     /* Extra bold para impacto */
@@ -242,14 +263,11 @@ img {
     color: var(--color-text-secondary);
     /* Color grisáceo/blanco suave */
 
-    /* DINAMISMO:
-       - Min: 0.8rem (Texto pequeñito pero legible en móvil).
-       - Max: 0.95rem (Texto estándar en desktop).
-    */
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    /* Ajustado: desde 0.65rem para mayor legibilidad en espacios reducidos */
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
 
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.3;
     font-style: italic;
 
     /* Truco de diseño: Limita el ancho del texto al 85% 
@@ -257,6 +275,28 @@ img {
     max-width: 85%;
 
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Ajustes específicos para tarjetas pequeñas (Split Cards) --- */
+.split-card .card-overlay {
+    padding: 15px;
+    padding-top: 28px; /* Subimos un pelín el texto desde la posición anterior */
+    padding-right: 15px;
+    justify-content: flex-start;
+}
+
+.split-card .card-title {
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    margin-bottom: 4px;
+}
+
+.split-card .card-description {
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 95%;
 }
 
 
