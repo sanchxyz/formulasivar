@@ -72,9 +72,18 @@
     justify-content: space-between;
     align-items: center;
 
-    gap: clamp(5px, 4vw, 20px);
+    gap: clamp(10px, 4vw, 25px);
     padding: 12px clamp(15px, 3vw, 25px);
-    margin-top: 0;
+    margin: 15px auto 25px auto; /* Centrado y con margen inferior */
+    width: fit-content; /* Se ajusta al contenido */
+}
+
+.site-header .redes-sociales {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 10px; /* Reducido de 20px ya que no hay firmas arriba */
+    margin-bottom: 10px;
 }
 
 .glass-box.redes-sociales .icon,
@@ -511,6 +520,26 @@
    5. RESPONSIVE (MEDIA QUERIES)
    ========================================= */
 @media screen and (max-width: 575px) {
+    .site-header {
+        padding-top: 15px;
+        padding-bottom: 0px; /* Reducimos el padding inferior del header */
+    }
+
+    .site-header .redes-sociales {
+        margin-top: 8px;
+        margin-bottom: 5px; /* Reducimos el margen inferior de la barra */
+    }
+
+    /* Reducimos el espacio superior del contenedor principal en móvil */
+    .container {
+        padding-top: 10px !important;
+    }
+
+    /* Ajustamos el margen de la primera tarjeta (el contador) para que no sume tanto espacio */
+    .countdown-container.glass-card {
+        margin-top: 5px;
+    }
+
     .next-race-badge {
         /* Equilibramos el padding en móvil para centro perfecto */
         padding: 4px; 

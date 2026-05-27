@@ -120,6 +120,24 @@ img {
     gap: 0;
 }
 
+/* Optimización para Tablets y Formatos Cuadrados */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        padding: 20px 10px;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .main-column, .secondary-column {
+        flex: 1 1 45%;
+        max-width: 480px;
+    }
+
+    .glass-card, .photo-card, .split-cards-container {
+        width: 95%; /* Aprovechamos mejor el ancho en tablets */
+    }
+}
+
 
 /* =========================================
    4. COMPONENTES COMPARTIDOS (UI KIT)
