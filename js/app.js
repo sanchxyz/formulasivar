@@ -100,7 +100,7 @@ window.SEASON_SCHEDULE = [
     { name: "Aniversario Formula Sivar", date: "2026-04-12", time: "09:00:00", customImagePath: "assets/images/tracks/aniversario/aniversario_portada.jpg", folderPath: "assets/images/tracks/aniversario/", imageFiles: ["aniversario_001.jpg", "aniversario_002.jpg", "aniversario_003.jpg", "aniversario_004.jpg", "aniversario_005.jpg", "aniversario_006.jpg", "aniversario_007.jpg", "aniversario_portada.jpg"], longDescription: "Celebramos nuestro aniversario junto a la comunidad con un evento lleno de sorpresas y pasión por la F1. Contamos con la agradable asistencia de Logitech y KitKat." },
     { name: "MIAMI", date: "2026-05-03", time: "14:00:00", customImagePath: "assets/images/tracks/usa_miami/GP_MIAMI_PORTADA.jpg", folderPath: "assets/images/tracks/usa_miami/", imageFiles: ["GP_MIAMI_PORTADA.jpg", "GP_MIAMI_001.jpg", "GP_MIAMI_002.jpg", "GP_MIAMI_003.jpg", "GP_MIAMI_004.jpg", "GP_MIAMI_005.jpg", "GP_MIAMI_006.jpg", "GP_MIAMI_007.jpg", "GP_MIAMI_008.jpg", "GP_MIAMI_009.jpg", "GP_MIAMI_010.jpg", "GP_MIAMI_011.jpg", "GP_MIAMI_012.jpg", "GP_MIAMI_013.jpg", "GP_MIAMI_014.jpg", "GP_MIAMI_015.jpg", "GP_MIAMI_016.jpg", "GP_MIAMI_017.jpg", "GP_MIAMI_018.jpg", "GP_MIAMI_019.jpg", "GP_MIAMI_020.jpg"], longDescription: "El Gran Premio de Miami trae el glamour de la Fórmula 1 a Florida. Conoce el circuito temporal alrededor del Hard Rock Stadium, su atmósfera vibrante y cómo combina la alta velocidad con un toque de espectáculo americano. Descubre los puntos clave de adelantamiento y las celebridades que asisten a este evento." },
     { name: "CANADÁ", date: "2026-05-24", time: "14:00:00", customImagePath: "assets/images/tracks/canada/Gp_Canada_portada.jpg", folderPath: "assets/images/tracks/canada/", imageFiles: ["Gp_Canada_portada.jpg", "Gp_Canada_01.jpg", "Gp_Canada_02.jpg", "Gp_Canada_03.jpg", "Gp_Canada_04.jpg"], longDescription: "La comunidad de Formula Sivar nos reunimos para disfrutar del Gran Premio de Canadá en el emblemático Circuito Gilles Villeneuve. Fue una jornada llena de emoción y velocidad, donde compartimos nuestra pasión por la Fórmula 1 y disfrutamos de cada vuelta en un ambiente increíble." },
-    { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/monaco/", imageFiles: [], longDescription: "El Gran Premio de Mónaco es la joya de la corona de la Fórmula 1, un circuito urbano sin margen para errores. Explora la estrechez de sus calles, el famoso túnel y la glamurosa atmósfera que lo rodea. Entiende por qué la clasificación es crucial aquí y cómo la habilidad del piloto se pone a prueba al límite." },
+    { name: "Mónaco", date: "2026-06-07", time: "07:00:00", customImagePath: "assets/images/tracks/monaco/album-gp-monaco.jpg", folderPath: "assets/images/tracks/monaco/", imageFiles: ["album-gp-monaco.jpg"], longDescription: "El Gran Premio de Mónaco es la joya de la corona de la Fórmula 1, un circuito urbano sin margen para errores. Explora la estrechez de sus calles, el famoso túnel y la glamurosa atmósfera que lo rodea. Entiende por qué la clasificación es crucial aquí y cómo la habilidad del piloto se pone a prueba al límite." },
     { name: "Barcelona", date: "2026-06-14", time: "07:00:00", customImagePath: "assets/images/tracks/espana_barcelona/portada_gp_barcelona.jpg", folderPath: "assets/images/tracks/espana_barcelona/", imageFiles: ["portada_gp_barcelona.jpg"], longDescription: "El Gran Premio de España en el Circuit de Barcelona-Catalunya es una prueba familiar para los equipos, que lo usan para test. Conoce la evolución de su trazado, los puntos clave para el desarrollo del monoplaza y la importancia de la gestión de neumáticos. Descubre la calidez del público español y su pasión por la F1." },
     { name: "Austria", date: "2026-06-28", time: "07:00:00", customImagePath: "assets/images/tracks/austria/portada_gp_Austria.jpg", folderPath: "assets/images/tracks/austria/", imageFiles: ["portada_gp_Austria.jpg"], longDescription: "El Gran Premio de Austria en el Red Bull Ring es un circuito corto y rápido en los impresionantes paisajes de Estiria. Explora sus desniveles, las zonas de DRS y cómo fomenta adelantamientos. Conoce la historia de esta pista y la vibrante atmósfera creada por los aficionados, especialmente los de Red Bull." },
     { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00", customImagePath: "assets/images/tracks/gran_bretana/album_gp_UK.jpg", folderPath: "assets/images/tracks/gran_bretana/", imageFiles: ["album_gp_UK.jpg"], longDescription: "El Gran Premio de Gran Bretaña en Silverstone es la cuna de la Fórmula 1, un circuito con una rica historia y curvas legendarias. Sumérgete en la emoción de Copse, Maggotts y Becketts, y la pasión de los aficionados británicos. Descubre cómo la velocidad y la estrategia se combinan en este icónico trazado." },
@@ -222,23 +222,22 @@ async function initCardSlider() {
 
     // 2. FALLBACK: Si falla el escaneo dinámico (común en producción), usamos las rutas manuales
     if (imagesToLoad.length === 0) {
-        imagesToLoad = [
-            "assets/images/gallery/img_0.webp",
-            "assets/images/gallery/img_1.webp",
-            "assets/images/gallery/img_2.webp",
-            "assets/images/gallery/img_3.webp",
-            "assets/images/gallery/img_4.webp",
-            "assets/images/gallery/img_5.webp",
-            "assets/images/gallery/img_6.webp",
-            "assets/images/gallery/img_7.webp",
-            "assets/images/gallery/img_8.webp",
-        ];
+        imagesToLoad = Array.from({ length: 15 }, (_, i) =>
+            `assets/images/gallery/img_${i}.webp`
+        );
     }
+
+    // Ordenar por nombre para que img_0, img_1, ..., img_14 se reproduzcan en orden
+    imagesToLoad.sort((a, b) => {
+        const numA = parseInt(a.match(/(\d+)/)?.[1] || 0, 10);
+        const numB = parseInt(b.match(/(\d+)/)?.[1] || 0, 10);
+        return numA - numB;
+    });
 
     // 3. Generar elementos DOM
     imagesToLoad.forEach((src, index) => {
         const img = document.createElement('img');
-        img.src = src;
+        img.src = `${src}?v=2`;
         img.className = 'cinematic-slide';
         if (index === 0) img.classList.add('active'); // Activar la primera
         sliderContainer.appendChild(img);
