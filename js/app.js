@@ -237,7 +237,7 @@ async function initCardSlider() {
     // 3. Generar elementos DOM
     imagesToLoad.forEach((src, index) => {
         const img = document.createElement('img');
-        img.src = `${src}?v=2`;
+        img.src = `${src}?v=3`;
         img.className = 'cinematic-slide';
         if (index === 0) img.classList.add('active'); // Activar la primera
         sliderContainer.appendChild(img);
