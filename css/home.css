@@ -11,7 +11,7 @@
     justify-content: center;
 
     /* Espaciado */
-    padding-top: 20px;
+padding-top: 8vh;
     padding-bottom: 10px;
 
     /* Para que quede sobre el fondo pero bajo el contenido si hiciera falta */
@@ -43,12 +43,6 @@
     /* Para la imagen */
 }
 
-/* CAPA 1: COLORES (El SVG) */
-.color-layer {
-    z-index: -3;
-    /* Lo más al fondo posible */
-}
-
 /* CAPA 2: TEXTURA (La imagen Webp) */
 .texture-layer {
     z-index: -2;
@@ -59,6 +53,36 @@
     /* TRUCO DE DISEÑADOR: 
        Esto hace que la textura se fusione mejor con los colores de abajo */
     mix-blend-mode: overlay;
+}
+
+/* CAPA 1.5: BANNER SUPERIOR (Fijo, cubre 100% del viewport) */
+.banner-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 17%);
+    mask-image: linear-gradient(to top, transparent 0%, black 17%);
+}
+
+/* Banner desktop oculto por defecto (solo se muestra en desktop) */
+.banner-top-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .banner-top-mobile {
+        display: none;
+    }
+
+    .banner-top-desktop {
+        display: block;
+    }
 }
 
 
@@ -82,8 +106,22 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    margin-top: 10px; /* Reducido de 20px ya que no hay firmas arriba */
+    margin-top: 24px; /* Duplicado: 4px (logo) + 24px = 28px */
     margin-bottom: 10px;
+}
+
+/* PRUEBA TEMPORAL: ocultar la burbuja solo en desktop (se puede revertir
+   borrando este bloque) */
+@media (min-width: 1024px) {
+    .glass-box.redes-sociales {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-radius: 0;
+        padding: 0;
+    }
 }
 
 .glass-box.redes-sociales .icon,
@@ -107,6 +145,8 @@
 .countdown-container {
     text-align: center;
     padding: 15px clamp(10px, 3vw, 25px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 #countdown {
@@ -171,10 +211,8 @@
 
 /* 1. La Píldora Contenedora */
 .next-race-badge {
-    /* Fondo y Efecto Vidrio */
-    background: rgb(77 76 76 / 40%);
-    /* Un poco más oscuro para contraste con el oro */
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
 
     /* BORDES: Geometría de cápsula */
     border-radius: 50px;
@@ -418,6 +456,8 @@
     flex-direction: row;
     overflow: hidden;
     width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 
     /* CAMBIO CLAVE: Forzamos la altura para mantener forma de tarjeta rectangular.
        - Min: 220px (Para que quepa el texto mínimamente)
@@ -521,12 +561,12 @@
    ========================================= */
 @media screen and (max-width: 575px) {
     .site-header {
-        padding-top: 15px;
+padding-top: 8vh;
         padding-bottom: 0px; /* Reducimos el padding inferior del header */
     }
 
     .site-header .redes-sociales {
-        margin-top: 8px;
+        margin-top: 20px; /* Duplicado: 4px (logo) + 20px = 24px */
         margin-bottom: 5px; /* Reducimos el margen inferior de la barra */
     }
 
@@ -553,4 +593,63 @@
         padding: 12px;
     }
 
+}
+
+/* =========================================
+   HEADER DESKTOP: BARRA SUPERIOR COMPLETA
+   ========================================= */
+
+/* En mobile el wrapper es transparente (no altera nada) */
+.site-header-inner {
+    display: contents;
+}
+
+@media (min-width: 1024px) {
+    .site-header {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        height: 8vh;
+        min-height: 48px;
+        max-height: 64px;
+
+        padding: 0;
+        margin: 0;
+
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        position: sticky;
+        top: 0;
+        z-index: 20;
+    }
+
+    .site-header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+        max-width: 920px;
+        padding: 0 20px;
+    }
+
+    header.site-header img.logo {
+        height: clamp(26px, 4vh, 38px) !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+
+    .glass-box.redes-sociales {
+        margin: 0 !important;
+        padding: 6px 16px;
+        gap: clamp(8px, 1.5vw, 18px);
+    }
+
+    .glass-box.redes-sociales .icon {
+        width: clamp(18px, 1.8vw, 24px);
+    }
 }
