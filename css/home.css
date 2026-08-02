@@ -669,11 +669,12 @@ padding-top: 8vh;
 }
 
 /* =========================================
-   6. BENTO DESKTOP: 2 COLUMNAS CENTRADAS
+   6. BENTO DESKTOP: 3 COLUMNAS CENTRADAS
    Mantiene el aire alrededor del diseño y el
    tamano natural de las tarjetas (como antes):
    Col 1: Contador + Boton + Calendario
-   Col 2: GP Brasil + Temporada/Galeria + Banner
+   Col 2: (Central) Campeonato de Pilotos + Constructores
+   Col 3: GP Brasil + Temporada/Galeria + Banner
    ========================================= */
 @media (min-width: 1024px) {
     .bento-grid {
@@ -686,12 +687,26 @@ padding-top: 8vh;
         width: 100%;
     }
 
+    .container-bento {
+        max-width: 1250px;
+    }
+
     .bento-col {
-        flex: 1 1 300px;
         width: 100%;
-        max-width: 480px;
+        min-width: 0;
         display: flex;
         flex-direction: column;
+    }
+
+    .bento-col-1,
+    .bento-col-2 {
+        flex: 1 1 420px;
+        max-width: 430px;
+    }
+
+    .bento-col-3 {
+        flex: 1 1 280px;
+        max-width: 300px;
     }
 
     .bento-countdown {
@@ -699,5 +714,158 @@ padding-top: 8vh;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
+    }
+
+    /* Col 2: el contenedor temporada/galería crece para llenar la altura
+       y sus tarjetas se estiran para cubrir todo el espacio */
+    .bento-splits {
+        flex: 1 1 auto;
+        align-items: stretch;
+    }
+
+    .bento-splits .split-card {
+        aspect-ratio: auto;
+        height: auto;
+    }
+
+    /* Col 3: las tarjetas de tablas se reparten la altura disponible.
+       flex-basis: 0 evita que su contenido (la tabla completa) infle
+       la altura de la columna; la tabla hace scroll interno. */
+    .bento-col-3 .standings-card {
+        flex: 1 1 0;
+        min-height: 0;
+    }
+}
+
+/* =========================================
+   TABLAS DE CAMPEONATO (COLUMNA CENTRAL)
+   ========================================= */
+.standings-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.standings-header {
+    padding: 14px 16px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.standings-title {
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.standings-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE / Edge legacy */
+}
+
+.standings-body::-webkit-scrollbar {
+    display: none; /* Chrome / Safari / Edge */
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.standings-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.standings-table th.td-pos,
+.standings-table td.td-pos {
+    width: 30px;
+    text-align: center;
+    padding-left: 8px;
+}
+
+.standings-table th.td-pts,
+.standings-table td.td-pts {
+    width: 42px;
+    text-align: right;
+    padding-right: 12px;
+    font-weight: 600;
+}
+
+.standings-table tbody td {
+    padding: 7px 10px;
+    font-size: 0.75rem;
+    color: var(--color-text-main);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.td-name-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+}
+
+.td-logo {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+}
+
+.td-driver-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Top 3 destacados */
+.standings-row.pos-top-1 td {
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.standings-row.pos-top-2 td {
+    background: rgba(192, 192, 192, 0.08);
+}
+
+.standings-row.pos-top-3 td {
+    background: rgba(205, 127, 50, 0.08);
+}
+
+.standings-row:hover td {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.standings-msg {
+    text-align: center;
+    padding: 20px 10px !important;
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+@media screen and (max-width: 1023px) {
+    .standings-body {
+        max-height: 240px;
     }
 }

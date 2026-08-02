@@ -29,8 +29,8 @@
     <meta property="twitter:description"
         content="Únete a la comunidad de Motor Sport más grande de El Salvador. Eventos, noticias y pasión por la velocidad.">
     <meta property="twitter:image" content="assets/icons/favicon.png">
-    <link rel="stylesheet" href="css/global.css?v=9" />
-    <link rel="stylesheet" href="css/home.css?v=9" />
+    <link rel="stylesheet" href="css/global.css?v=14" />
+    <link rel="stylesheet" href="css/home.css?v=14" />
 </head>
 
 <body>
@@ -76,7 +76,7 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="container container-bento">
         <div class="bento-grid">
 
             <div class="bento-col bento-col-1">
@@ -172,6 +172,53 @@
             </div>
             </div>
 
+            <!-- COLUMNA CENTRAL: EN DESKTOP VA AL MEDIO, EN MOBILE VA DESPUÉS DEL CALENDARIO -->
+            <div class="bento-col bento-col-3">
+
+                <!-- CAMPEONATO DE PILOTOS -->
+                <div class="standings-card glass-card bento-standings">
+                    <div class="standings-header">
+                        <span class="standings-title">Campeonato de Pilotos</span>
+                    </div>
+                    <div class="standings-body">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th class="td-pos">#</th>
+                                    <th>Piloto</th>
+                                    <th class="td-pts">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="driver-standings-body">
+                                <tr><td colspan="3" class="standings-msg">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CAMPEONATO DE CONSTRUCTORES -->
+                <div class="standings-card glass-card bento-standings">
+                    <div class="standings-header">
+                        <span class="standings-title">Campeonato de Constructores</span>
+                    </div>
+                    <div class="standings-body">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th class="td-pos">#</th>
+                                    <th>Escudería</th>
+                                    <th class="td-pts">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="constructor-standings-body">
+                                <tr><td colspan="3" class="standings-msg">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="bento-col bento-col-2">
 
             <!-- GP DE BRASIL (COL 2) -->
@@ -231,7 +278,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=13"></script>
 
 
 </body>

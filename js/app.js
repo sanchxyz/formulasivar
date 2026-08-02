@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     initCountdown();
     await initCardSlider();
     renderCalendar(); // Moved from temp-2026.html
+    initStandings(); // Tablas de campeonato (columna central)
 });
 
 
@@ -447,4 +448,135 @@ function formatTime(timeStr) {
 function formatDate(dateStr) {
     const options = { day: '2-digit', month: 'short' };
     return new Date(dateStr + "T00:00:00").toLocaleDateString('es-ES', options).toUpperCase();
+}
+
+/* ============================================================================
+   STANDINGS / CAMPEONATO (API jolpi + caché localStorage TTL 1h)
+   ============================================================================ */
+const STANDINGS_ENDPOINTS = {
+    driver: "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
+    constructor: "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
+};
+
+const STANDINGS_TTL = 6 * 60 * 60 * 1000; // 6 horas
+
+// Mapa de nombres de escudería (API) → logo local
+const TEAM_LOGOS = {
+    "Alpine": "assets/Escuderias/2026alpinelogowhite.avif",
+    "Alpine F1 Team": "assets/Escuderias/2026alpinelogowhite.avif",
+    "Aston Martin": "assets/Escuderias/2026astonmartinlogowhite.avif",
+    "Audi": "assets/Escuderias/2026audilogowhite.avif",
+    "Cadillac": "assets/Escuderias/2026cadillaclogowhite.avif",
+    "Cadillac F1 Team": "assets/Escuderias/2026cadillaclogowhite.avif",
+    "Ferrari": "assets/Escuderias/2026ferrarilogowhite.avif",
+    "Haas": "assets/Escuderias/2026haasf1teamlogowhite.avif",
+    "Haas F1 Team": "assets/Escuderias/2026haasf1teamlogowhite.avif",
+    "McLaren": "assets/Escuderias/2026mclarenlogowhite.avif",
+    "Mercedes": "assets/Escuderias/2026mercedeslogowhite.avif",
+    "RB F1 Team": "assets/Escuderias/2026racingbullslogowhite.avif",
+    "Racing Bulls": "assets/Escuderias/2026racingbullslogowhite.avif",
+    "Red Bull": "assets/Escuderias/2026redbullracinglogowhite.avif",
+    "Williams": "assets/Escuderias/2026williamslogowhite.avif",
+};
+
+function getTeamLogo(teamName) {
+    if (!teamName) return null;
+    if (TEAM_LOGOS[teamName]) return TEAM_LOGOS[teamName];
+    const match = Object.keys(TEAM_LOGOS).find(key =>
+        teamName.toLowerCase().includes(key.toLowerCase()) ||
+        key.toLowerCase().includes(teamName.toLowerCase())
+    );
+    return match ? TEAM_LOGOS[match] : null;
+}
+
+async function fetchStandingsFromAPI(type) {
+    const response = await fetch(STANDINGS_ENDPOINTS[type]);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const json = await response.json();
+    const list = json.MRData.StandingsTable.StandingsLists[0];
+    return type === "driver" ? list.DriverStandings : list.ConstructorStandings;
+}
+
+async function getStandings(type) {
+    const cacheKey = `f1_standings_${type}`;
+    const now = Date.now();
+
+    let cached = null;
+    try {
+        cached = JSON.parse(localStorage.getItem(cacheKey));
+    } catch (e) {
+        cached = null;
+    }
+
+    if (cached && cached.data) {
+        if (now - cached.timestamp < STANDINGS_TTL) {
+            return cached.data;
+        }
+        try {
+            const fresh = await fetchStandingsFromAPI(type);
+            localStorage.setItem(cacheKey, JSON.stringify({ data: fresh, timestamp: now }));
+            return fresh;
+        } catch (error) {
+            return cached.data;
+        }
+    }
+
+    const fresh = await fetchStandingsFromAPI(type);
+    localStorage.setItem(cacheKey, JSON.stringify({ data: fresh, timestamp: now }));
+    return fresh;
+}
+
+function renderStandingsRows(standings, tbody, rowBuilder) {
+    if (!standings || standings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" class="standings-msg">Datos no disponibles</td></tr>';
+        return;
+    }
+    tbody.innerHTML = standings.map((item, index) => rowBuilder(item, index)).join("");
+}
+
+function renderDriverStandings(standings, tbody) {
+    renderStandingsRows(standings, tbody, (item, index) => {
+        const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
+        const team = item.Constructors && item.Constructors[0] ? item.Constructors[0].name : "";
+        const logo = getTeamLogo(team);
+        const top = index < 3 ? ` pos-top-${index + 1}` : "";
+        return `<tr class="standings-row${top}">
+            <td class="td-pos">${item.position}</td>
+            <td class="td-name"><span class="td-name-inner">${logo ? `<img class="td-logo" src="${logo}" alt="" />` : ""}<span class="td-driver-name">${name}</span></span></td>
+            <td class="td-pts">${item.points}</td>
+        </tr>`;
+    });
+}
+
+function renderConstructorStandings(standings, tbody) {
+    renderStandingsRows(standings, tbody, (item, index) => {
+        const ctor = item.Constructor;
+        const logo = getTeamLogo(ctor.name);
+        const top = index < 3 ? ` pos-top-${index + 1}` : "";
+        return `<tr class="standings-row${top}">
+            <td class="td-pos">${item.position}</td>
+            <td class="td-name"><span class="td-name-inner">${logo ? `<img class="td-logo" src="${logo}" alt="${ctor.name}" />` : ""}<span class="td-driver-name">${ctor.name}</span></span></td>
+            <td class="td-pts">${item.points}</td>
+        </tr>`;
+    });
+}
+
+async function initStandings() {
+    const driverTbody = document.getElementById("driver-standings-body");
+    const constructorTbody = document.getElementById("constructor-standings-body");
+    if (!driverTbody && !constructorTbody) return;
+
+    try {
+        const [drivers, constructors] = await Promise.all([
+            getStandings("driver"),
+            getStandings("constructor"),
+        ]);
+        if (driverTbody) renderDriverStandings(drivers, driverTbody);
+        if (constructorTbody) renderConstructorStandings(constructors, constructorTbody);
+    } catch (error) {
+        const msg = '<tr><td colspan="3" class="standings-msg">Datos no disponibles</td></tr>';
+        if (driverTbody) driverTbody.innerHTML = msg;
+        if (constructorTbody) constructorTbody.innerHTML = msg;
+        console.error("Error cargando standings:", error);
+    }
 }
