@@ -450,6 +450,18 @@ padding-top: 8vh;
     width: 100%;
 }
 
+/* Contenedor bento unificado: en mobile es bloque vertical (igual que antes) */
+.bento-grid {
+    display: block;
+    width: 100%;
+}
+
+/* En mobile cada columna es un bloque (mismo flujo vertical de siempre) */
+.bento-col {
+    display: block;
+    width: 100%;
+}
+
 .polaroid-card {
     padding: 0;
     display: flex;
@@ -653,5 +665,32 @@ padding-top: 8vh;
 
     .glass-box.redes-sociales .icon {
         width: clamp(18px, 1.8vw, 24px);
+    }
+}
+
+/* =========================================
+   6. BENTO DESKTOP: 2 COLUMNAS CENTRADAS
+   Mantiene el aire alrededor del diseño y el
+   tamano natural de las tarjetas (como antes):
+   Col 1: Contador + Boton + Calendario
+   Col 2: GP Brasil + Temporada/Galeria + Banner
+   ========================================= */
+@media (min-width: 1024px) {
+    .bento-grid {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .bento-col {
+        flex: 1 1 300px;
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
     }
 }
