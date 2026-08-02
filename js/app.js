@@ -216,6 +216,17 @@ async function initCardSlider() {
     const sliderContainer = document.getElementById('cinematic-slider');
     if (!sliderContainer) return;
 
+    // 0. VIDEO DE APERTURA (primer slide, igual de perfecto que las imágenes)
+    const videoEl = document.createElement('video');
+    videoEl.src = "assets/images/gallery/video_lider.mp4?v=1";
+    videoEl.className = 'cinematic-slide active'; // Primer slide activo
+    videoEl.muted = true;      // Obligatorio para autoplay en móvil
+    videoEl.loop = true;
+    videoEl.autoplay = true;
+    videoEl.playsInline = true;
+    videoEl.preload = 'auto';
+    sliderContainer.appendChild(videoEl);
+
     // 1. ESCANEO DINÁMICO DE CARPETA
     // Intentamos obtener las imágenes de la carpeta automáticamente como en temp-2026
     const galleryPath = "assets/images/gallery/";
@@ -244,23 +255,33 @@ async function initCardSlider() {
         return numA - numB;
     });
 
-    // 3. Generar elementos DOM
-    imagesToLoad.forEach((src, index) => {
+    // 3. Generar elementos DOM (las imágenes NO llevan 'active', el video ya lo tiene)
+    imagesToLoad.forEach((src) => {
         const img = document.createElement('img');
         img.src = `${src}?v=3`;
         img.className = 'cinematic-slide';
-        if (index === 0) img.classList.add('active'); // Activar la primera
         sliderContainer.appendChild(img);
     });
 
     // 4. Lógica de Rotación
-    let currentIndex = 0;
-    const slides = sliderContainer.querySelectorAll('.cinematic-slide');
-
+    const slides = Array.from(sliderContainer.querySelectorAll('.cinematic-slide'));
     if (slides.length === 0) return;
 
-    setInterval(() => {
-        // Quitar active a la actual
+    let currentIndex = 0;
+    let rotationTimer = null;
+
+    // Reproducir el video inicial (slide 0) apenas arranca
+    const playSlide = (el) => {
+        if (typeof el.play === 'function') el.play().catch(() => { });
+    };
+    const pauseSlide = (el) => {
+        if (typeof el.pause === 'function') el.pause();
+    };
+    const isVideo = (el) => el.tagName === 'VIDEO';
+
+    const advanceSlide = () => {
+        // Pausar el slide actual si es video
+        pauseSlide(slides[currentIndex]);
         slides[currentIndex].classList.remove('active');
 
         // Calcular siguiente índice
@@ -268,8 +289,20 @@ async function initCardSlider() {
 
         // Activar siguiente (el CSS maneja el fade y zoom)
         slides[currentIndex].classList.add('active');
+        // Si es video, reproducirlo al volverse visible
+        playSlide(slides[currentIndex]);
 
-    }, 4000); // Cambio cada 4 segundos
+        scheduleNext();
+    };
+
+    const scheduleNext = () => {
+        // El video dura 5s (duración nativa), las imágenes 4s
+        const duration = isVideo(slides[currentIndex]) ? 5000 : 4000;
+        rotationTimer = setTimeout(advanceSlide, duration);
+    };
+
+    playSlide(slides[currentIndex]);
+    scheduleNext();
 }
 
 

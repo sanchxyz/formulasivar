@@ -521,10 +521,12 @@ padding-top: 8vh;
     height: 100%;
     overflow: hidden; /* Fundamental para que el zoom no se salga */
     border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    background: #000; /* Fondo oscuro mientras carga el video */
 }
 
 /* Las imágenes apiladas */
 .cinematic-slide {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
