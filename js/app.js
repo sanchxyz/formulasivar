@@ -129,6 +129,9 @@ function initCountdown() {
 
     if (!countdownEl || !titleEl) return;
 
+    // Guarda el último título mostrado para evitar reescrituras innecesarias
+    let lastTitle = "";
+
     // Función interna de actualización
     const update = () => {
         const now = new Date();
@@ -171,12 +174,19 @@ function initCountdown() {
         updateDOM(days, hours, minutes, seconds);
 
         // Lógica personalizada para el título del contador
+        // Solo escribimos en el DOM si el texto realmente cambió (evita repaints innecesarios cada segundo)
+        let newTitle;
         if (raceName.toLowerCase().includes("aniversario")) {
-            titleEl.textContent = `${raceName.toUpperCase()}`;
+            newTitle = `${raceName.toUpperCase()}`;
         } else if (raceName.toLowerCase().includes("livery")) {
-            titleEl.textContent = `PRESENTACIÓN: ${raceName.toUpperCase()}`;
+            newTitle = `PRESENTACIÓN: ${raceName.toUpperCase()}`;
         } else {
-            titleEl.textContent = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
+            newTitle = `GRAN PREMIO DE ${raceName.toUpperCase()}`;
+        }
+
+        if (newTitle !== lastTitle) {
+            titleEl.textContent = newTitle;
+            lastTitle = newTitle;
         }
     };
 

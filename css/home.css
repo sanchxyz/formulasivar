@@ -212,7 +212,7 @@ padding-top: 8vh;
 /* 1. La Píldora Contenedora */
 .next-race-badge {
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(15px);
+    transform: translateZ(0);
 
     /* BORDES: Geometría de cápsula */
     border-radius: 50px;
