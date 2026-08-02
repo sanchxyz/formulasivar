@@ -171,8 +171,8 @@ img {
     background-position: center center;
     /* Centra lo importante */
     background-repeat: no-repeat;
-    background-color: #2a2a2a;
-    /* Fondo gris oscuro mientras carga */
+    background-color: transparent;
+    /* Transparente: donde la imagen se desvanece, se ve el fondo de la página */
 
     /* 3. ESTÉTICA */
     border-radius: var(--radius-lg);
@@ -182,6 +182,51 @@ img {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.18);
     transition: transform 0.3s ease;
+}
+
+/* --- Imagen de fondo con transparencia RADIAL en la esquina sup. izquierda --- */
+.photo-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 0;
+
+    background-color: transparent;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /* La imagen se desvanece (transparente) en un radio desde la esquina
+       superior izquierda, integrando la tarjeta con la página */
+    -webkit-mask-image: radial-gradient(circle at 0% 0%,
+            transparent 0%,
+            transparent 45%,
+            black 75%,
+            black 100%);
+    mask-image: radial-gradient(circle at 0% 0%,
+            transparent 0%,
+            transparent 45%,
+            black 75%,
+            black 100%);
+}
+
+/* Imágenes concretas (antes inline) → ::before */
+.bento-brasil::before {
+    background-image: url('../assets/images/glasscards/card_2.webp');
+}
+
+.bento-splits .split-card:first-child::before {
+    background-image: url('../assets/images/glasscards/card_1.webp');
+}
+
+.bento-splits .split-card:last-child::before {
+    background-image: url('../assets/images/glasscards/galeria.webp');
+}
+
+.bento-banner::before {
+    background-image: url('../assets/images/glasscards/card_3.webp');
+    background-position: center 20%;
 }
 
 /* --- Contenedor para tarjetas divididas --- */
@@ -210,39 +255,14 @@ img {
     padding: 6px;
 }
 
-/* --- Capa de Vidrio Radial (Advanced Masking) --- */
+/* --- Capa de texto: fondo transparente (la imagen se ve vía ::before) --- */
 .card-overlay {
     position: absolute;
     inset: -1px;
     width: auto;
     height: auto;
 
-    /* 1. EL FONDO Y EL EFECTO (La base) */
-    /* Un color oscuro sólido que se desvanecerá con la máscara */
-    background-color: rgba(0, 0, 0, 0.7);
-
-    /* Aumenté el blur a 8px para que se note bien el contraste con la parte nítida */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-
-    /* 2. LA MÁSCARA MÁGICA (El recorte radial) */
-    /* Esto hace que el efecto anterior solo sea visible en un círculo desde la esquina */
-    -webkit-mask-image: radial-gradient(circle at 0% 0%,
-            /* Centro del círculo: Arriba Izquierda */
-            black 0%,
-            /* Inicio: Totalmente visible (Blur + Oscuro) */
-            black 40%,
-            /* Mantiene la fuerza hasta el 40% del camino */
-            transparent 85%
-            /* Fin: Se vuelve invisible (Muestra la foto nítida) */
-        );
-
-    mask-image: radial-gradient(circle at 0% 0%,
-            black 0%,
-            black 40%,
-            transparent 85%);
-
-    /* 3. ALINEACIÓN DEL TEXTO */
+    /* ALINEACIÓN DEL TEXTO */
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -250,7 +270,7 @@ img {
     align-items: flex-start;
     gap: 0px;
 
-    /* Asegura que el texto no se salga de la zona oscurecida */
+    /* Asegura que el texto no se salga de la zona */
     padding-right: 20%;
 }
 
