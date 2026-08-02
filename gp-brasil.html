@@ -10,80 +10,44 @@
 
     <style>
         /* =========================================
-   SISTEMA DE CAPAS BRASIL (MEJORADO)
+   EFECTO VITREO EN EL CONTENEDOR PRINCIPAL
    ========================================= */
 
-        .content-wrapper {
-            background: transparent !important;
-            position: relative;
-            overflow: hidden;
-            /* Esto asegura que las capas respeten el borde redondeado */
-            border-radius: 30px 30px 0 0;
+/* =========================================
+   FONDO DE PÁGINA (BANNER) COMO EN EL INDEX
+   ========================================= */
+    .banner-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        opacity: 0.8;
+        z-index: -1;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, black 17%);
+        mask-image: linear-gradient(to top, transparent 0%, black 17%);
+    }
+
+    .banner-top-desktop {
+        display: none;
+        opacity: 0.7;
+    }
+
+    @media (min-width: 1024px) {
+        .banner-top-mobile {
+            display: none;
         }
 
-        /* Regla general para todas las capas */
-        .content-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            /* Click a través de las capas */
+        .banner-top-desktop {
+            display: block;
         }
+    }
 
-        /* --- CAPA 1: BASE OSCURA (El Lienzo) --- */
-        .base-layer {
-            background-color: #050505;
-            /* Casi negro */
-            opacity: 0.95;
-            /* 95% Sólido (Ajusta esto si quieres más o menos oscuridad) */
-            z-index: -3;
-        }
-
-        /* --- CAPA 2: COLORES SVG --- */
-        .color-layer {
-            z-index: -2;
-            transform: scale(1.2);
-            /* Zoom leve para suavizar bordes */
-            opacity: 0.2;
-            /* Qué tanto brillan los colores sobre el negro */
-        }
-
-        /* --- CAPA 3: TEXTURA (Control de Zoom) --- */
-        .texture-layer {
-            z-index: -1;
-
-            /* Cargamos la imagen aquí en vez de en HTML */
-            background-image: url('../assets/icons/back_1.webp');
-
-            opacity: 0.20;
-            /* Tu opacidad deseada */
-            mix-blend-mode: overlay;
-            /* Fusión profesional */
-
-            /* TRUCO PARA MÓVIL Y DESKTOP */
-            background-repeat: repeat;
-            /* Que se repita si hace falta */
-            background-position: center;
-
-            /* En Desktop, que cubra todo */
-            background-size: cover;
-        }
-
-        /* AJUSTE PARA MÓVILES (Para que no se vea gigante) */
-        @media screen and (max-width: 768px) {
-            .texture-layer {
-                /* En móvil, en vez de estirar la imagen (cover), 
-           le damos un tamaño fijo más pequeño. 
-           Esto hace que el "grano" de la textura se vea fino. */
-                background-size: 500px auto;
-            }
-        }
-
-        /* =========================================
-           1. RESET Y BASE
-           ========================================= */
+    /* =========================================
+   1. RESET Y BASE
+   ========================================= */
         body {
             background-color: var(--color-bg);
             margin: 0;
@@ -113,45 +77,65 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 18vh;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            padding-top: 25px;
-            gap: 30px;
+            flex-wrap: nowrap;
+            gap: clamp(10px, 2vw, 20px);
+            padding: 18px 0;
+            transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
         }
 
-        /* LOGOS (Tal cual los dejaste) */
+        /* Estado al hacer scroll: la barra se encoge y se pone compacta */
+        .linear-header.scrolled {
+            padding: 8px 0;
+            background: rgba(8, 8, 12, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* LOGOS (Mismo estilo que el índice) */
         .header-logo {
+            display: block;
             width: auto;
+            max-width: none;
+            height: auto;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, width 0.3s ease;
         }
 
         .header-logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
-        .logo-sivar {
-            height: clamp(30px, 5vw, 45px);
-        }
-
+        .logo-sivar,
         .logo-casus {
-            height: clamp(30px, 5vw, 45px);
+            width: clamp(90px, 15vw, 120px) !important;
+        }
+
+        /* El logo de Sivar se ve un poco más pequeño que el de Casus */
+        .logo-sivar {
+            width: clamp(72px, 12vw, 95px) !important;
+        }
+
+        .linear-header.scrolled .logo-sivar,
+        .linear-header.scrolled .logo-casus {
+            width: clamp(55px, 6vw, 70px) !important;
         }
 
         .vs-divider {
             color: rgba(255, 255, 255, 0.5);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 300;
-            margin-top: 5px;
+            transform: scale(1);
+            transition: font-size 0.3s ease;
+        }
+
+        .linear-header.scrolled .vs-divider {
+            font-size: 1.2rem;
         }
 
         /* =========================================
@@ -161,21 +145,69 @@
             position: relative;
             z-index: 1;
             margin-top: 45vh;
-            background-color: var(--color-bg);
             min-height: 100vh;
 
             /* AQUÍ ESTÁ EL AJUSTE DE MÁRGENES QUE PEDISTE */
             padding: 40px clamp(20px, 8vw, 100px);
 
             border-radius: 30px 30px 0 0;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+
+            /* EFECTO VITREO */
+            background:
+                linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(8, 8, 12, 0.65));
+
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: none;
+
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 -10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Bandera solo en el 15% superior del contenedor, desvaneciéndose */
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15%;
+            background-image:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2)),
+                url('assets/images/brasil-flag.webp');
+            background-size: cover, cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+
+            /* Blur sobre la bandera para que el texto resalte */
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+
+            border-radius: 30px 30px 0 0;
+            z-index: 0;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Oscurezco la zona de la bandera para que el texto se lea bien */
+        .content-wrapper .trip-header {
+            position: relative;
+            z-index: 1;
         }
 
         /* HEADER DEL VIAJE */
         .trip-header {
+            position: relative;
             text-align: center;
-            margin-bottom: 40px;
-            margin-top: 10px;
+            margin-bottom: clamp(80px, 12vh, 140px);
+            margin-top: 0;
+            padding-top: clamp(30px, 5vh, 60px);
         }
 
         .trip-title {
@@ -197,11 +229,12 @@
 
         .trip-meta {
             margin-top: 15px;
-            color: var(--color-text-secondary);
+            color: #ffffff;
             font-size: 1.1rem;
             display: flex;
             justify-content: center;
             gap: 15px;
+            font-weight: 600;
         }
 
         /* =========================================
@@ -331,12 +364,6 @@
             gap: 8px;
         }
 
-        .lottie-icon {
-            width: clamp(24px, 4vw, 32px);
-            height: clamp(24px, 4vw, 32px);
-            display: inline-block;
-        }
-
         .cross-title {
             color: #f44336;
             margin: 20px 0 10px 0;
@@ -417,31 +444,49 @@
         }
 
         .cta-button.primary {
-            background: #FFD700;
-            color: #000;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, #FFE45C 0%, #FFC300 45%, #FF9F00 100%);
+            border: none;
+            color: #1a1400;
+            margin-top: 15px;
+            box-shadow: 0 6px 18px rgba(255, 193, 7, 0.35);
+            animation: pulse-gold 2s ease-in-out infinite;
         }
 
         .cta-button.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.5);
+            animation-play-state: paused;
+        }
+
+        /* Animación de pulsación para el botón Reserva */
+        @keyframes pulse-gold {
+            0%, 100% {
+                box-shadow: 0 6px 18px rgba(255, 193, 7, 0.35);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 6px 28px rgba(255, 193, 7, 0.6);
+                transform: scale(1.03);
+            }
         }
 
         /* --- BOTÓN CELESTE (MÁS INFORMACIÓN) --- */
         .cta-button.secondary {
-            border: 2px solid var(--color-accent-cyan);
-            /* Borde cyan como los puntos */
-            color: var(--color-accent-cyan);
-            background: rgba(0, 243, 255, 0.05);
-            /* Un fondo muy sutil */
-            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            /* Borde sutil, sin neón */
+            color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-shadow: none;
         }
 
         .cta-button.secondary:hover {
-            background: var(--color-accent-cyan);
-            color: #000;
-            /* Texto negro al pasar el mouse para legibilidad */
-            box-shadow: 0 0 20px var(--color-accent-cyan);
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.35);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 5px 15px rgba(0, 0, 0, 0.4);
             transform: translateY(-2px);
         }
 
@@ -578,9 +623,22 @@
             }
 
             .linear-header {
-                height: 15vh;
-                padding-top: 20px;
-                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+                padding: 14px 0;
+                flex-wrap: nowrap;
+            }
+
+            .logo-sivar,
+            .logo-casus {
+                width: clamp(80px, 20vw, 100px) !important;
+            }
+
+            .logo-sivar {
+                width: clamp(62px, 16vw, 78px) !important;
+            }
+
+            .linear-header.scrolled .logo-sivar,
+            .linear-header.scrolled .logo-casus {
+                width: clamp(50px, 14vw, 60px) !important;
             }
         }
     </style>
@@ -588,40 +646,25 @@
 
 <body>
 
+    <!-- Fondo (como en el index): una imagen para mobile y otra para desktop -->
+    <img src="assets/images/banner_Web.webp" alt="" class="banner-top banner-top-mobile" aria-hidden="true" />
+    <img src="assets/images/banner_desktop.webp" alt="" class="banner-top banner-top-desktop" aria-hidden="true" />
+
     <div class="hero-banner"></div>
 
     <div class="linear-header">
         <img src="assets/icons/formulasivar_webp_blank_lowquality.webp" alt="Logo Izq" class="header-logo logo-sivar">
-        <span class="vs-divider">|</span>
+        <span class="vs-divider">✕</span>
         <img src="assets/icons/casus_logo.webp" alt="Logo Der" class="header-logo logo-casus">
     </div>
 
     <div class="content-wrapper">
 
-        <div class="content-bg base-layer"></div>
-
-        <svg class="content-bg color-layer" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800"
-            preserveAspectRatio="none">
-            <defs>
-                <filter id="bbblurry-filter-br" x="-100%" y="-100%" width="400%" height="400%"
-                    filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feGaussianBlur stdDeviation="104" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic"
-                        edgeMode="none" result="blur"></feGaussianBlur>
-                </filter>
-            </defs>
-            <g filter="url(#bbblurry-filter-br)">
-                <ellipse rx="185.5" ry="150" cx="428" cy="98" fill="hsla(3, 85%, 56%, 1.00)"></ellipse>
-                <ellipse rx="185.5" ry="150" cx="218" cy="661" fill="hsla(32, 100%, 57%, 1.00)"></ellipse>
-            </g>
-        </svg>
-
-        <div class="content-bg texture-layer"></div>
-
         <div class="trip-header">
             <h1 class="trip-title">GP SÃO PAULO 2026</h1>
             <h4 class="trip-subtitle">VIAJE GRUPAL OFICIAL</h4>
             <div class="trip-meta">
-                <span>📅 05 - 10 Noviembre</span>
+                <span>05 - 10 Noviembre</span>
             </div>
         </div>
 
@@ -693,7 +736,6 @@
                 <div class="glass-card-info details-box">
                     <div class="details-col">
                         <h4 class="check-title">
-                            <div id="check-anim" class="lottie-icon"></div>
                             TODO INCLUIDO
                         </h4>
                         <ul class="check-list">
@@ -707,7 +749,6 @@
                     </div>
                     <div class="details-col">
                         <h4 class="cross-title">
-                            <div id="cross-anim" class="lottie-icon"></div>
                             NO INCLUYE
                         </h4>
                         <ul class="cross-list">
@@ -763,26 +804,16 @@
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            lottie.loadAnimation({
-                container: document.getElementById('check-anim'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: 'assets/animations/Validation.json'
-            });
-            lottie.loadAnimation({
-                container: document.getElementById('cross-anim'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: 'assets/animations/Noincluye.json'
-            });
-        });
-    </script>
     <script src="js/app.js"></script>
+    <script>
+        const headerBar = document.querySelector('.linear-header');
+        const onScroll = () => {
+            if (!headerBar) return;
+            headerBar.classList.toggle('scrolled', window.scrollY > 40);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    </script>
 </body>
 
 </html>
