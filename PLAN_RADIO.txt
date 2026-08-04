@@ -1,0 +1,78 @@
+
+
+---
+
+## **DISEÑO: Interfaz de Reproductor Musical (Estilo Spotify)**
+
+### **1. FONDO**
+- **Tipo**: Fondo difuso con efecto de luz ambiental (bokeh / glow).
+- **Comportamiento**: Manchas de luz grandes y suaves, desenfocadas, que crean una atmósfera inmersiva. No hay bordes nítidos.
+- **Distribución**: La luz más intensa se concentra en la zona central-superior, degradando hacia los bordes que son más oscuros.
+
+---
+
+### **2. CABECERA (Parte superior)**
+- **Elemento**: Logo de marca.
+- **Posición**: Centrado horizontalmente, en la parte superior (~15-20% desde el borde superior).
+- **Tamaño**: Pequeño a mediano, discreto, no dominante.
+
+---
+
+### **3. SECCIÓN PRINCIPAL: CARRUSEL DE CARÁTULAS (Centro)**
+- **Disposición**: Carrusel horizontal de tarjetas de álbum con efecto de profundidad 3D.
+- **Tarjeta central (activa)**:
+  - **Posición**: Centro exacto, ligeramente más abajo que el centro vertical (~40% desde arriba).
+  - **Tamaño**: La más grande del carrusel.
+  - **Efecto**: Sin transparencia, nítida, con borde redondeado y sombra suave que la eleva sobre las demás.
+  - **Contenido**: Imagen cuadrada de álbum en la parte superior; debajo, nombre del artista en tipografía grande/bold; debajo, título de la canción en tipografía más pequeña y ligera.
+- **Tarjetas laterales (izquierda y derecha)**:
+  - **Cantidad**: 2 visibles a cada lado de la central (total 5 tarjetas visibles).
+  - **Comportamiento**: A medida que se alejan del centro, son **más pequeñas**, **más transparentes** y **más rotadas en perspectiva 3D** (las de los extremos casi de perfil).
+  - **Orden de capas (z-index)**: La central está por encima de todas. Las adyacentes están parcialmente ocultas detrás de la central. Las de los extremos están más al fondo.
+  - **Efecto de profundidad**: Crean una sensación de arco o semicírculo en el espacio 3D.
+
+---
+
+### **4. BARRA DE REPRODUCCIÓN (Parte inferior, sobre el carrusel)**
+- **Posición**: Centrada horizontalmente, ubicada debajo del carrusel (~65-70% desde arriba).
+- **Forma**: Barra alargada, horizontal, con bordes redondeados extremadamente pronunciados (pill shape / cápsula).
+- **Efecto**: Glassmorphism o translucidez — se transparenta parcialmente con el fondo, con un ligero desenfoque o brillo.
+- **Contenido interno (de izquierda a derecha)**:
+  1. **Botón retroceder**: Icono de flecha doble apuntando a la izquierda.
+  2. **Botón pausa**: Icono de dos barras verticales.
+  3. **Botón avanzar**: Icono de flecha doble apuntando a la derecha.
+  4. **Separador visual**: Espacio.
+  5. **Miniatura + info de pista**: 
+     - Miniatura cuadrada pequeña del álbum en reproducción.
+     - A su derecha: nombre del artista (bold) y título de la canción (regular), apilados verticalmente.
+     - A la derecha de eso: icono de onda de audio / equalizador animado.
+     - A la derecha de eso: icono de tres puntos (menú).
+  6. **Separador visual**: Espacio amplio o línea divisoria sutil.
+  7. **Botón de dispositivo**: Icono de altavoz/dispositivo.
+  8. **Botón de cola**: Icono de lista con líneas.
+  9. **Botón de volumen**: Icono de altavoz con ondas.
+
+---
+
+### **5. PIE DE PÁGINA (Parte inferior)**
+- **Elemento**: Texto de copyright / créditos.
+- **Posición**: Centrado horizontalmente, muy cerca del borde inferior (~95% desde arriba).
+- **Tamaño**: Muy pequeño, tipografía fina.
+- **Contenido**: Año + texto descriptivo + nombre de marca/creador.
+
+---
+
+## **RESUMEN DE JERARQUÍA VISUAL (de arriba a abajo)**
+1. Logo (zona superior, discreto)
+2. Carrusel 3D de álbumes (zona central, elemento dominante)
+3. Barra de reproducción flotante (zona inferior-media, superpuesta al fondo)
+4. Copyright (zona inferior, mínimo)
+
+---
+
+## **PALABRAS CLAVE PARA LA IA**
+`carrusel 3D`, `glassmorphism`, `perspectiva`, `profundidad`, `tarjetas superpuestas`, `z-index escalonado`, `transparencia progresiva`, `bordes redondeados`, `barra de reproducción tipo cápsula`, `tipografía apilada`, `fondo bokeh difuso`, `centrado absoluto`, `interfaz musical`.
+
+---
+
+Con esta descripción, una IA de generación de código o de imágenes puede reconstruir la **estructura, disposición espacial y comportamiento visual** sin necesidad de saber qué colores o fotos específicas usarás. ¿Necesitas que lo adapte a algún formato en particular (por ejemplo, para Figma, CSS, o un prompt de imagen)?

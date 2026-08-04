@@ -42,6 +42,11 @@ const lottieConfigs = [
     },
     {
         id: 'podcast-anim',
+        path: 'assets/animations/Newspaper.json',
+        speed: 0.7
+    },
+    {
+        id: 'podcast-anim-2',
         path: 'assets/animations/microphone.json',
         speed: 0.7
     }

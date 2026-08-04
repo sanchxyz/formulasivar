@@ -1,0 +1,449 @@
+/* =========================================
+   RADIO FORMULA SIVAR - Reproductor Spotify
+   ========================================= */
+:root {
+    --radio-font: 'Inter', sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+body {
+    background: #0a0f1a;
+    color: #fff;
+    font-family: var(--radio-font);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 1. FONDO (banners por dispositivo + blur pronunciado) */
+.radio-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(28px) saturate(1.1) brightness(0.6);
+    transform: scale(1.15);
+}
+
+.radio-bg-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .radio-bg-mobile {
+        display: none;
+    }
+
+    .radio-bg-desktop {
+        display: block;
+    }
+}
+
+/* 2. CABECERA */
+.radio-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(40px, 12vh, 90px) 16px 0;
+    margin-bottom: 0;
+}
+
+.radio-header-logo {
+    height: clamp(32px, 8vw, 64px);
+    width: auto;
+    max-width: 80vw;
+    object-fit: contain;
+    opacity: 0.95;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+}
+
+/* 3. SECCIÓN PRINCIPAL */
+.radio-main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+/* --- TARJETA ÚNICA --- */
+.card-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: clamp(8px, 2vh, 20px);
+}
+
+.now-card {
+    width: clamp(240px, 40vw, 320px);
+    border-radius: 22px;
+    padding: clamp(10px, 2vw, 16px) clamp(10px, 2vw, 16px) 14px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.now-card .card-art-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.now-card .card-art {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+}
+
+.now-card .card-meta {
+    padding: 10px 2px 0;
+    background: transparent;
+    text-align: center;
+}
+
+.now-card .card-artist {
+    font-weight: 700;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.now-card .card-song {
+    font-weight: 400;
+    font-size: clamp(0.65rem, 1.6vw, 0.8rem);
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- BARRA DE REPRODUCCIÓN (cápsula glassmorphism) --- */
+.player-bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 24px);
+    width: min(920px, 92vw);
+    padding: 14px clamp(14px, 2vw, 24px);
+    margin-top: clamp(28px, 5vh, 48px);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* PÍLDORA INTERIOR OSCURA (controles + logo + info + ondas) */
+.player-inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.2vw, 12px);
+    min-width: 0;
+    flex: 1;
+    padding: 6px 14px 6px 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(13, 18, 32, 0.72), rgba(6, 10, 20, 0.78));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.player-controls,
+.player-extras,
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.2vw, 12px);
+}
+
+.player-controls {
+    flex-shrink: 0;
+}
+
+.ctl {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, background 0.2s ease, transform 0.1s ease;
+}
+
+.ctl:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ctl.play {
+    width: 46px;
+    height: 46px;
+    background: #fff;
+    color: #0a0f1a;
+    font-size: 18px;
+}
+
+.ctl.play:hover {
+    background: #f0f0f0;
+    color: #0a0f1a;
+    transform: scale(1.05);
+}
+
+/* Iconos SVG inline */
+.ctl::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#rewindBtn::before {
+    display: none;
+}
+
+#forwardBtn::before {
+    display: none;
+}
+
+#rewindBtn .icon,
+#playPause .icon,
+#forwardBtn .icon,
+#muteBtn .icon,
+#menuBtn .icon {
+    width: 18px;
+    height: 18px;
+}
+
+#playPause::before {
+    display: none;
+}
+
+#playPause .icon-pause {
+    display: none;
+}
+
+#playPause.playing .icon-play {
+    display: none;
+}
+
+#playPause.playing .icon-pause {
+    display: block;
+}
+
+.ctl.dots::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Ccircle cx='12' cy='5' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='12' cy='19' r='2'/%3E%3C/svg%3E");
+}
+
+#muteBtn::before {
+    display: none;
+}
+
+#menuBtn::before {
+    display: none;
+}
+
+.player-sep {
+    width: 1px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+}
+
+.player-sep.wide {
+    margin-left: auto;
+}
+
+/* Info de pista actual */
+.track-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.mini-art {
+    height: clamp(32px, 5vw, 48px);
+    width: auto;
+    max-width: 80px;
+    border-radius: 8px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: none;
+}
+
+.mini-art.visible {
+    display: block;
+}
+
+.track-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.mini-artist {
+    font-weight: 700;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-title {
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Equalizador animado */
+.eq {
+    display: none;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.eq.active {
+    display: flex;
+}
+
+.eq span {
+    width: 3px;
+    background: #1db954;
+    border-radius: 2px;
+    animation: eq-bounce 1s ease-in-out infinite;
+}
+
+.eq span:nth-child(1) {
+    height: 40%;
+    animation-delay: 0s;
+}
+
+.eq span:nth-child(2) {
+    height: 90%;
+    animation-delay: 0.2s;
+}
+
+.eq span:nth-child(3) {
+    height: 60%;
+    animation-delay: 0.4s;
+}
+
+.eq span:nth-child(4) {
+    height: 80%;
+    animation-delay: 0.1s;
+}
+
+@keyframes eq-bounce {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.4);
+    }
+}
+
+/* Barra de progreso */
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(560px, 86vw);
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.progress-track {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 4px;
+    background: #fff;
+}
+
+/* 5. PIE DE PÁGINA */
+.radio-footer {
+    width: 100%;
+    text-align: center;
+    padding: clamp(16px, 3vh, 24px) 16px clamp(20px, 3vh, 32px);
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.5px;
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 768px) {
+    .player-bar {
+        flex-wrap: wrap;
+        border-radius: 28px;
+        gap: 8px 12px;
+        padding: 12px;
+    }
+
+    .player-controls {
+        order: 1;
+        width: 100%;
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
+    .player-sep {
+        display: none;
+    }
+
+    .player-inner {
+        order: 2;
+        min-width: 0;
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 24px;
+    }
+
+    .player-extras {
+        order: 3;
+        margin-left: auto;
+    }
+}

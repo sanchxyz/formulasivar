@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio - FORMULA SIVAR</title>
+    <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css?v=27" />
+    <link rel="stylesheet" href="css/radio.css?v=19" />
+</head>
+
+<body>
+    <img src="assets/images/banner_Web.webp" alt="" class="radio-bg radio-bg-mobile" aria-hidden="true" />
+    <img src="assets/images/banner_desktop.webp" alt="" class="radio-bg radio-bg-desktop" aria-hidden="true" />
+
+    <!-- CABECERA: logo -->
+    <header class="radio-header">
+        <img src="assets/icons/formulasivar_webp_blank_lowquality.webp" alt="Formula Sivar" class="radio-header-logo" />
+    </header>
+
+    <!-- SECCIÓN PRINCIPAL -->
+    <main class="radio-main">
+
+        <!-- TARJETA ÚNICA DE CARÁTULA -->
+        <div class="card-wrap">
+            <div class="now-card">
+                <div class="card-art-wrap">
+                    <img id="cardArt" class="card-art" src="" alt="" />
+                </div>
+                <div class="card-meta">
+                    <div id="cardArtist" class="card-artist"></div>
+                    <div id="cardSong" class="card-song"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BARRA DE REPRODUCCIÓN -->
+        <div class="player-bar">
+            <div class="player-controls">
+                <button class="ctl" id="rewindBtn" aria-label="Retroceder 5 segundos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="currentColor" class="icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M20.341 4.247l-8 7a1 1 0 0 0 0 1.506l8 7c.647 .565 1.659 .106 1.659 -.753v-14c0 -.86 -1.012 -1.318 -1.659 -.753z" />
+                        <path
+                            d="M9.341 4.247l-8 7a1 1 0 0 0 0 1.506l8 7c.647 .565 1.659 .106 1.659 -.753v-14c0 -.86 -1.012 -1.318 -1.659 -.753z" />
+                    </svg>
+                </button>
+                <button class="ctl play" id="playPause" aria-label="Pausa">
+                    <svg class="icon icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="currentColor">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" />
+                    </svg>
+                    <svg class="icon icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="currentColor">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
+                        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
+                    </svg>
+                </button>
+                <button class="ctl" id="forwardBtn" aria-label="Adelantar 5 segundos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="currentColor" class="icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" />
+                        <path
+                            d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="player-sep"></div>
+
+            <div class="player-inner">
+                <div class="track-info">
+                <img id="miniArt" class="mini-art" src="assets/icons/asder_online.png" alt="Asder Radio" />
+                <div class="track-meta">
+                    <span id="miniArtist" class="mini-artist"></span>
+                    <span id="miniTitle" class="mini-title"></span>
+                </div>
+                <div class="eq" id="eq">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <button class="ctl dots" aria-label="Menú"></button>
+                </div>
+            </div>
+
+            <div class="player-sep wide"></div>
+
+            <div class="player-extras">
+                <button class="ctl" id="menuBtn" aria-label="Menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 4l16 0" />
+                        <path d="M4 20l16 0" />
+                        <path d="M6 11a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -2" />
+                    </svg>
+                </button>
+                <button class="ctl" id="muteBtn" aria-label="Mute">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+                        <path d="M16 10l4 4m0 -4l-4 4" />
+                    </svg>
+                </button>
+            </div>
+
+            <audio id="audio" preload="auto"></audio>
+        </div>
+
+        <div class="progress">
+            <span id="timeCurrent">0:00</span>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <span id="timeTotal">0:00</span>
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="radio-footer">
+        <span>© <span id="year"></span> Formula Sivar</span>
+    </footer>
+
+    <script src="js/radio.js?v=10"></script>
+</body>
+
+</html>

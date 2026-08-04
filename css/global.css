@@ -133,7 +133,7 @@ img {
         max-width: 480px;
     }
 
-    .glass-card, .photo-card, .split-cards-container {
+    .glass-card, .photo-card, .split-cards-container, .banner-split-container {
         width: 95%; /* Aprovechamos mejor el ancho en tablets */
     }
 }
@@ -224,9 +224,70 @@ img {
     background-image: url('../assets/images/glasscards/galeria.webp');
 }
 
-.bento-banner::before {
+.bento-banner::before,
+.banner-card::before {
     background-image: url('../assets/images/glasscards/card_3.webp');
     background-position: center 20%;
+}
+
+/* --- Contenedor de los 2 banners (mismo alto, mitad de ancho cada uno) --- */
+.banner-split-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.banner-split-container .banner-card {
+    flex: 1 1 0;
+    width: 50%;
+    min-width: 0;
+    margin: 0;
+    max-width: none;
+}
+
+/* En móvil la descripción debe caber en el ancho reducido */
+.banner-split-container .banner-mode .card-description {
+    max-width: 95%;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Icono dinámico al ancho de cada banner (como split-card) */
+.banner-split-container .banner-mode .glass-circle-icon {
+    width: clamp(22px, 4vw, 30px) !important;
+    height: clamp(22px, 4vw, 30px) !important;
+    right: clamp(8px, 1.5vw, 14px) !important;
+    padding: 5px;
+}
+
+@media (max-width: 768px) {
+    .banner-split-container .banner-mode .glass-circle-icon {
+        width: clamp(24px, 6vw, 30px) !important;
+        height: clamp(24px, 6vw, 30px) !important;
+    }
+}
+
+/* Logo del periódico dinámico dentro del ancho reducido */
+.banner-split-container .banner-mode .card-logo {
+    height: clamp(20px, 3.2vw, 30px);
+    margin-bottom: 4px;
+}
+
+/* Contenido adaptado al ancho reducido */
+.banner-split-container .banner-mode .card-overlay {
+    padding: 0 clamp(30px, 6vw, 60px) 0 clamp(10px, 2vw, 18px);
+}
+
+/* Letra acondicionada al nuevo tamaño pequeño */
+.banner-split-container .banner-mode .card-description {
+    font-size: clamp(0.5rem, 1.2vw, 0.68rem);
+    line-height: 1.15;
+    margin-top: 2px;
 }
 
 /* --- Contenedor para tarjetas divididas --- */
