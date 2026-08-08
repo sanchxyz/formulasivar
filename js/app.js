@@ -112,6 +112,7 @@ window.SEASON_SCHEDULE = [
     { name: "Gran Bretaña", date: "2026-07-05", time: "08:00:00", customImagePath: "assets/images/tracks/gran_bretana/album_gp_UK.jpg", folderPath: "assets/images/tracks/gran_bretana/", imageFiles: ["album_gp_UK.jpg"], longDescription: "El Gran Premio de Gran Bretaña en Silverstone es la cuna de la Fórmula 1, un circuito con una rica historia y curvas legendarias. Sumérgete en la emoción de Copse, Maggotts y Becketts, y la pasión de los aficionados británicos. Descubre cómo la velocidad y la estrategia se combinan en este icónico trazado." },
     { name: "Bélgica", date: "2026-07-19", time: "07:00:00", customImagePath: "assets/images/tracks/belgica/album_gp_belgica.jpg", folderPath: "assets/images/tracks/belgica/", imageFiles: ["album_gp_belgica.jpg"], longDescription: "El Gran Premio de Bélgica en Spa-Francorchamps es famoso por su exigente Eau Rouge y su longitud. Explora la belleza de las Ardenas, los desafíos climáticos y cómo esta pista prueba la valentía de los pilotos. Conoce las batallas épicas que se han librado aquí y la importancia de la configuración del coche." },
     { name: "Hungría", date: "2026-07-26", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/hungria/", imageFiles: [], longDescription: "El Gran Premio de Hungría en el Hungaroring es conocido como un 'karting gigante' por su trazado sinuoso y la dificultad para adelantar. Descubre la importancia de la clasificación, la gestión de neumáticos y cómo el calor del verano húngaro afecta a los pilotos y monoplazas. Explora la historia de este circuito." },
+    { name: "The Summer Break Club", date: "2026-08-15", time: "13:00:00", customImagePath: null, folderPath: null, imageFiles: [], customTitle: "THE SUMMER BREAK CLUB", longDescription: "Reunión de la comunidad de Formula Sivar para disfrutar juntos durante el parón de verano." },
     { name: "Países Bajos", date: "2026-08-23", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/paises_bajos/", imageFiles: [], longDescription: "El Gran Premio de Países Bajos en Zandvoort se tiñe de naranja con la marea de aficionados. Conoce este circuito costero, sus peraltes y cómo el viento y la arena pueden influir en la carrera. Descubre el desafío de su trazado estrecho y los puntos clave para un rendimiento óptimo." },
     { name: "Italia (Monza)", date: "2026-09-06", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/italia_monza/", imageFiles: [], longDescription: "El Gran Premio de Italia en Monza es el 'Templo de la Velocidad', con sus largas rectas y chicanes que exigen baja carga aerodinámica. Sumérgete en la rica historia de la Scuderia Ferrari en su casa, la pasión de los Tifosi y la emoción de una carrera donde la potencia pura es clave. Un clásico imperdible." },
     { name: "España (Madrid)", date: "2026-09-13", time: "07:00:00", customImagePath: null, folderPath: "assets/images/tracks/espana_madrid/", imageFiles: [], longDescription: "El nuevo Gran Premio de España en Madrid promete un espectáculo urbano inolvidable. Explora el diseño del circuito, su integración en la ciudad y las expectativas de una carrera que busca combinar la tradición de la F1 con la modernidad de la capital española. Descubre los desafíos y oportunidades de esta nueva cita." },
@@ -143,6 +144,7 @@ function initCountdown() {
         const now = new Date();
         let nextRace = null;
         let raceName = "PRÓXIMO GRAN PREMIO";
+        let customTitle = null;
 
         // Buscamos la próxima carrera
         for (const race of SEASON_SCHEDULE) {
@@ -152,6 +154,7 @@ function initCountdown() {
             if (raceDate >= now) {
                 nextRace = raceDate;
                 raceName = race.name;
+                customTitle = race.customTitle;
                 break;
             }
         }
@@ -182,7 +185,9 @@ function initCountdown() {
         // Lógica personalizada para el título del contador
         // Solo escribimos en el DOM si el texto realmente cambió (evita repaints innecesarios cada segundo)
         let newTitle;
-        if (raceName.toLowerCase().includes("aniversario")) {
+        if (customTitle) {
+            newTitle = customTitle;
+        } else if (raceName.toLowerCase().includes("aniversario")) {
             newTitle = `${raceName.toUpperCase()}`;
         } else if (raceName.toLowerCase().includes("livery")) {
             newTitle = `PRESENTACIÓN: ${raceName.toUpperCase()}`;
@@ -357,6 +362,7 @@ async function renderCalendar() {
     // Diccionario de descripciones (el que ya tienes)
     window.raceDescriptions = {
         "Aniversario Formula Sivar": "¡Celebramos nuestro primer aniversario de pasión por la F1!",
+        "The Summer Break Club": "Reunión comunitaria para cerrar el parón de verano. Acompáñanos con la comunidad.",
         "Cadillac Livery": "Presentacion de la Livery del monoplaza de Cadillac F1 Team",
         "Australia": "Albert Park nos recibe con sol, lagos y la energía única de Melbourne.",
         "Japón": "Suzuka es la prueba definitiva de habilidad con sus legendarias curvas en 'S'.",
