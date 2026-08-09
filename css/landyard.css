@@ -293,7 +293,23 @@
     }
 
     .ly-copy p {
+        font-size: clamp(0.8rem, 3.4vw, 0.95rem);
         max-width: 34ch;
+    }
+
+    .ly-list li {
+        font-size: clamp(0.78rem, 3.3vw, 0.92rem);
+        gap: 10px;
+    }
+
+    .ly-check {
+        width: 20px;
+        height: 20px;
+    }
+
+    .ly-check svg {
+        width: 11px;
+        height: 11px;
     }
 
     .ly-list {
