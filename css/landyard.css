@@ -1,0 +1,307 @@
+/* =========================================
+   LANDYARD - WEB PRODUCTO ESTILO APPLE
+   Imagen grande + texto corto, secciones alternadas.
+   Las imágenes se desvanecen hacia el lado del texto,
+   dejando ver el fondo oscuro del index.
+   ========================================= */
+
+/* --- Fondo del index: banner fijo + fondo oscuro --- */
+.banner-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 17%);
+    mask-image: linear-gradient(to top, transparent 0%, black 17%);
+}
+
+.banner-top-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .banner-top-mobile {
+        display: none;
+    }
+
+    .banner-top-desktop {
+        display: block;
+    }
+}
+
+/* --- Header (logo centrado, sticky con blur) --- */
+.ly-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(18, 18, 18, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ly-header-logo {
+    width: clamp(60px, 8vw, 90px);
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.ly-header-logo:hover {
+    transform: scale(1.04);
+}
+
+/* --- Main --- */
+.ly-main {
+    width: 100%;
+}
+
+/* --- Hero --- */
+.ly-hero {
+    text-align: center;
+    padding: clamp(48px, 12vh, 110px) 20px clamp(24px, 6vh, 60px);
+}
+
+.ly-hero-title {
+    font-size: clamp(2.6rem, 8vw, 5.6rem);
+    font-weight: 900;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--color-text-main);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85);
+    line-height: 1;
+}
+
+.ly-hero-subtitle {
+    margin: 16px auto 0;
+    max-width: 640px;
+    color: var(--color-text-secondary);
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* --- Secciones alternadas (imagen + texto) --- */
+/* La sección es full-width: la imagen queda anclada al borde del viewport
+   en su lado sólido (donde NO está desvanecida).
+   Sin padding vertical: las imágenes quedan pegadas entre sí y la primera
+   cerca de la barra del header. */
+.ly-section {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+}
+
+.ly-media {
+    flex: 0 0 56%;
+    min-width: 0;
+    min-height: clamp(480px, 86vh, 940px);
+    position: relative;
+    overflow: hidden;
+}
+
+.ly-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom center;
+    display: block;
+}
+
+/* Imagen a la izquierda → desvanecido hacia la derecha (donde va el texto) */
+.ly-flip-left .ly-media img {
+    -webkit-mask-image: linear-gradient(to right, black 62%, transparent 100%);
+    mask-image: linear-gradient(to right, black 62%, transparent 100%);
+}
+
+/* Imagen a la derecha → desvanecido hacia la izquierda (donde va el texto) */
+.ly-flip-right .ly-media img {
+    -webkit-mask-image: linear-gradient(to left, black 62%, transparent 100%);
+    mask-image: linear-gradient(to left, black 62%, transparent 100%);
+}
+
+/* Alterna la posición: imagen a la derecha, texto a la izquierda */
+.ly-flip-right {
+    flex-direction: row-reverse;
+}
+
+/* --- Texto corto al costado --- */
+.ly-copy {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(24px, 5vw, 60px);
+}
+
+.ly-copy h2 {
+    font-size: clamp(2.2rem, 7vw, 5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-main);
+    margin: 0 0 6px 0;
+    line-height: 1.1;
+}
+
+.ly-copy p {
+    color: rgba(250, 250, 250, 0.62);
+    font-size: clamp(0.95rem, 1.9vw, 1.15rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 40ch;
+    margin: 0;
+}
+
+/* --- Lista de beneficios con checkpoints --- */
+/* Alinea el título con el texto de la lista (tras los checkboxes) */
+.ly-copy-list h2 {
+    padding-left: 36px;
+}
+
+.ly-list {
+    list-style: none;
+    margin: 6px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 2vh, 18px);
+}
+
+.ly-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: rgba(250, 250, 250, 0.88);
+}
+
+.ly-check {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: rgba(128, 216, 255, 0.15);
+    border: 1px solid rgba(128, 216, 255, 0.5);
+    color: var(--color-accent-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(128, 216, 255, 0.25);
+    animation: ly-check-pulse 2s ease-in-out infinite;
+}
+
+.ly-list li:nth-child(2) .ly-check {
+    animation-delay: 0.25s;
+}
+
+.ly-list li:nth-child(3) .ly-check {
+    animation-delay: 0.5s;
+}
+
+.ly-list li:nth-child(4) .ly-check {
+    animation-delay: 0.75s;
+}
+
+@keyframes ly-check-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 12px rgba(128, 216, 255, 0.25);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(128, 216, 255, 0.65);
+        transform: scale(1.12);
+    }
+}
+
+.ly-check svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* --- Footer --- */
+.ly-footer {
+    text-align: center;
+    padding: 60px 20px 40px;
+}
+
+.home-link {
+    display: inline-block;
+    margin: 0 auto 16px;
+}
+
+.home-link a {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.home-link a:hover {
+    color: var(--color-accent-cyan);
+}
+
+.ly-footer p {
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* --- Responsive: móvil apila imagen arriba, texto abajo --- */
+@media screen and (max-width: 1023px) {
+    .ly-section,
+    .ly-flip-right {
+        flex-direction: column;
+    }
+
+    .ly-media {
+        flex: 0 0 auto;
+        width: 100%;
+        min-height: clamp(400px, 58vh, 560px);
+    }
+
+    .ly-media img {
+        -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%) !important;
+        mask-image: linear-gradient(to bottom, black 55%, transparent 100%) !important;
+    }
+
+    .ly-copy {
+        padding: 20px 4px 40px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .ly-copy p {
+        max-width: 34ch;
+    }
+
+    .ly-list {
+        text-align: left;
+        max-width: 34ch;
+    }
+
+    .ly-copy-list h2 {
+        padding-left: 0;
+    }
+}
